@@ -1,0 +1,542 @@
+/* MakeSense - Admin Dashboard Styles */
+
+:root {
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --primary-light: #dbeafe;
+    --text: #1f2937;
+    --text-light: #6b7280;
+    --background: #f3f4f6;
+    --white: #ffffff;
+    --border: #e5e7eb;
+    --success: #059669;
+    --success-light: #d1fae5;
+    --warning: #d97706;
+    --warning-light: #fef3c7;
+    --error: #dc2626;
+    --error-light: #fee2e2;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --radius: 8px;
+    --radius-lg: 12px;
+    --transition: all 0.2s ease;
+    --font-mono: 'SF Mono', 'Fira Code', 'Monaco', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.admin-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.admin-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+}
+
+.admin-header .tagline {
+    font-size: 1.125rem;
+    color: var(--text-light);
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.admin-section {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.section-header {
+    margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.375rem;
+}
+
+.section-description {
+    font-size: 0.875rem;
+    color: var(--text-light);
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: var(--white);
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: var(--primary-hover);
+}
+
+.btn-secondary {
+    background: var(--white);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: var(--background);
+    border-color: var(--text-light);
+}
+
+.btn-icon {
+    flex-shrink: 0;
+}
+
+.generate-btn {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+}
+
+/* Table */
+.packs-table-container {
+    overflow-x: auto;
+}
+
+.packs-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+.packs-table th,
+.packs-table td {
+    padding: 0.875rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+.packs-table th {
+    font-weight: 600;
+    color: var(--text-light);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: var(--background);
+}
+
+.packs-table tbody tr {
+    transition: var(--transition);
+}
+
+.packs-table tbody tr:hover {
+    background: var(--background);
+}
+
+.packs-table td:first-child {
+    font-weight: 500;
+}
+
+.packs-table .loading-row td {
+    text-align: center;
+    padding: 3rem;
+}
+
+/* Status Badges */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.status-badge.completed {
+    background: var(--success-light);
+    color: var(--success);
+}
+
+.status-badge.generating {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+.status-badge.error {
+    background: var(--error-light);
+    color: var(--error);
+}
+
+.status-badge.pending {
+    background: var(--warning-light);
+    color: var(--warning);
+}
+
+/* Action Buttons in Table */
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: var(--radius);
+    background: var(--background);
+    color: var(--text-light);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.action-btn:hover {
+    background: var(--border);
+    color: var(--text);
+}
+
+.action-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-light);
+}
+
+.empty-state svg {
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    font-size: 1.125rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+    font-size: 0.875rem;
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    max-width: 560px;
+    width: 100%;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: slideUp 0.2s ease;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-large {
+    max-width: 800px;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.modal-header h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.modal-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.modal-close:hover {
+    background: var(--background);
+    color: var(--text);
+}
+
+.modal-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border);
+    background: var(--background);
+}
+
+/* Form Styles in Modal */
+.modal-body .form-group {
+    margin-bottom: 1.25rem;
+}
+
+.modal-body .form-group:last-of-type {
+    margin-bottom: 0;
+}
+
+.modal-body label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+
+.modal-body .required {
+    color: var(--error);
+}
+
+.modal-body input,
+.modal-body select,
+.modal-body textarea {
+    width: 100%;
+    padding: 0.625rem 0.875rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    font-family: inherit;
+    transition: var(--transition);
+    background: var(--white);
+}
+
+.modal-body input:focus,
+.modal-body select:focus,
+.modal-body textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.modal-body textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.modal-body .form-hint {
+    display: block;
+    margin-top: 0.375rem;
+    font-size: 0.75rem;
+    color: var(--text-light);
+}
+
+.checkbox-group {
+    margin-bottom: 1.25rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    cursor: pointer;
+    font-weight: 400;
+    color: var(--text);
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: auto;
+    height: 18px;
+    width: 18px;
+    accent-color: var(--primary);
+}
+
+.checkbox-custom {
+    display: none;
+}
+
+/* Form Message */
+.form-message {
+    margin-top: 1rem;
+    padding: 0.875rem;
+    border-radius: var(--radius);
+    font-weight: 500;
+    text-align: center;
+    font-size: 0.875rem;
+}
+
+.form-message.success {
+    background: var(--success-light);
+    color: var(--success);
+    border: 1px solid #a7f3d0;
+}
+
+.form-message.error {
+    background: var(--error-light);
+    color: var(--error);
+    border: 1px solid #fecaca;
+}
+
+/* Loading */
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 2rem;
+    color: var(--text-light);
+}
+
+.loading::before {
+    content: "";
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Preview Modal Content */
+.preview-content {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 1rem;
+    background: var(--background);
+    border-radius: var(--radius);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-light);
+    font-size: 0.875rem;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .admin-header h1 {
+        font-size: 2rem;
+    }
+
+    .admin-section {
+        padding: 1.5rem 1rem;
+    }
+
+    .packs-table th,
+    .packs-table td {
+        padding: 0.625rem 0.75rem;
+    }
+
+    .modal {
+        margin: 0.5rem;
+        max-height: calc(100vh - 1rem);
+    }
+
+    .modal-header {
+        padding: 1rem;
+    }
+
+    .modal-body {
+        padding: 1rem;
+    }
+
+    .modal-footer {
+        padding: 0.875rem 1rem;
+        flex-direction: column-reverse;
+    }
+
+    .modal-footer .btn {
+        width: 100%;
+    }
+}

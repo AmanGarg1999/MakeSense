@@ -1,0 +1,21 @@
+{
+  "submissions_per_week": {
+    "2026-W38": 2
+  },
+  "generation_success_rate": {
+    "total": 0,
+    "successful": 0,
+    "failed": 0,
+    "rate": 0.0
+  },
+  "user_satisfaction": {
+    "upvotes": 0,
+    "downvotes": 0,
+    "ratio": 0.0
+  },
+  "content_views": {
+    "total": 0,
+    "by_content": {}
+  },
+  "last_updated": "2026-09-19T17:03:33.219802+00:00"
+}
