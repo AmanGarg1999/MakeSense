@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MakeSense - Tell Us What You Want to Learn</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MakeSense</h1>
+            <p class="tagline">Learning that makes sense to you</p>
+        </header>
+
+        <main>
+            <section class="intro">
+                <h2>What do you want to learn?</h2>
+                <p>We're building personalized learning content based on what <strong>you</strong> want to learn. Tell us your topics, and we'll create dedicated learning materials for them.</p>
+            </section>
+
+            <section class="survey-section">
+                <form id="topic-survey" class="survey-form">
+                    <div class="form-group">
+                        <label for="name">Your Name (optional)</label>
+                        <input type="text" id="name" name="name" placeholder="Alex Chen" maxlength="100">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email (optional)</label>
+                        <input type="email" id="email" name="email" placeholder="alex@example.com" maxlength="255">
+                        <small class="form-hint">We'll only use this to notify you when content for your topic is ready.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="topics">Topics You Want to Learn <span class="required">*</span></label>
+                        <textarea id="topics" name="topics" rows="5" placeholder="e.g., Machine Learning fundamentals, Python for data analysis, How to start a podcast, Digital marketing basics..." required maxlength="2000"></textarea>
+                        <small class="form-hint">One topic per line, or comma-separated. Be as specific as you like!</small>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submit-btn">
+                        <span class="btn-text">Submit Topics</span>
+                        <span class="btn-loading" style="display: none;">Submitting...</span>
+                    </button>
+
+                    <div id="form-message" class="form-message" style="display: none;"></div>
+                </form>
+            </section>
+
+            <section class="how-it-works">
+                <h3>How It Works</h3>
+                <div class="steps">
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <h4>Submit</h4>
+                        <p>Tell us what you want to learn using the form above</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <h4>We Build</h4>
+                        <p>Our pipeline creates structured learning content for your topic</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <h4>You Learn</h4>
+                        <p>Get notified when your personalized content is ready</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="topics-preview">
+                <h3>Recently Requested Topics</h3>
+                <div id="topics-list" class="topics-list">
+                    <p class="loading">Loading topics...</p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>MakeSense &copy; 2026 - Built with transparency</p>
+            <p><a href="https://github.com" target="_blank">View on GitHub</a></p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
