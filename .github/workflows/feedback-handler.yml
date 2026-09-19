@@ -1,0 +1,96 @@
+name: Feedback Handler
+
+on:
+  workflow_dispatch:
+    inputs:
+      feedback:
+        description: 'JSON feedback data'
+        required: true
+        type: string
+  repository_dispatch:
+    types: [feedback-submission]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  handle-feedback:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Parse feedback
+        id: parse
+        run: |
+          FEEDBACK="${{ github.event.inputs.feedback || github.event.client_payload.feedback }}"
+          echo "feedback=$FEEDBACK" >> $GITHUB_OUTPUT
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install jsonschema
+        run: pip install jsonschema
+
+      - name: Validate feedback
+        id: validate
+        run: |
+          FEEDBACK="${{ steps.parse.outputs.feedback }}"
+          python3 -c "
+          import sys, json, jsonschema
+          with open('schemas/feedback.json') as f:
+              schema = json.load(f)
+          data = json.loads(sys.argv[1])
+          try:
+              jsonschema.validate(data, schema)
+              print('Validation passed')
+          except jsonschema.exceptions.ValidationError as e:
+              print('Validation error:', e.message)
+              sys.exit(1)
+          " "$FEEDBACK"
+
+      - name: Read current feedback
+        id: read-feedback
+        run: |
+          if [ -f data/feedback.json ]; then
+            cat data/feedback.json
+          else
+            echo "[]"
+          fi
+
+      - name: Update feedback.json
+        id: update
+        run: |
+          CURRENT="${{ steps.read-feedback.outputs.stdout }}"
+          NEW_FEEDBACK="${{ steps.parse.outputs.feedback }}"
+          node -e "
+            const current = JSON.parse(process.env.CURRENT || '[]');
+            const newItem = JSON.parse(process.env.NEW_FEEDBACK);
+            // Check for duplicate (same user, same content, same feedback type)
+            const isDuplicate = current.some(item => 
+              item.content_file === newItem.content_file &&
+              item.user_identifier === newItem.user_identifier &&
+              item.feedback_type === newItem.feedback_type
+            );
+            if (!isDuplicate) {
+              const updated = [...current, newItem];
+              console.log(JSON.stringify(updated, null, 2));
+            } else {
+              console.log(process.env.CURRENT);
+            }
+          " > data/feedback.json
+          cat data/feedback.json
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/feedback.json
+          git commit -m "chore: add user feedback" || echo "No changes to commit"
+          git push origin HEAD:main

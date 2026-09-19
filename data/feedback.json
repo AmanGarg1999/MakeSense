@@ -1,0 +1,52 @@
+[
+  {
+    "id": "fb_1",
+    "content_file": "test001-1-machine-learning-fundamentals.md",
+    "topic": "Machine Learning fundamentals",
+    "submission_id": "test001",
+    "feedback_type": "up",
+    "user_identifier": "user_abc123",
+    "comment": "Great overview! The structure is very clear.",
+    "timestamp": "2026-09-19T22:45:00.000Z"
+  },
+  {
+    "id": "fb_2",
+    "content_file": "test001-1-machine-learning-fundamentals.md",
+    "topic": "Machine Learning fundamentals",
+    "submission_id": "test001",
+    "feedback_type": "up",
+    "user_identifier": "user_def456",
+    "comment": "Very helpful for beginners. Thanks!",
+    "timestamp": "2026-09-19T22:46:00.000Z"
+  },
+  {
+    "id": "fb_3",
+    "content_file": "test001-1-machine-learning-fundamentals.md",
+    "topic": "Machine Learning fundamentals",
+    "submission_id": "test001",
+    "feedback_type": "down",
+    "user_identifier": "user_ghi789",
+    "comment": "Could use more practical examples and code snippets.",
+    "timestamp": "2026-09-19T22:47:00.000Z"
+  },
+  {
+    "id": "fb_4",
+    "content_file": "test002-1-how-to-start-a-podcast.md",
+    "topic": "How to start a podcast",
+    "submission_id": "test002",
+    "feedback_type": "up",
+    "user_identifier": "user_jkl012",
+    "comment": "Excellent guide! Covers everything I needed.",
+    "timestamp": "2026-09-19T22:48:00.000Z"
+  },
+  {
+    "id": "fb_5",
+    "content_file": "test002-2-digital-marketing-basics.md",
+    "topic": "Digital marketing basics",
+    "submission_id": "test002",
+    "feedback_type": "down",
+    "user_identifier": "user_mno345",
+    "comment": "Too basic, needs more advanced strategies.",
+    "timestamp": "2026-09-19T22:49:00.000Z"
+  }
+]
