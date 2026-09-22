@@ -1,0 +1,186 @@
+name: Email Notification
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'generated-content/**'
+      - 'data/topics.json'
+
+jobs:
+  send-email-notifications:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install resend
+        run: pip install resend
+
+      - name: Read topics and send emails
+        id: send_emails
+        run: |
+          # Ensure we have the RESEND_API_KEY
+          if [[ -z "${RESEND_API_KEY}" ]]; then
+            echo "RESEND_API_KEY not set. Skipping email sending."
+            exit 0
+          fi
+
+          # Read topics.json
+          TOPICS_FILE="data/topics.json"
+          if [[ ! -f "$TOPICS_FILE" ]]; then
+            echo "Topics file not found: $TOPICS_FILE"
+            exit 0
+          fi
+
+          # Use Node.js to process JSON and send emails
+          node -e "
+            const fs = require('fs');
+            const resend = require('resend');
+            const RESEND_API_KEY = process.RESEND_API_KEY;
+            if (!RESEND_API_KEY) {
+              console.log('RESEND_API_KEY not set in environment');
+              process.exit(0);
+            }
+            resend.apiKey = RESEND_API_KEY;
+
+            const topics = JSON.parse(fs.readFileSync(process.TOPICS_FILE, 'utf8'));
+            let emailSentCount = 0;
+            let skippedCount = 0;
+
+            for (const submission of topics) {
+              // Only process submissions that have been processed (status: processing) and have an email
+              if (submission.status === 'processing' && submission.email && submission.email.trim() !== '') {
+                const email = submission.email.trim();
+                const name = submission.name || email.split('@')[0] || 'User';
+                const topics = submission.topics || [];
+                const generatedItems = submission.generated_items || [];
+
+                // We'll send one email per submission, using the first topic for simplicity
+                if (topics.length === 0) {
+                  console.log(\`Skipping submission \${submission.id}: no topics\`);
+                  skippedCount++;
+                  continue;
+                }
+
+                const topic = topics[0]; // Use first topic
+                const generatedAt = submission.generated_at || new Date().toISOString();
+
+                // Construct content URL: assuming GitHub Pages at https://<username>.github.io/<repo>/
+                // We need to get the repository from the environment
+                const repo = process.GITHUB_REPOSITORY; // format: owner/repo
+                if (!repo) {
+                  console.log('GITHUB_REPOSITORY not set');
+                  process.exit(1);
+                }
+                const [owner, repoName] = repo.split('/');
+                const pagesUrl = \`https://\${owner}.github.io/\${repoName}\`;
+
+                // Use the first generated item's file path
+                let contentUrl = pagesUrl; // default to home
+                let htmlUrl = pagesUrl;
+                let pdfUrl = pagesUrl;
+                if (generatedItems.length > 0 && generatedItems[0].file) {
+                  // Ensure the file path is relative to the repo root and starts with generated-content/
+                  let filePath = generatedItems[0].file;
+                  if (filePath.startsWith('generated-content/')) {
+                    contentUrl = \`\${pagesUrl}/\${filePath}\`;
+                    // HTML version
+                    htmlUrl = \`\${pagesUrl}/\${filePath.replace('.md', '.html')}\`;
+                    // PDF version
+                    pdfUrl = \`\${pagesUrl}/\${filePath.replace('.md', '.pdf')}\`;
+                  } else {
+                    contentUrl = \`\${pagesUrl}/generated-content/\${filePath}\`;
+                    htmlUrl = \`\${pagesUrl}/generated-content/\${filePath.replace('.md', '.html')}\`;
+                    pdfUrl = \`\${pagesUrl}/generated-content/\${filePath.replace('.md', '.pdf')}\`;
+                  }
+                }
+
+                // Prepare email data
+                const emailData = {
+                  from: 'MakeSense <onboarding@resend.dev>', // You can change this to a verified domain
+                  to: email,
+                  subject: 'Your MakeSense content is ready',
+                  html: \`
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                      <meta charset=\"UTF-8\">
+                      <title>Your MakeSense Content is Ready</title>
+                      <style>
+                        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }
+                        .header { background-color: #4CAF50; color: white; padding: 20px; text-align: center; }
+                        .content { padding: 20px; background-color: #f9f9f9; }
+                        .footer { text-align: center; margin-top: 20px; font-size: 0.9em; color: #666; }
+                        .button { display: inline-block; background-color: #4CAF50; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; margin: 10px 0; }
+                        .button-pdf { background-color: #dc2626; }
+                        .button-pdf:hover { background-color: #b91c1c; }
+                        .details { background-color: #e8f5e9; padding: 15px; border-radius: 4px; margin: 15px 0; }
+                        .links { margin: 15px 0; }
+                        .links a { margin-right: 10px; }
+                      </style>
+                    </head>
+                    <body>
+                      <div class=\"header\">
+                        <h1>Your MakeSense Content is Ready!</h1>
+                      </div>
+                      <div class=\"content\">
+                        <p>Hello \${name},</p>
+                        <p>Your requested learning content for \"<strong>\${topic}</strong>\" has been successfully generated and is now available.</p>
+
+                        <div class=\"details\">
+                          <p><strong>Topic:</strong> \${topic}</p>
+                          <p><strong>Generated at:</strong> \${generatedAt}</p>
+                        </div>
+
+                        <div class=\"links\">
+                          <p><strong>Access your content:</strong></p>
+                          <a href=\"\${contentUrl}\" class=\"button\" target=\"_blank\">📄 View Markdown</a>
+                          <a href=\"\${htmlUrl}\" class=\"button\" target=\"_blank\">🌐 View HTML (Styled)</a>
+                          <a href=\"\${pdfUrl}\" class=\"button button-pdf\" target=\"_blank\">📕 Download PDF</a>
+                        </div>
+
+                        <p>The content includes structured learning materials, exercises, and resources designed to help you master the topic. The HTML version is styled with our theme and printable, while the PDF is ready for offline reading.</p>
+
+                        <p>Thank you for using MakeSense!</p>
+                        <p>The MakeSense Team</p>
+                      </div>
+                      <div class=\"footer\">
+                        <p>This is an automated message from the MakeSense content generation pipeline.</p>
+                        <p>If you did not request this content, please ignore this email.</p>
+                      </div>
+                    </body>
+                    </html>
+                  \`
+                };
+
+                try {
+                  const response = await resend.emails.send(emailData);
+                  console.log(\`Email sent to \${email} for topic \${topic}: \${response.id}\`);
+                  emailSentCount++;
+                } catch (error) {
+                  console.error(\`Failed to send email to \${email}: \${error.message}\`);
+                  // Continue with other emails
+                }
+              } else {
+                skippedCount++;
+              }
+            }
+
+            console.log(\`Email summary: Sent: \${emailSentCount}, Skipped: \${skippedCount}\`);
+            process.exit(0);
+          "
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          TOPICS_FILE: data/topics.json

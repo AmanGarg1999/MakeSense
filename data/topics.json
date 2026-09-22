@@ -1,56 +1,36 @@
 [
   {
-    "id": "test001",
-    "timestamp": "2026-09-19T13:00:00.000Z",
-    "name": "Alex Chen",
-    "email": "alex@example.com",
+    "id": "test004",
+    "timestamp": "2026-09-20T03:30:00.000Z",
+    "name": "Test User 2",
+    "email": "test2@example.com",
     "topics": [
-      "Machine Learning fundamentals",
-      "Python for data analysis"
+      "Data visualization with Python",
+      "Introduction to machine learning"
     ],
     "status": "processing",
-    "generated_at": "2026-09-19T13:10:19.709956",
+    "generated_at": "2026-09-20T03:20:46.443460",
     "generated_items": [
       {
-        "topic": "Machine Learning fundamentals",
-        "file": "generated-content/test001-1-machine-learning-fundamentals.md",
+        "topic": "Data visualization with Python",
+        "category": "Data Science",
+        "file": "generated-content/test004-1-data-visualization-with-python.md",
+        "html_file": "generated-content/test004-1-data-visualization-with-python.html",
+        "pdf_file": "generated-content/test004-1-data-visualization-with-python.pdf",
         "status": "placeholder_generated"
       },
       {
-        "topic": "Python for data analysis",
-        "file": "generated-content/test001-2-python-for-data-analysis.md",
+        "topic": "Introduction to machine learning",
+        "category": "ML/AI",
+        "file": "generated-content/test004-2-introduction-to-machine-learning.md",
+        "html_file": "generated-content/test004-2-introduction-to-machine-learning.html",
+        "pdf_file": "generated-content/test004-2-introduction-to-machine-learning.pdf",
         "status": "placeholder_generated"
       }
-    ]
-  },
-  {
-    "id": "test002",
-    "timestamp": "2026-09-19T13:05:00.000Z",
-    "name": "Maria Garcia",
-    "email": null,
-    "topics": [
-      "How to start a podcast",
-      "Digital marketing basics",
-      "Video editing for beginners"
     ],
-    "status": "processing",
-    "generated_at": "2026-09-19T13:10:19.710505",
-    "generated_items": [
-      {
-        "topic": "How to start a podcast",
-        "file": "generated-content/test002-1-how-to-start-a-podcast.md",
-        "status": "placeholder_generated"
-      },
-      {
-        "topic": "Digital marketing basics",
-        "file": "generated-content/test002-2-digital-marketing-basics.md",
-        "status": "placeholder_generated"
-      },
-      {
-        "topic": "Video editing for beginners",
-        "file": "generated-content/test002-3-video-editing-for-beginners.md",
-        "status": "placeholder_generated"
-      }
+    "categories": [
+      "ML/AI",
+      "Data Science"
     ]
   }
 ]

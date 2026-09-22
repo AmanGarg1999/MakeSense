@@ -1,0 +1,1 @@
+Found 1 potential sensitive data occurrences:\n\nFile: src/app.js\nLine: 109\nPattern: AWS Secret Access Key\nContent:         // return fetch('https://api.github.com/repos/OWNER/REPO/actions/workflows/survey-handler.yml/dispatches', {\n------------------------------------------------------------\n

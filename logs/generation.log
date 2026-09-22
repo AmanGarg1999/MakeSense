@@ -19,3 +19,308 @@
 [2026-09-19T13:10:19.710774] ============================================================
 [2026-09-19T13:10:19.710809] Pipeline Complete: 2 submissions processed, 5 content items generated
 [2026-09-19T13:10:19.710840] ============================================================
+[2026-09-19T22:27:23.107473] ============================================================
+[2026-09-19T22:27:23.108132] MakeSense Content Generation Pipeline Started
+[2026-09-19T22:27:23.108217] ============================================================
+[2026-09-19T22:27:23.108435] Loaded 2 topic submissions
+[2026-09-19T22:27:23.108482] Found 0 pending submissions out of 2 total
+[2026-09-19T22:27:23.108514] No pending submissions. Exiting.
+[2026-09-19T22:28:23.029938] ============================================================
+[2026-09-19T22:28:23.030024] MakeSense Content Generation Pipeline Started
+[2026-09-19T22:28:23.030063] ============================================================
+[2026-09-19T22:28:23.030207] Loaded 2 topic submissions
+[2026-09-19T22:28:23.030249] Found 2 pending submissions out of 2 total
+[2026-09-19T22:28:23.030287] Processing submission test001 from Alex Chen with 2 topics
+[2026-09-19T22:28:23.030488]   Generated placeholder for: Machine Learning fundamentals -> test001-1-machine-learning-fundamentals.md
+[2026-09-19T22:28:23.030641]   Generated placeholder for: Python for data analysis -> test001-2-python-for-data-analysis.md
+[2026-09-19T22:28:23.030692] Processing submission test002 from Maria Garcia with 3 topics
+[2026-09-19T22:28:23.030834]   Generated placeholder for: How to start a podcast -> test002-1-how-to-start-a-podcast.md
+[2026-09-19T22:28:23.030974]   Generated placeholder for: Digital marketing basics -> test002-2-digital-marketing-basics.md
+[2026-09-19T22:28:23.031111]   Generated placeholder for: Video editing for beginners -> test002-3-video-editing-for-beginners.md
+[2026-09-19T22:28:23.031320] Updated topics.json with 2 processed submissions
+[2026-09-19T22:28:23.031379] ============================================================
+[2026-09-19T22:28:23.031413] Pipeline Complete: 2 submissions processed, 5 content items generated
+[2026-09-19T22:28:23.031442] ============================================================
+[2026-09-19T22:34:47.214595] ============================================================
+[2026-09-19T22:34:47.214672] MakeSense Content Generation Pipeline Started
+[2026-09-19T22:34:47.214710] ============================================================
+[2026-09-19T22:34:47.214877] Loaded 2 topic submissions
+[2026-09-19T22:34:47.214917] Found 0 pending submissions out of 2 total
+[2026-09-19T22:34:47.214948] No pending submissions. Exiting.
+[2026-09-19T22:35:47.340445] ============================================================
+[2026-09-19T22:35:47.435151] MakeSense Content Generation Pipeline Started
+[2026-09-19T22:35:47.435228] ============================================================
+[2026-09-19T22:35:47.499741] Loaded 2 topic submissions
+[2026-09-19T22:35:47.499825] Found 2 pending submissions out of 2 total
+[2026-09-19T22:35:47.499926] Loaded 0 feedback items
+[2026-09-19T22:35:47.499971] Processing submission test001 from Alex Chen with 2 topics
+[2026-09-19T22:35:47.500182]   Generated placeholder for: Machine Learning fundamentals -> test001-1-machine-learning-fundamentals.md
+[2026-09-19T22:35:47.500375]   Generated placeholder for: Python for data analysis -> test001-2-python-for-data-analysis.md
+[2026-09-19T22:35:47.500433] Processing submission test002 from Maria Garcia with 3 topics
+[2026-09-19T22:35:47.500584]   Generated placeholder for: How to start a podcast -> test002-1-how-to-start-a-podcast.md
+[2026-09-19T22:35:47.500737]   Generated placeholder for: Digital marketing basics -> test002-2-digital-marketing-basics.md
+[2026-09-19T22:35:47.500888]   Generated placeholder for: Video editing for beginners -> test002-3-video-editing-for-beginners.md
+[2026-09-19T22:35:47.501115] Updated topics.json with 2 processed submissions
+[2026-09-19T22:35:47.501161] ============================================================
+[2026-09-19T22:35:47.501195] Pipeline Complete: 2 submissions processed, 5 content items generated
+[2026-09-19T22:35:47.501226] ============================================================
+[2026-09-19T22:39:02.432756] ============================================================\n[2026-09-19T22:39:02.432958] MakeSense Content Generation Pipeline Started\n[2026-09-19T22:39:02.433052] ============================================================\n[2026-09-19T22:39:02.433462] Loaded 2 topic submissions\n[2026-09-19T22:39:02.433573] Found 0 pending submissions out of 2 total\n[2026-09-19T22:39:02.433654] No pending submissions. Exiting.\n[2026-09-19T22:40:07.432683] ============================================================
+[2026-09-19T22:40:07.432781] MakeSense Content Generation Pipeline Started
+[2026-09-19T22:40:07.432820] ============================================================
+[2026-09-19T22:40:07.432974] Loaded 2 topic submissions
+[2026-09-19T22:40:07.433016] Found 2 pending submissions out of 2 total
+[2026-09-19T22:40:07.433094] Loaded 0 feedback items
+[2026-09-19T22:40:07.433135] Processing submission test001 from Alex Chen with 2 topics
+[2026-09-19T22:40:07.433355]   Generated placeholder for: Machine Learning fundamentals -> test001-1-machine-learning-fundamentals.md
+[2026-09-19T22:40:07.433527]   Generated placeholder for: Python for data analysis -> test001-2-python-for-data-analysis.md
+[2026-09-19T22:40:07.433580] Processing submission test002 from Maria Garcia with 3 topics
+[2026-09-19T22:40:07.433731]   Generated placeholder for: How to start a podcast -> test002-1-how-to-start-a-podcast.md
+[2026-09-19T22:40:07.433887]   Generated placeholder for: Digital marketing basics -> test002-2-digital-marketing-basics.md
+[2026-09-19T22:40:07.434040]   Generated placeholder for: Video editing for beginners -> test002-3-video-editing-for-beginners.md
+[2026-09-19T22:40:07.434272] Updated topics.json with 2 processed submissions
+[2026-09-19T22:40:07.434317] ============================================================
+[2026-09-19T22:40:07.434362] Pipeline Complete: 2 submissions processed, 5 content items generated
+[2026-09-19T22:40:07.434393] ============================================================
+[2026-09-19T22:43:16.853693] ============================================================
+[2026-09-19T22:43:16.853792] MakeSense Content Generation Pipeline Started
+[2026-09-19T22:43:16.853831] ============================================================
+[2026-09-19T22:43:16.854014] Loaded 2 topic submissions
+[2026-09-19T22:43:16.854058] Found 0 pending submissions out of 2 total
+[2026-09-19T22:43:16.854091] No pending submissions. Exiting.
+[2026-09-19T22:44:22.060508] ============================================================
+[2026-09-19T22:44:22.089053] MakeSense Content Generation Pipeline Started
+[2026-09-19T22:44:22.089144] ============================================================
+[2026-09-19T22:44:22.089404] Loaded 2 topic submissions
+[2026-09-19T22:44:22.089473] Found 2 pending submissions out of 2 total
+[2026-09-19T22:44:22.089623] Loaded 5 feedback items
+[2026-09-19T22:44:22.089675] Processing submission test001 from Alex Chen with 2 topics
+[2026-09-19T22:44:22.090921]   Generated placeholder for: Machine Learning fundamentals -> test001-1-machine-learning-fundamentals.md
+[2026-09-19T22:44:22.092034]   Generated placeholder for: Python for data analysis -> test001-2-python-for-data-analysis.md
+[2026-09-19T22:44:22.092103] Processing submission test002 from Maria Garcia with 3 topics
+[2026-09-19T22:44:22.093106]   Generated placeholder for: How to start a podcast -> test002-1-how-to-start-a-podcast.md
+[2026-09-19T22:44:22.094504]   Generated placeholder for: Digital marketing basics -> test002-2-digital-marketing-basics.md
+[2026-09-19T22:44:22.095285]   Generated placeholder for: Video editing for beginners -> test002-3-video-editing-for-beginners.md
+[2026-09-19T22:44:22.095761] Updated topics.json with 2 processed submissions
+[2026-09-19T22:44:22.095823] ============================================================
+[2026-09-19T22:44:22.095866] Pipeline Complete: 2 submissions processed, 5 content items generated
+[2026-09-19T22:44:22.095907] ============================================================
+[2026-09-19T22:45:26.020406] ============================================================
+[2026-09-19T22:45:26.139666] MakeSense Content Generation Pipeline Started
+[2026-09-19T22:45:26.139751] ============================================================
+[2026-09-19T22:45:26.139952] Loaded 2 topic submissions
+[2026-09-19T22:45:26.140001] Found 2 pending submissions out of 2 total
+[2026-09-19T22:45:26.140102] Loaded 5 feedback items
+[2026-09-19T22:45:26.140152] Processing submission test001 from Alex Chen with 2 topics
+[2026-09-19T22:45:26.353930]   Generated placeholder for: Machine Learning fundamentals -> test001-1-machine-learning-fundamentals.md
+[2026-09-19T22:45:26.366460]   Generated placeholder for: Python for data analysis -> test001-2-python-for-data-analysis.md
+[2026-09-19T22:45:26.366792] Processing submission test002 from Maria Garcia with 3 topics
+[2026-09-19T22:45:26.449718]   Generated placeholder for: How to start a podcast -> test002-1-how-to-start-a-podcast.md
+[2026-09-19T22:45:26.450706]   Generated placeholder for: Digital marketing basics -> test002-2-digital-marketing-basics.md
+[2026-09-19T22:45:26.451523]   Generated placeholder for: Video editing for beginners -> test002-3-video-editing-for-beginners.md
+[2026-09-19T22:45:26.451843] Updated topics.json with 2 processed submissions
+[2026-09-19T22:45:26.451897] ============================================================
+[2026-09-19T22:45:26.451938] Pipeline Complete: 2 submissions processed, 5 content items generated
+[2026-09-19T22:45:26.451973] ============================================================
+[2026-09-20T03:10:21.679415] ============================================================
+[2026-09-20T03:10:21.679900] MakeSense Content Generation Pipeline Started
+[2026-09-20T03:10:21.679967] ============================================================
+[2026-09-20T03:10:21.680220] Loaded 2 topic submissions
+[2026-09-20T03:10:21.680266] Found 0 pending submissions out of 2 total
+[2026-09-20T03:10:21.680300] No pending submissions. Exiting.
+[2026-09-20T03:10:37.912060] ============================================================
+[2026-09-20T03:10:37.912142] MakeSense Content Generation Pipeline Started
+[2026-09-20T03:10:37.912180] ============================================================
+[2026-09-20T03:10:37.912435] Loaded 3 topic submissions
+[2026-09-20T03:10:37.912478] Found 3 pending submissions out of 3 total
+[2026-09-20T03:10:37.912571] Loaded 5 feedback items
+[2026-09-20T03:10:37.912611] Processing submission test001 from Alex Chen with 2 topics
+[2026-09-20T03:10:39.765788] Pandoc weasyprint failed, trying wkhtmltopdf: Traceback (most recent call last):
+  File "/home/huntingvision/.hermes/hermes-agent/venv/bin/weasyprint", line 3, in <module>
+    from weasyprint.__main__ import main
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/__init__.py", line 371, in <module>
+    from .css import preprocess_stylesheet  # noqa: I001, E402
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/css/__init__.py", line 31, in <module>
+    from . import counters, media_queries
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/css/counters.py", line 10, in <module>
+    from .tokens import remove_whitespace
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/css/tokens.py", line 8, in <module>
+    from tinycss2.color5 import parse_color
+ModuleNotFoundError: No module named 'tinycss2.color5'
+Error producing PDF.
+
+
+[2026-09-20T03:10:39.818867] Pandoc PDF generation failed: wkhtmltopdf not found. Please select a different --pdf-engine or install wkhtmltopdf -- see also /usr/share/doc/pandoc/README.Debian
+
+[2026-09-20T03:10:39.819011]   Generated: Machine Learning fundamentals -> test001-1-machine-learning-fundamentals.md, test001-1-machine-learning-fundamentals.html
+[2026-09-20T03:10:40.304319] Pandoc weasyprint failed, trying wkhtmltopdf: Traceback (most recent call last):
+  File "/home/huntingvision/.hermes/hermes-agent/venv/bin/weasyprint", line 3, in <module>
+    from weasyprint.__main__ import main
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/__init__.py", line 371, in <module>
+    from .css import preprocess_stylesheet  # noqa: I001, E402
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/css/__init__.py", line 31, in <module>
+    from . import counters, media_queries
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/css/counters.py", line 10, in <module>
+    from .tokens import remove_whitespace
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/css/tokens.py", line 8, in <module>
+    from tinycss2.color5 import parse_color
+ModuleNotFoundError: No module named 'tinycss2.color5'
+Error producing PDF.
+
+
+[2026-09-20T03:10:40.357338] Pandoc PDF generation failed: wkhtmltopdf not found. Please select a different --pdf-engine or install wkhtmltopdf -- see also /usr/share/doc/pandoc/README.Debian
+
+[2026-09-20T03:10:40.357467]   Generated: Python for data analysis -> test001-2-python-for-data-analysis.md, test001-2-python-for-data-analysis.html
+[2026-09-20T03:10:40.357528] Processing submission test002 from Maria Garcia with 3 topics
+[2026-09-20T03:10:40.844677] Pandoc weasyprint failed, trying wkhtmltopdf: Traceback (most recent call last):
+  File "/home/huntingvision/.hermes/hermes-agent/venv/bin/weasyprint", line 3, in <module>
+    from weasyprint.__main__ import main
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/__init__.py", line 371, in <module>
+    from .css import preprocess_stylesheet  # noqa: I001, E402
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/css/__init__.py", line 31, in <module>
+    from . import counters, media_queries
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/css/counters.py", line 10, in <module>
+    from .tokens import remove_whitespace
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/css/tokens.py", line 8, in <module>
+    from tinycss2.color5 import parse_color
+ModuleNotFoundError: No module named 'tinycss2.color5'
+Error producing PDF.
+
+
+[2026-09-20T03:10:40.898575] Pandoc PDF generation failed: wkhtmltopdf not found. Please select a different --pdf-engine or install wkhtmltopdf -- see also /usr/share/doc/pandoc/README.Debian
+
+[2026-09-20T03:10:40.898721]   Generated: How to start a podcast -> test002-1-how-to-start-a-podcast.md, test002-1-how-to-start-a-podcast.html
+[2026-09-20T03:10:41.402893] Pandoc weasyprint failed, trying wkhtmltopdf: Traceback (most recent call last):
+  File "/home/huntingvision/.hermes/hermes-agent/venv/bin/weasyprint", line 3, in <module>
+    from weasyprint.__main__ import main
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/__init__.py", line 371, in <module>
+    from .css import preprocess_stylesheet  # noqa: I001, E402
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/css/__init__.py", line 31, in <module>
+    from . import counters, media_queries
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/css/counters.py", line 10, in <module>
+    from .tokens import remove_whitespace
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/css/tokens.py", line 8, in <module>
+    from tinycss2.color5 import parse_color
+ModuleNotFoundError: No module named 'tinycss2.color5'
+Error producing PDF.
+
+
+[2026-09-20T03:10:41.456781] Pandoc PDF generation failed: wkhtmltopdf not found. Please select a different --pdf-engine or install wkhtmltopdf -- see also /usr/share/doc/pandoc/README.Debian
+
+[2026-09-20T03:10:41.456910]   Generated: Digital marketing basics -> test002-2-digital-marketing-basics.md, test002-2-digital-marketing-basics.html
+[2026-09-20T03:10:41.933992] Pandoc weasyprint failed, trying wkhtmltopdf: Traceback (most recent call last):
+  File "/home/huntingvision/.hermes/hermes-agent/venv/bin/weasyprint", line 3, in <module>
+    from weasyprint.__main__ import main
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/__init__.py", line 371, in <module>
+    from .css import preprocess_stylesheet  # noqa: I001, E402
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/css/__init__.py", line 31, in <module>
+    from . import counters, media_queries
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/css/counters.py", line 10, in <module>
+    from .tokens import remove_whitespace
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/css/tokens.py", line 8, in <module>
+    from tinycss2.color5 import parse_color
+ModuleNotFoundError: No module named 'tinycss2.color5'
+Error producing PDF.
+
+
+[2026-09-20T03:10:41.985562] Pandoc PDF generation failed: wkhtmltopdf not found. Please select a different --pdf-engine or install wkhtmltopdf -- see also /usr/share/doc/pandoc/README.Debian
+
+[2026-09-20T03:10:41.985692]   Generated: Video editing for beginners -> test002-3-video-editing-for-beginners.md, test002-3-video-editing-for-beginners.html
+[2026-09-20T03:10:41.985757] Processing submission test003 from Test User with 2 topics
+[2026-09-20T03:10:42.425224] Pandoc weasyprint failed, trying wkhtmltopdf: Traceback (most recent call last):
+  File "/home/huntingvision/.hermes/hermes-agent/venv/bin/weasyprint", line 3, in <module>
+    from weasyprint.__main__ import main
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/__init__.py", line 371, in <module>
+    from .css import preprocess_stylesheet  # noqa: I001, E402
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/css/__init__.py", line 31, in <module>
+    from . import counters, media_queries
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/css/counters.py", line 10, in <module>
+    from .tokens import remove_whitespace
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/css/tokens.py", line 8, in <module>
+    from tinycss2.color5 import parse_color
+ModuleNotFoundError: No module named 'tinycss2.color5'
+Error producing PDF.
+
+
+[2026-09-20T03:10:42.480728] Pandoc PDF generation failed: wkhtmltopdf not found. Please select a different --pdf-engine or install wkhtmltopdf -- see also /usr/share/doc/pandoc/README.Debian
+
+[2026-09-20T03:10:42.480848]   Generated: Web development with React -> test003-1-web-development-with-react.md, test003-1-web-development-with-react.html
+[2026-09-20T03:10:42.916769] Pandoc weasyprint failed, trying wkhtmltopdf: Traceback (most recent call last):
+  File "/home/huntingvision/.hermes/hermes-agent/venv/bin/weasyprint", line 3, in <module>
+    from weasyprint.__main__ import main
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/__init__.py", line 371, in <module>
+    from .css import preprocess_stylesheet  # noqa: I001, E402
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/css/__init__.py", line 31, in <module>
+    from . import counters, media_queries
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/css/counters.py", line 10, in <module>
+    from .tokens import remove_whitespace
+  File "/run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/.hermes/hermes-agent/venv/lib/python3.11/site-packages/weasyprint/css/tokens.py", line 8, in <module>
+    from tinycss2.color5 import parse_color
+ModuleNotFoundError: No module named 'tinycss2.color5'
+Error producing PDF.
+
+
+[2026-09-20T03:10:42.967792] Pandoc PDF generation failed: wkhtmltopdf not found. Please select a different --pdf-engine or install wkhtmltopdf -- see also /usr/share/doc/pandoc/README.Debian
+
+[2026-09-20T03:10:42.967913]   Generated: Personal finance and budgeting -> test003-2-personal-finance-and-budgeting.md, test003-2-personal-finance-and-budgeting.html
+[2026-09-20T03:10:42.968273] Updated topics.json with 3 processed submissions
+[2026-09-20T03:10:42.968321] ============================================================
+[2026-09-20T03:10:42.968370] Pipeline Complete: 3 submissions processed, 7 content items generated
+[2026-09-20T03:10:42.968402] ============================================================
+[2026-09-20T03:13:32.026433] ============================================================
+[2026-09-20T03:13:32.026551] MakeSense Content Generation Pipeline Started
+[2026-09-20T03:13:32.026605] ============================================================
+[2026-09-20T03:13:32.026740] Using Chromium for PDF: /usr/bin/chromium-browser
+[2026-09-20T03:13:32.026987] Loaded 3 topic submissions
+[2026-09-20T03:13:32.027040] Found 0 pending submissions out of 3 total
+[2026-09-20T03:13:32.027082] No pending submissions. Exiting.
+[2026-09-20T03:14:14.629535] ============================================================
+[2026-09-20T03:14:14.629622] MakeSense Content Generation Pipeline Started
+[2026-09-20T03:14:14.629661] ============================================================
+[2026-09-20T03:14:14.629736] Using Chromium for PDF: /usr/bin/chromium-browser
+[2026-09-20T03:14:14.629922] Loaded 3 topic submissions
+[2026-09-20T03:14:14.629965] Found 3 pending submissions out of 3 total
+[2026-09-20T03:14:14.630060] Loaded 5 feedback items
+[2026-09-20T03:14:14.630103] Processing submission test001 from Alex Chen with 2 topics
+[2026-09-20T03:14:16.478226] PDF generated via Chromium: /run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/workspaces/MakeSense/generated-content/test001-1-machine-learning-fundamentals.pdf (83083 bytes)
+[2026-09-20T03:14:16.478384]   Generated: Machine Learning fundamentals -> test001-1-machine-learning-fundamentals.md, test001-1-machine-learning-fundamentals.html, test001-1-machine-learning-fundamentals.pdf
+[2026-09-20T03:14:18.342095] PDF generated via Chromium: /run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/workspaces/MakeSense/generated-content/test001-2-python-for-data-analysis.pdf (78622 bytes)
+[2026-09-20T03:14:18.342306]   Generated: Python for data analysis -> test001-2-python-for-data-analysis.md, test001-2-python-for-data-analysis.html, test001-2-python-for-data-analysis.pdf
+[2026-09-20T03:14:18.342470] Processing submission test002 from Maria Garcia with 3 topics
+[2026-09-20T03:14:20.035745] PDF generated via Chromium: /run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/workspaces/MakeSense/generated-content/test002-1-how-to-start-a-podcast.pdf (82628 bytes)
+[2026-09-20T03:14:20.035880]   Generated: How to start a podcast -> test002-1-how-to-start-a-podcast.md, test002-1-how-to-start-a-podcast.html, test002-1-how-to-start-a-podcast.pdf
+[2026-09-20T03:14:21.814520] PDF generated via Chromium: /run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/workspaces/MakeSense/generated-content/test002-2-digital-marketing-basics.pdf (83591 bytes)
+[2026-09-20T03:14:21.814659]   Generated: Digital marketing basics -> test002-2-digital-marketing-basics.md, test002-2-digital-marketing-basics.html, test002-2-digital-marketing-basics.pdf
+[2026-09-20T03:14:23.541340] PDF generated via Chromium: /run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/workspaces/MakeSense/generated-content/test002-3-video-editing-for-beginners.pdf (79211 bytes)
+[2026-09-20T03:14:23.541465]   Generated: Video editing for beginners -> test002-3-video-editing-for-beginners.md, test002-3-video-editing-for-beginners.html, test002-3-video-editing-for-beginners.pdf
+[2026-09-20T03:14:23.541533] Processing submission test003 from Test User with 2 topics
+[2026-09-20T03:14:25.364743] PDF generated via Chromium: /run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/workspaces/MakeSense/generated-content/test003-1-web-development-with-react.pdf (78726 bytes)
+[2026-09-20T03:14:25.364911]   Generated: Web development with React -> test003-1-web-development-with-react.md, test003-1-web-development-with-react.html, test003-1-web-development-with-react.pdf
+[2026-09-20T03:14:27.079107] PDF generated via Chromium: /run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/workspaces/MakeSense/generated-content/test003-2-personal-finance-and-budgeting.pdf (78694 bytes)
+[2026-09-20T03:14:27.079231]   Generated: Personal finance and budgeting -> test003-2-personal-finance-and-budgeting.md, test003-2-personal-finance-and-budgeting.html, test003-2-personal-finance-and-budgeting.pdf
+[2026-09-20T03:14:27.079720] Updated topics.json with 3 processed submissions
+[2026-09-20T03:14:27.079779] ============================================================
+[2026-09-20T03:14:27.079842] Pipeline Complete: 3 submissions processed, 7 content items generated
+[2026-09-20T03:14:27.079897] ============================================================
+[2026-09-20T03:20:42.613609] ============================================================
+[2026-09-20T03:20:42.613687] MakeSense Content Generation Pipeline Started
+[2026-09-20T03:20:42.613737] ============================================================
+[2026-09-20T03:20:42.613807] Using Chromium for PDF: /usr/bin/chromium-browser
+[2026-09-20T03:20:42.613953] Loaded 1 topic submissions
+[2026-09-20T03:20:42.613990] Found 1 pending submissions out of 1 total
+[2026-09-20T03:20:42.614082] Loaded 5 feedback items
+[2026-09-20T03:20:42.614122] Processing submission test004 from Test User 2 with 2 topics
+[2026-09-20T03:20:44.648076] PDF generated via Chromium: /run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/workspaces/MakeSense/generated-content/test004-1-data-visualization-with-python.pdf (79025 bytes)
+[2026-09-20T03:20:44.648282]   Generated: Data visualization with Python -> test004-1-data-visualization-with-python.md, test004-1-data-visualization-with-python.html, test004-1-data-visualization-with-python.pdf
+[2026-09-20T03:20:46.443128] PDF generated via Chromium: /run/media/huntingvision/1c514555-9d09-44e0-8fcc-e90fcada2549/workspaces/MakeSense/generated-content/test004-2-introduction-to-machine-learning.pdf (78636 bytes)
+[2026-09-20T03:20:46.443382]   Generated: Introduction to machine learning -> test004-2-introduction-to-machine-learning.md, test004-2-introduction-to-machine-learning.html, test004-2-introduction-to-machine-learning.pdf
+[2026-09-20T03:20:46.443815] Updated topics.json with 1 processed submissions
+[2026-09-20T03:20:46.443884] ============================================================
+[2026-09-20T03:20:46.443946] Pipeline Complete: 1 submissions processed, 2 content items generated
+[2026-09-20T03:20:46.443999] ============================================================

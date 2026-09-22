@@ -3,450 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MakeSense - Admin Feedback Dashboard</title>
+    <title>MakeSense — Admin Feedback & Analytics</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <style>
-        .dashboard-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-        
-        .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .dashboard-header h1 {
-            font-size: 2rem;
-            color: var(--text);
-        }
-        
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
+            gap: 1.25rem;
+            margin-bottom: 2.5rem;
         }
-        
         .stat-card {
-            background: var(--white);
+            background: #ffffff;
             border-radius: var(--radius-lg);
             padding: 1.5rem;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--card-border);
+            transition: var(--transition-fast);
         }
-        
+        .stat-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
         .stat-card h3 {
-            font-size: 0.875rem;
-            color: var(--text-light);
+            font-size: 0.8125rem;
+            font-weight: 700;
+            color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.05em;
             margin-bottom: 0.5rem;
         }
-        
         .stat-card .stat-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--text);
+            font-size: 2.25rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text-main);
         }
-        
         .stat-card .stat-value.positive { color: var(--success); }
         .stat-card .stat-value.negative { color: var(--error); }
         .stat-card .stat-value.neutral { color: var(--primary); }
-        
-        .filters {
-            background: var(--white);
+
+        .table-wrapper {
+            background: #ffffff;
+            border: 1px solid var(--card-border);
             border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-            margin-bottom: 2rem;
-        }
-        
-        .filters h2 {
-            font-size: 1.125rem;
-            margin-bottom: 1rem;
-        }
-        
-        .filter-row {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            align-items: end;
-        }
-        
-        .filter-group {
-            flex: 1;
-            min-width: 200px;
-        }
-        
-        .filter-group label {
-            display: block;
-            font-size: 0.875rem;
-            font-weight: 500;
-            margin-bottom: 0.375rem;
-            color: var(--text);
-        }
-        
-        .filter-group select,
-        .filter-group input {
-            width: 100%;
-            padding: 0.625rem 1rem;
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            font-size: 1rem;
-            font-family: inherit;
-            background: var(--white);
-        }
-        
-        .filter-group select:focus,
-        .filter-group input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px var(--primary-light);
-        }
-        
-        .feedback-table-container {
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
             overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            margin-top: 1.5rem;
         }
-        
-        .feedback-table {
+        .data-table {
             width: 100%;
             border-collapse: collapse;
-        }
-        
-        .feedback-table th,
-        .feedback-table td {
-            padding: 1rem;
             text-align: left;
-            border-bottom: 1px solid var(--border);
         }
-        
-        .feedback-table th {
-            background: var(--background);
-            font-weight: 600;
-            font-size: 0.875rem;
+        .data-table th {
+            background: var(--bg-page);
+            padding: 0.9rem 1.25rem;
+            font-size: 0.8125rem;
+            font-weight: 700;
+            color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            color: var(--text-light);
+            border-bottom: 1px solid var(--card-border);
         }
-        
-        .feedback-table tbody tr:hover {
-            background: var(--background);
+        .data-table td {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--card-border);
+            font-size: 0.9rem;
+            color: var(--text-main);
         }
-        
-        .feedback-table tbody tr:last-child td {
+        .data-table tr:last-child td {
             border-bottom: none;
         }
-        
-        .feedback-type {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.375rem;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.8125rem;
-            font-weight: 500;
+        .data-table tr:hover td {
+            background: rgba(248, 250, 252, 0.7);
         }
-        
-        .feedback-type.up {
-            background: #ecfdf5;
-            color: var(--success);
-        }
-        
-        .feedback-type.down {
-            background: #fef2f2;
-            color: var(--error);
-        }
-        
-        .topic-cell {
-            max-width: 250px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        
-        .comment-cell {
-            max-width: 300px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            color: var(--text-light);
-            font-size: 0.875rem;
-        }
-        
-        .timestamp-cell {
-            font-size: 0.8125rem;
-            color: var(--text-light);
-            white-space: nowrap;
-        }
-        
-        .topic-summary {
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-            margin-bottom: 2rem;
-            overflow: hidden;
-        }
-        
-        .topic-summary-header {
-            background: var(--background);
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .topic-summary-header h2 {
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .topic-summary-stats {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-        
-        .topic-summary-stat {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .topic-summary-stat .label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-light);
-        }
-        
-        .topic-summary-stat .value {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-        
-        .topic-summary-stat .value.positive { color: var(--success); }
-        .topic-summary-stat .value.negative { color: var(--error); }
-        .topic-summary-stat .value.neutral { color: var(--primary); }
-        
-        .topic-summary-comments {
-            padding: 1.5rem;
-        }
-        
-        .topic-summary-comments h3 {
-            font-size: 1rem;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .comment-item {
-            padding: 0.75rem;
-            background: var(--background);
-            border-radius: var(--radius);
-            margin-bottom: 0.5rem;
-            font-size: 0.875rem;
+        .comment-box {
+            background: var(--bg-page);
             border-left: 3px solid var(--primary);
-        }
-        
-        .empty-state {
-            text-align: center;
-            padding: 3rem;
-            color: var(--text-light);
-        }
-        
-        .empty-state h3 {
-            margin-bottom: 0.5rem;
-            color: var(--text);
-        }
-        
-        .topic-selector {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            padding: 1rem;
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-        }
-        
-        .topic-selector label {
-            font-weight: 500;
-            color: var(--text);
-        }
-        
-        .topic-selector select {
-            flex: 1;
-            max-width: 400px;
-            padding: 0.625rem 1rem;
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            font-size: 1rem;
-            font-family: inherit;
-            background: var(--white);
-        }
-        
-        @media (max-width: 768px) {
-            .feedback-table-container {
-                overflow-x: auto;
-            }
-            
-            .filter-row {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            border-radius: var(--radius-sm);
+            padding: 0.75rem 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>MakeSense</h1>
-            <p class="tagline">Admin Feedback Dashboard</p>
+    <div class="container" style="max-width: 1100px;">
+        <!-- Global Nav -->
+        <nav class="nav-bar">
+            <a href="/" class="nav-brand">
+                <span class="logo-badge">🧠</span>
+                <span>MakeSense</span>
+            </a>
+            <div class="nav-links">
+                <a href="/">Submit</a>
+                <a href="/library.html">Library</a>
+                <a href="/app/">Dashboard</a>
+                <a href="/admin-dashboard.html" class="active">Admin</a>
+            </div>
+        </nav>
+
+        <header class="hero" style="margin-bottom: 2rem;">
+            <div class="badge-pill">
+                <span>📈</span>
+                <span>Platform Analytics & Feedback</span>
+            </div>
+            <h1>Admin Intelligence Console</h1>
+            <p class="tagline">Monitor educational engagement, curriculum effectiveness, and learner feedback signals in real-time.</p>
         </header>
-        
-        <main>
-            <div class="dashboard-container">
-                <div class="dashboard-header">
-                    <h1>Feedback Analytics</h1>
-                    <a href="index.html" class="submit-btn" style="width: auto;">← Back to Survey</a>
-                </div>
-                
-                <!-- Overall Stats -->
-                <div class="stats-grid" id="overall-stats">
-                    <div class="stat-card">
-                        <h3>Total Feedback</h3>
-                        <div class="stat-value neutral" id="stat-total">0</div>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Thumbs Up</h3>
-                        <div class="stat-value positive" id="stat-up">0</div>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Thumbs Down</h3>
-                        <div class="stat-value negative" id="stat-down">0</div>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Net Score</h3>
-                        <div class="stat-value neutral" id="stat-score">0</div>
-                    </div>
-                </div>
-                
-                <!-- Topic Selector -->
-                <div class="topic-selector">
-                    <label for="topic-select">View Details for Topic:</label>
-                    <select id="topic-select">
-                        <option value="">-- Select a topic --</option>
-                    </select>
-                </div>
-                
-                <!-- Topic Summary Detail -->
-                <div class="topic-summary" id="topic-summary" style="display: none;">
-                    <div class="topic-summary-header">
-                        <h2 id="summary-topic-title">Topic Details</h2>
-                        <div class="topic-summary-stats">
-                            <div class="topic-summary-stat">
-                                <span class="label">Thumbs Up</span>
-                                <span class="value positive" id="detail-up">0</span>
-                            </div>
-                            <div class="topic-summary-stat">
-                                <span class="label">Thumbs Down</span>
-                                <span class="value negative" id="detail-down">0</span>
-                            </div>
-                            <div class="topic-summary-stat">
-                                <span class="label">Net Score</span>
-                                <span class="value neutral" id="detail-score">0</span>
-                            </div>
-                            <div class="topic-summary-stat">
-                                <span class="label">Total Votes</span>
-                                <span class="value" id="detail-total">0</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="topic-summary-comments">
-                        <h3>Recent Comments</h3>
-                        <div id="detail-comments" class="empty-state">
-                            <p>No comments yet</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Filters -->
-                <div class="filters">
-                    <h2>Filters</h2>
-                    <div class="filter-row">
-                        <div class="filter-group">
-                            <label for="filter-type">Feedback Type</label>
-                            <select id="filter-type">
-                                <option value="">All Types</option>
-                                <option value="up">👍 Helpful (Up)</option>
-                                <option value="down">👎 Not Helpful (Down)</option>
-                            </select>
-                        </div>
-                        <div class="filter-group">
-                            <label for="filter-topic">Topic</label>
-                            <select id="filter-topic">
-                                <option value="">All Topics</option>
-                            </select>
-                        </div>
-                        <div class="filter-group">
-                            <label for="filter-submission">Submission ID</label>
-                            <select id="filter-submission">
-                                <option value="">All Submissions</option>
-                            </select>
-                        </div>
-                        <div class="filter-group">
-                            <label for="filter-date">Date From</label>
-                            <input type="date" id="filter-date">
-                        </div>
-                        <button class="submit-btn" id="clear-filters" style="width: auto; height: fit-content;">Clear Filters</button>
-                    </div>
-                </div>
-                
-                <!-- Feedback Table -->
-                <div class="feedback-table-container">
-                    <table class="feedback-table" id="feedback-table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Topic</th>
-                                <th>Submission</th>
-                                <th>Type</th>
-                                <th>Comment</th>
-                                <th>User</th>
-                            </tr>
-                        </thead>
-                        <tbody id="feedback-tbody">
-                            <tr>
-                                <td colspan="6" class="empty-state">
-                                    <div class="loading">Loading feedback data...</div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+
+        <!-- Stats Overview Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Feedback Items</h3>
+                <div class="stat-value" id="stat-total">-</div>
+            </div>
+            <div class="stat-card">
+                <h3>Positive Rating Rate</h3>
+                <div class="stat-value positive" id="stat-positive-rate">-%</div>
+            </div>
+            <div class="stat-card">
+                <h3>Positive Signals</h3>
+                <div class="stat-value positive" id="stat-thumbs-up">-</div>
+            </div>
+            <div class="stat-card">
+                <h3>Improvement Needs</h3>
+                <div class="stat-value negative" id="stat-thumbs-down">-</div>
+            </div>
+        </div>
+
+        <main class="main-card">
+            <div class="filter-group-header">
+                <h3>Learner Feedback Stream</h3>
+                <span id="feedback-count" style="font-size: 0.8125rem; font-weight: 700; color: var(--text-muted);">Loading logs...</span>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Signal</th>
+                            <th>Lesson / Topic</th>
+                            <th>Learner ID</th>
+                            <th>Comment / Notes</th>
+                            <th>Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody id="feedback-tbody">
+                        <tr><td colspan="5" style="text-align: center; padding: 2rem; color: var(--text-muted);">Loading feedback logs...</td></tr>
+                    </tbody>
+                </table>
             </div>
         </main>
-        
-        <footer>
-            <p>MakeSense &copy; 2026 - Admin Dashboard</p>
+
+        <footer class="site-footer">
+            <p>MakeSense &copy; 2026 &bull; Operations & Curriculum Quality Assurance</p>
         </footer>
     </div>
 
-    <script src="admin-feedback.js"></script>
+    <script>
+        async function loadFeedback() {
+            try {
+                const res = await fetch('/api/feedback/all');
+                if (!res.ok) throw new Error('Failed to load feedback');
+                const data = await res.json();
+                
+                const items = data.feedback || [];
+                const stats = data.stats || {};
+
+                // Update Stats Cards
+                const total = stats.total_feedback || items.length || 0;
+                const thumbsUp = stats.thumbs_up_count || items.filter(f => f.feedback_type === 'up').length;
+                const thumbsDown = stats.thumbs_down_count || items.filter(f => f.feedback_type === 'down').length;
+                const positiveRate = total > 0 ? Math.round((thumbsUp / total) * 100) : 100;
+
+                document.getElementById('stat-total').textContent = total;
+                document.getElementById('stat-positive-rate').textContent = `${positiveRate}%`;
+                document.getElementById('stat-thumbs-up').textContent = thumbsUp;
+                document.getElementById('stat-thumbs-down').textContent = thumbsDown;
+                document.getElementById('feedback-count').textContent = `${total} Logged Feedback Points`;
+
+                const tbody = document.getElementById('feedback-tbody');
+                if (items.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 3rem; color: var(--text-muted);">No learner feedback recorded yet.</td></tr>`;
+                    return;
+                }
+
+                tbody.innerHTML = items.slice(0, 50).map(item => {
+                    const isPositive = item.feedback_type === 'up';
+                    const icon = isPositive ? '👍 Positive' : '👎 Needs Work';
+                    const badgeClass = isPositive ? 'completed' : 'error';
+                    const lesson = item.lesson_id || item.topic_id || 'General';
+                    const user = item.user_identifier || 'Learner';
+                    const comment = item.comment || '-';
+                    const time = item.created_at ? new Date(item.created_at).toLocaleString() : '-';
+
+                    return `
+                        <tr>
+                            <td><span class="status-badge ${badgeClass}">${icon}</span></td>
+                            <td><strong>${lesson}</strong></td>
+                            <td style="font-family: monospace; font-size: 0.8rem; color: var(--text-muted);">${user.substring(0, 12)}...</td>
+                            <td>${comment !== '-' ? `<div class="comment-box">${comment}</div>` : '<span style="color: var(--text-subtle);">No comment</span>'}</td>
+                            <td style="font-size: 0.8125rem; color: var(--text-subtle);">${time}</td>
+                        </tr>
+                    `;
+                }).join('');
+            } catch (err) {
+                console.error(err);
+                document.getElementById('feedback-tbody').innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--error); padding: 2rem;">Error: ${err.message}</td></tr>`;
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadFeedback);
+        } else {
+            loadFeedback();
+        }
+    </script>
 </body>
 </html>

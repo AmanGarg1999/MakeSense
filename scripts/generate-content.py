@@ -5,11 +5,14 @@ MakeSense Content Generation Pipeline
 Placeholder script that reads topics from data/topics.json and simulates
 content generation for each topic. In production, this would call LLMs,
 create structured learning materials, etc.
+
+Supports multi-format export: Markdown (source), HTML (rendered), PDF (download)
 """
 
 import json
 import os
 import sys
+import subprocess
 from datetime import datetime
 from pathlib import Path
 
@@ -23,6 +26,23 @@ TOPICS_FILE = REPO_ROOT / "data" / "topics.json"
 FEEDBACK_FILE = REPO_ROOT / "data" / "feedback.json"
 OUTPUT_DIR = REPO_ROOT / "generated-content"
 LOG_FILE = REPO_ROOT / "logs" / "generation.log"
+TEMPLATE_FILE = REPO_ROOT / "templates" / "content-template.html"
+
+# Chromium path for PDF generation
+CHROMIUM_PATHS = [
+    "/usr/bin/chromium-browser",
+    "/usr/bin/google-chrome",
+    "/snap/bin/chromium",
+]
+
+def find_chromium():
+    """Find available Chromium/Chrome executable."""
+    for path in CHROMIUM_PATHS:
+        if Path(path).exists():
+            return path
+    return None
+
+CHROMIUM_EXEC = find_chromium()
 
 def setup_logging():
     """Ensure log directory exists."""
@@ -73,15 +93,15 @@ def get_feedback_summary(feedback_data: list, topic: str, submission_id: str) ->
         f for f in feedback_data
         if f.get("topic") == topic and f.get("submission_id") == submission_id
     ]
-    
+
     up_count = sum(1 for f in relevant_feedback if f.get("feedback_type") == "up")
     down_count = sum(1 for f in relevant_feedback if f.get("feedback_type") == "down")
     total = len(relevant_feedback)
-    
+
     # Get recent comments (last 5)
     comments = [f.get("comment") for f in relevant_feedback if f.get("comment")]
     recent_comments = comments[-5:] if comments else []
-    
+
     return {
         "up_votes": up_count,
         "down_votes": down_count,
@@ -90,7 +110,71 @@ def get_feedback_summary(feedback_data: list, topic: str, submission_id: str) ->
         "recent_comments": recent_comments
     }
 
-def generate_content_for_topic(topic_submission: dict, feedback_data: list) -> dict:
+def load_template():
+    """Load the HTML template."""
+    if not TEMPLATE_FILE.exists():
+        log_message(f"Template file not found at {TEMPLATE_FILE}")
+        return None
+    return TEMPLATE_FILE.read_text()
+
+def render_html(template: str, **kwargs) -> str:
+    """Render HTML template with provided variables."""
+    html = template
+    for key, value in kwargs.items():
+        html = html.replace(f"{{{{{key}}}}}", str(value))
+    return html
+
+def markdown_to_html(markdown_content: str) -> str:
+    """Convert markdown to HTML using pandoc."""
+    try:
+        result = subprocess.run(
+            ["pandoc", "-f", "markdown", "-t", "html", "--no-highlight"],
+            input=markdown_content,
+            capture_output=True,
+            text=True,
+            timeout=30
+        )
+        if result.returncode == 0:
+            return result.stdout
+        else:
+            log_message(f"Pandoc error: {result.stderr}")
+            return markdown_content  # fallback
+    except Exception as e:
+        log_message(f"Pandoc conversion failed: {e}")
+        return markdown_content  # fallback
+
+def html_to_pdf(html_file: Path, pdf_file: Path) -> bool:
+    """Convert HTML file to PDF using Chromium headless."""
+    if not CHROMIUM_EXEC:
+        log_message("No Chromium/Chrome executable found for PDF generation")
+        return False
+
+    try:
+        result = subprocess.run(
+            [
+                CHROMIUM_EXEC,
+                "--headless",
+                "--disable-gpu",
+                "--no-sandbox",
+                "--disable-dev-shm-usage",
+                f"--print-to-pdf={pdf_file}",
+                f"file://{html_file.absolute()}"
+            ],
+            capture_output=True,
+            text=True,
+            timeout=60
+        )
+        if result.returncode == 0 and pdf_file.exists() and pdf_file.stat().st_size > 0:
+            log_message(f"PDF generated via Chromium: {pdf_file} ({pdf_file.stat().st_size} bytes)")
+            return True
+        else:
+            log_message(f"Chromium PDF generation failed: {result.stderr}")
+            return False
+    except Exception as e:
+        log_message(f"PDF generation failed: {e}")
+        return False
+
+def generate_content_for_topic(topic_submission: dict, feedback_data: list, template: str) -> dict:
     """
     Placeholder content generation for a single topic submission.
     In production, this would:
@@ -110,15 +194,16 @@ def generate_content_for_topic(topic_submission: dict, feedback_data: list) -> d
     for i, topic in enumerate(topics):
         # Classify the topic into a category
         category = classify_topic(topic)
-        
-        # Create a placeholder content file for each topic
+
+        # Create a safe filename
         safe_topic = "".join(c if c.isalnum() or c in " -_" else "_" for c in topic)
         safe_topic = safe_topic[:50].strip().replace(" ", "-").lower()
-        
+
         # Get feedback summary for this topic
         feedback_summary = get_feedback_summary(feedback_data, topic, submission_id)
 
-        content = f"""# Learning Content: {topic}
+        # Generate markdown content
+        content_md = f"""# Learning Content: {topic}
 
 **Generated for:** {name}
 **Submission ID:** {submission_id}
@@ -160,34 +245,33 @@ In a production pipeline, this would contain:
 
 ## Feedback Summary
 
-**Community Feedback:** {feedback_summary['up_votes']} 👍 / {feedback_summary['down_votes']} 👎 (Score: {feedback_summary['score']:+d})
-"""
+**Community Feedback:** {feedback_summary['up_votes']} 👍 / {feedback_summary['down_votes']} 👎 (Score: {feedback_summary['score']:+d})"""
 
         # Add feedback-informed improvements if there's feedback
         if feedback_summary['total_votes'] > 0:
-            content += """## Feedback-Informed Improvements
+            content_md += """## Feedback-Informed Improvements
 
 Based on community feedback, this version includes:
 
 """
             if feedback_summary['down_votes'] > feedback_summary['up_votes']:
-                content += "- **More practical examples** - Users requested more hands-on content\n"
-                content += "- **Clearer explanations** - Simplified technical jargon based on feedback\n"
-                content += "- **Additional resources** - Added further reading links\n"
+                content_md += "- **More practical examples** - Users requested more hands-on content\n"
+                content_md += "- **Clearer explanations** - Simplified technical jargon based on feedback\n"
+                content_md += "- **Additional resources** - Added further reading links\n"
             elif feedback_summary['up_votes'] > feedback_summary['down_votes']:
-                content += "- **Expanded popular sections** - Enhanced areas users found most helpful\n"
-                content += "- **Deeper dives** - Added advanced topics based on positive reception\n"
+                content_md += "- **Expanded popular sections** - Enhanced areas users found most helpful\n"
+                content_md += "- **Deeper dives** - Added advanced topics based on positive reception\n"
             else:
-                content += "- **Balanced improvements** - Addressed mixed feedback with comprehensive updates\n"
-            
-            if feedback_summary['recent_comments']:
-                content += "\n**Recent User Comments:**\n"
-                for comment in feedback_summary['recent_comments']:
-                    content += f"- \"{comment}\"\n"
-            
-            content += "\n"
+                content_md += "- **Balanced improvements** - Addressed mixed feedback with comprehensive updates\n"
 
-        content += f"""---
+            if feedback_summary['recent_comments']:
+                content_md += "\n**Recent User Comments:**\n"
+                for comment in feedback_summary['recent_comments']:
+                    content_md += f"- \"{comment}\"\n"
+
+            content_md += "\n"
+
+        content_md += f"""---
 
 ## Feedback
 
@@ -204,18 +288,44 @@ Based on community feedback, this version includes:
 *This content was automatically generated by the MakeSense pipeline.*
 *Pipeline version: 1.0.0*"""
 
-        output_file = OUTPUT_DIR / f"{submission_id}-{i+1}-{safe_topic}.md"
-        with open(output_file, "w") as f:
-            f.write(content)
+        # Write markdown file
+        md_file = OUTPUT_DIR / f"{submission_id}-{i+1}-{safe_topic}.md"
+        md_file.write_text(content_md)
+
+        # Convert markdown to HTML for content body
+        content_html = markdown_to_html(content_md)
+
+        # Generate HTML file using template
+        generated_at = datetime.now().isoformat()
+        html_content = render_html(
+            template,
+            title=f"Learning Content: {topic}",
+            generated_at=generated_at,
+            category=category,
+            submission_id=submission_id,
+            content=content_html,
+            markdown_url=f"{submission_id}-{i+1}-{safe_topic}.md",
+            pdf_url=f"{submission_id}-{i+1}-{safe_topic}.pdf",
+            content_file=f"{submission_id}-{i+1}-{safe_topic}.md",
+            topic=topic
+        )
+        html_file = OUTPUT_DIR / f"{submission_id}-{i+1}-{safe_topic}.html"
+        html_file.write_text(html_content)
+
+        # Generate PDF file using Chromium
+        pdf_file = OUTPUT_DIR / f"{submission_id}-{i+1}-{safe_topic}.pdf"
+        pdf_success = html_to_pdf(html_file, pdf_file)
 
         generated_items.append({
             "topic": topic,
             "category": category,
-            "file": str(output_file.relative_to(REPO_ROOT)),
+            "file": str(md_file.relative_to(REPO_ROOT)),
+            "html_file": str(html_file.relative_to(REPO_ROOT)),
+            "pdf_file": str(pdf_file.relative_to(REPO_ROOT)) if pdf_success else None,
             "status": "placeholder_generated"
         })
 
-        log_message(f"  Generated placeholder for: {topic} -> {output_file.name}")
+        log_message(f"  Generated: {topic} -> {md_file.name}, {html_file.name}" + (f", {pdf_file.name}" if pdf_success else ""))
 
     return {
         "submission_id": submission_id,
@@ -231,6 +341,18 @@ def main():
     log_message("=" * 60)
 
     setup_logging()
+
+    # Check for Chromium
+    if not CHROMIUM_EXEC:
+        log_message("WARNING: No Chromium/Chrome found. PDF generation will be skipped.")
+    else:
+        log_message(f"Using Chromium for PDF: {CHROMIUM_EXEC}")
+
+    # Load HTML template
+    template = load_template()
+    if not template:
+        log_message("ERROR: Could not load HTML template. Exiting.")
+        return 1
 
     topics = load_topics()
 
@@ -253,7 +375,7 @@ def main():
 
     for submission in pending:
         try:
-            result = generate_content_for_topic(submission, feedback_data)
+            result = generate_content_for_topic(submission, feedback_data, template)
             all_results.append(result)
 
             # Update status in memory (in production, would update the JSON file)

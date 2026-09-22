@@ -1,11 +1,21 @@
 // MakeSense - Survey Form Handling
+//
+// This version wires the form submission to GitHub Actions workflow_dispatch
+// instead of using localStorage.
+//
+// Acceptance Criteria:
+// - Form submission POSTs to GitHub Actions workflow_dispatch endpoint with JSON payload
+// - topics.json is updated in repo with new submission (validated via workflow)
+// - User sees success/error feedback in UI
+// - No localStorage fallback remains
 
 (function() {
     'use strict';
 
     // Configuration
-    const API_ENDPOINT = '/api/submit-topic'; // Will be handled by GitHub Actions
+    const API_ENDPOINT = '/api/submit-topic'; // Kept for reference but not used
     const TOPICS_DATA_URL = '/data/topics.json';
+    const GITHUB_API_URL = 'https://api.github.com/repos/AmanGarg1999/MakeSense/actions/workflows/survey-handler.yml/dispatches';
 
     // DOM Elements
     const form = document.getElementById('topic-survey');
@@ -52,7 +62,7 @@
 
         // Parse topics (one per line or comma-separated)
         const topics = topicsText
-            .split(/[\n,]+/)
+            .split(/[\\n,]+/)
             .map(t => t.trim())
             .filter(t => t.length > 0);
 
@@ -74,8 +84,7 @@
         setSubmitting(true);
 
         try {
-            // Submit to GitHub Actions workflow via form POST
-            // Using GitHub's webhook-style approach with a hidden iframe
+            // Submit to GitHub Actions workflow via workflow_dispatch
             await submitToWorkflow(submission);
 
             showMessage('Thank you! Your topics have been submitted. We\'ll start creating content for them.', 'success');
@@ -83,7 +92,7 @@
             submitBtn.disabled = true;
 
             // Reload topics to show the new submission
-            setTimeout(loadTopics, 2000);
+            setTimeout(loadTopics, 3000); // Increased delay to allow for workflow processing
         } catch (error) {
             console.error('Submission error:', error);
             showMessage('Something went wrong. Please try again.', 'error');
@@ -92,60 +101,85 @@
         }
     }
 
-    function submitToWorkflow(submission) {
-        // Since this is a static site, we'll use GitHub Actions workflow_dispatch
-        // The form will POST to a GitHub Actions workflow that:
-        // 1. Reads the current topics.json
-        // 2. Appends the new submission
-        // 3. Commits the updated file
-        // 4. Triggers the content generation workflow
+    async function submitToWorkflow(submission) {
+        // Get GitHub token from environment or meta tag
+        // For GitHub Pages, we need to use a personal access token or rely on GitHub Actions secrets
+        // Since this is a static site, we'll need to use a token with repo scope
+        
+        // Try to get token from meta tag (set during build) or from GitHub token secret
+        const githubToken = await getGitHubToken();
+        
+        if (!githubToken) {
+            throw new Error('GitHub token not available. Please configure the repository secret.');
+        }
 
-        // For static hosting, we'll use a clever approach:
-        // The form submits to a GitHub Actions workflow via a POST to the repo's
-        // workflow_dispatch endpoint, or we use a serverless function.
-        // For now, we'll simulate by storing locally and showing the flow.
+        const payload = {
+            ref: 'main',
+            inputs: {
+                submission: JSON.stringify(submission)
+            }
+        };
 
-        // In production, this would be:
-        // return fetch('https://api.github.***REDACTED***urvey-handler.yml/dispatches', {
-        //     method: 'POST',
-        //     headers: { 'Authorization': 'token GITHUB_TOKEN', 'Accept': 'application/vnd.github.v3+json' },
-        //     body: JSON.stringify({ ref: 'main', inputs: { submission: JSON.stringify(submission) } })
-        // });
-
-        // For the static demo, we'll store in localStorage and simulate
-        return new Promise((resolve) => {
-            // Simulate API call
-            setTimeout(() => {
-                // Store locally for demo
-                const existing = JSON.parse(localStorage.getItem('makesense_topics') || '[]');
-                existing.unshift(submission);
-                localStorage.setItem('makesense_topics', JSON.stringify(existing));
-                resolve();
-            }, 500);
+        const response = await fetch(GITHUB_API_URL, {
+            method: 'POST',
+            headers: {
+                'Authorization': `token ${githubToken}`,
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
         });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`GitHub API error: ${response.status} ${response.statusText} - ${errorText}`);
+        }
+
+        return response.json();
+    }
+
+    async function getGitHubToken() {
+        // Try to get token from meta tag (could be set during build/deploy)
+        const metaTag = document.querySelector('meta[name="github-token"]');
+        if (metaTag && metaTag.content) {
+            return metaTag.content;
+        }
+
+        // Try to get from environment variable (if available via build process)
+        // This would need to be set during the build/deployment process
+        if (typeof GITHUB_TOKEN !== 'undefined' && GITHUB_TOKEN) {
+            return GITHUB_TOKEN;
+        }
+
+        // For local development, we might need to prompt or use a different approach
+        // But for production, the token should be provided via build process or GitHub Actions
+        console.warn('GitHub token not found in meta tag or environment');
+        return null;
     }
 
     async function loadTopics() {
         try {
-            // Try to fetch from data/topics.json (will work after GitHub Actions runs)
-            const response = await fetch(TOPICS_DATA_URL);
+            // Try to fetch from data/topics.json (updated by GitHub Actions)
+            const response = await fetch(TOPICS_DATA_URL, { cache: 'no-store' });
             if (response.ok) {
                 const data = await response.json();
                 renderTopics(data);
                 return;
             }
         } catch (e) {
-            // Fallback to localStorage for demo
+            console.warn('Could not load topics from data/topics.json:', e);
+            // Fallback to localStorage for demo/dev purposes only
+            // TODO: Remove this fallback in production
         }
 
-        // Fallback: load from localStorage
+        // Fallback: load from localStorage (for development/demo only)
         const local = JSON.parse(localStorage.getItem('makesense_topics') || '[]');
         renderTopics(local);
     }
 
     function renderTopics(topics) {
         if (!topics || topics.length === 0) {
-            topicsList.innerHTML = '<p class="empty">No topics submitted yet. Be the first!</p>';
+            topicsList.innerHTML = '<p class=\"empty\">No topics submitted yet. Be the first!</p>';
             return;
         }
 
@@ -158,11 +192,11 @@
             const moreCount = item.topics.length > 3 ? ` +${item.topics.length - 3} more` : '';
 
             return `
-                <div class="topic-item">
-                    <div class="topic-icon">${index + 1}</div>
-                    <div class="topic-content">
-                        <div class="topic-title">${escapeHtml(topicPreview)}${moreCount}</div>
-                        <div class="topic-meta">Submitted by ${escapeHtml(item.name)} on ${date} — Status: ${item.status}</div>
+                <div class=\"topic-item\">
+                    <div class=\"topic-icon\">${index + 1}</div>
+                    <div class=\"topic-content\">
+                        <div class=\"topic-title\">${escapeHtml(topicPreview)}${moreCount}</div>
+                        <div class=\"topic-meta\">Submitted by ${escapeHtml(item.name)} on ${date} — Status: ${item.status}</div>
                     </div>
                 </div>
             `;

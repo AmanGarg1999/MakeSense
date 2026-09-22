@@ -3,8 +3,10 @@
 **Generated for:** Maria Garcia
 **Submission ID:** test002
 **Requested:** 2026-09-19T13:05:00.000Z
-**Generated:** 2026-09-19T13:10:19.710360
+**Generated:** 2026-09-20T03:14:21.815531
 **Topic Index:** 3/3
+**Category:** Creative Arts
+**Content File:** video-editing-for-beginners.md
 
 ---
 
@@ -33,6 +35,22 @@ In a production pipeline, this would contain:
 ⏳ Content generation in progress (placeholder)
 ⬜ Content review and quality assurance
 ⬜ Published to learning platform
+
+---
+
+## Feedback Summary
+
+**Community Feedback:** 0 👍 / 0 👎 (Score: +0)---
+
+## Feedback
+
+**Was this content helpful?**
+
+<div class="feedback-buttons" data-content-file="test002-3-video-editing-for-beginners.md" data-topic="Video editing for beginners" data-submission-id="test002">
+    <button class="feedback-btn thumbs-up" data-feedback="up" title="Helpful">👍 Helpful</button>
+    <button class="feedback-btn thumbs-down" data-feedback="down" title="Not helpful">👎 Not Helpful</button>
+</div>
+<div class="feedback-message" style="display: none;"></div>
 
 ---
 

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MakeSense — Your Learning Library</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+        .modal-card {
+            background: #0f172a;
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 720px;
+            box-shadow: var(--shadow-xl), 0 0 35px rgba(79, 70, 229, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            max-height: 85vh;
+            animation: modalIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.96) translateY(8px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .modal-header {
+            padding: 1.1rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1e293b;
+        }
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: #f8fafc;
+        }
+        .badge-runanywhere {
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            padding: 0.25rem 0.65rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 700;
+            border: 1px solid rgba(99, 102, 241, 0.4);
+        }
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            flex: 1;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            background: #090d16;
+            color: #cbd5e1;
+        }
+        .stream-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.45rem 0.95rem;
+            border-radius: var(--radius-sm);
+            background: rgba(30, 41, 59, 0.8);
+            color: #38bdf8;
+            font-size: 0.8125rem;
+            margin-bottom: 1.25rem;
+            border: 1px solid rgba(56, 189, 248, 0.25);
+        }
+        .stream-pulse {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #38bdf8;
+            box-shadow: 0 0 10px #38bdf8;
+            animation: pulse 1.4s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.3; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.15); }
+            100% { opacity: 0.3; transform: scale(0.9); }
+        }
+        .stream-terminal-output {
+            white-space: pre-wrap;
+            word-break: break-word;
+            min-height: 140px;
+        }
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            background: #0f172a;
+        }
+        .btn-modal-close {
+            background: rgba(255, 255, 255, 0.06);
+            color: #94a3b8;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        .btn-modal-close:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.12);
+        }
+        .access-card {
+            background: #ffffff;
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            max-width: 480px;
+            margin: 2rem auto;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+        }
+        .access-card h3 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+        .access-card p {
+            color: var(--text-muted);
+            font-size: 0.925rem;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Modern Global Navigation -->
+        <nav class="nav-bar">
+            <a href="/" class="nav-brand">
+                <span class="logo-badge">🧠</span>
+                <span>MakeSense</span>
+            </a>
+            <div class="nav-links">
+                <a href="/">Submit</a>
+                <a href="/library.html" class="active">Library</a>
+                <a href="/app/">Dashboard</a>
+                <a href="/admin-dashboard.html">Admin</a>
+            </div>
+        </nav>
+
+        <header class="hero" style="margin-bottom: 2rem;">
+            <div class="badge-pill">
+                <span>📚</span>
+                <span>Personalized Knowledge Vault</span>
+            </div>
+            <h1>Your Learning Library</h1>
+            <p class="tagline">Explore your synthesized lessons, run on-device generation streams, and test your retention.</p>
+        </header>
+
+        <main class="main-card">
+            <!-- Filter Bar -->
+            <div id="library-filters-container" class="library-filters" style="display: none; margin-bottom: 2rem;">
+                <div class="filter-group-header">
+                    <h3>Filter Curriculum</h3>
+                    <span id="library-count" style="font-size: 0.8125rem; font-weight: 700; color: var(--text-muted);"></span>
+                </div>
+                <div class="filter-buttons" id="library-filter-buttons">
+                    <button class="filter-btn active" data-category="all">All Items</button>
+                    <button class="filter-btn" data-category="ML/AI">ML / AI</button>
+                    <button class="filter-btn" data-category="Data Science">Data Science</button>
+                    <button class="filter-btn" data-category="Programming">Programming</button>
+                    <button class="filter-btn" data-category="Creative Arts">Creative Arts</button>
+                    <button class="filter-btn" data-category="Business/Finance">Finance</button>
+                    <button class="filter-btn" data-category="Personal Development">Growth</button>
+                    <button class="filter-btn" data-category="Academic">Academic</button>
+                    <button class="filter-btn" data-category="Other">Other</button>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div id="library-content">
+                <p class="empty" style="text-align: center; padding: 3rem; color: var(--text-muted);">Loading your library...</p>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <p>MakeSense &copy; 2026 &bull; Adaptive AI Education Architecture</p>
+            <p style="margin-top: 0.5rem;"><a href="/">Submit Topics</a> &bull; <a href="/app/">Gamification Dashboard</a> &bull; <a href="/admin-dashboard.html">Admin</a></p>
+        </footer>
+    </div>
+
+    <!-- On-Device Live Generation Studio Modal -->
+    <div id="stream-modal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>⚡ On-Device Live Studio <span class="badge-runanywhere">RunAnywhere Engine</span></h3>
+                <button onclick="closeStreamModal()" class="btn-modal-close" style="padding: 0.3rem 0.6rem; border: none; background: transparent; font-size: 1.25rem;">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="stream-status-pill">
+                    <span class="stream-pulse"></span>
+                    <span id="stream-status-text">Connecting to local model pipeline...</span>
+                </div>
+                <div id="stream-terminal" class="stream-terminal-output"></div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeStreamModal()" class="btn-modal-close">Close Studio</button>
+                <div id="stream-modal-actions" style="display: none; gap: 0.6rem;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function sha256(message) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function initLibrary() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const emailHash = urlParams.get('user');
+            const libraryContent = document.getElementById('library-content');
+            const filterContainer = document.getElementById('library-filters-container');
+            const filterButtons = document.querySelectorAll('#library-filter-buttons .filter-btn');
+            const libraryCount = document.getElementById('library-count');
+
+            let allTopics = [];
+            let currentFilter = 'all';
+
+            if (!emailHash) {
+                libraryContent.innerHTML = `
+                    <div class="access-card">
+                        <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">🔑</div>
+                        <h3>Access Your Knowledge Library</h3>
+                        <p>Enter the email address you used to request learning topics to pull up your personalized modules.</p>
+                        <form id="access-form">
+                            <div class="form-group" style="text-align: left;">
+                                <label for="lookup-email">Email address</label>
+                                <input type="email" id="lookup-email" placeholder="alex@example.com" required>
+                            </div>
+                            <button type="submit" class="submit-btn">Unlock Library →</button>
+                        </form>
+                    </div>
+                `;
+                document.getElementById('access-form').addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const email = document.getElementById('lookup-email').value.trim().toLowerCase();
+                    const hash = await sha256(email);
+                    window.location.href = `/library.html?user=${hash}`;
+                });
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/topics?user=${emailHash}`);
+                if (!response.ok) throw new Error('Failed to retrieve topic records');
+                const topicsData = await response.json();
+
+                if (!topicsData || topicsData.length === 0) {
+                    libraryContent.innerHTML = `
+                        <div style="text-align: center; padding: 4rem 1rem;">
+                            <div style="font-size: 2.5rem; margin-bottom: 1rem;">🌱</div>
+                            <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">No curriculum found for this account</h3>
+                            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Start by submitting a concept on the main submission page.</p>
+                            <a href="/" class="btn-primary" style="display: inline-flex; width: auto;">Submit Your First Topic →</a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                allTopics = topicsData;
+                filterContainer.style.display = 'block';
+                if (libraryCount) libraryCount.textContent = `${allTopics.length} Total Units`;
+
+                window.generateTopic = (topicId, btn) => {
+                    openStreamModal(topicId);
+                };
+
+                function openStreamModal(topicId) {
+                    const modal = document.getElementById('stream-modal');
+                    const statusText = document.getElementById('stream-status-text');
+                    const terminal = document.getElementById('stream-terminal');
+                    const actions = document.getElementById('stream-modal-actions');
+                    
+                    modal.style.display = 'flex';
+                    statusText.textContent = 'Connecting to RunAnywhere on-device engine...';
+                    terminal.textContent = '';
+                    actions.style.display = 'none';
+                    actions.innerHTML = '';
+
+                    const eventSource = new EventSource(`/api/generate/${topicId}/stream`);
+
+                    eventSource.onmessage = (event) => {
+                        try {
+                            const data = JSON.parse(event.data);
+                            if (data.event === 'status') {
+                                statusText.textContent = data.message;
+                            } else if (data.event === 'token') {
+                                terminal.textContent += data.token;
+                                terminal.parentElement.scrollTop = terminal.parentElement.scrollHeight;
+                            } else if (data.event === 'complete') {
+                                const lesson = data.lesson || {};
+                                statusText.textContent = `✅ Synthesized: ${lesson.title || 'Lesson ready'}`;
+                            } else if (data.event === 'persisted') {
+                                eventSource.close();
+                                const lessonId = data.lesson_id;
+                                actions.style.display = 'inline-flex';
+                                actions.innerHTML = `
+                                    <a href="/app/#/lesson/${lessonId}" class="content-link-btn" style="background: var(--primary); color: #fff;">📖 Read Lesson</a>
+                                    <a href="/app/#/quiz/${lessonId}" class="content-link-btn" style="background: var(--accent-emerald); color: #fff;">✍️ Take Quiz</a>
+                                `;
+                                fetch(`/api/topics?user=${emailHash}`).then(r => r.json()).then(t => {
+                                    allTopics = t;
+                                    renderLibrary(currentFilter);
+                                });
+                            }
+                        } catch (e) {
+                            console.error('SSE parse error:', e);
+                        }
+                    };
+
+                    eventSource.onerror = () => {
+                        eventSource.close();
+                    };
+                }
+
+                function renderLibrary(filter = 'all') {
+                    currentFilter = filter;
+                    filterButtons.forEach(btn => {
+                        btn.classList.toggle('active', btn.dataset.category === filter);
+                    });
+
+                    const filteredTopics = allTopics.filter(topic => {
+                        const cats = topic.categories || [];
+                        if (filter === 'all') return true;
+                        return cats.includes(filter);
+                    });
+
+                    if (filteredTopics.length === 0) {
+                        libraryContent.innerHTML = `<p class="empty" style="text-align: center; padding: 3rem; color: var(--text-muted);">No lessons match the selected category.</p>`;
+                        return;
+                    }
+
+                    let html = `<div class="topics-grid">`;
+                    filteredTopics.forEach((topic) => {
+                        const itemStatus = topic.status || 'pending';
+                        const isPending = itemStatus === 'pending';
+                        const title = topic.name || topic.title || (topic.topics && topic.topics.join(', ')) || (topic.raw_topics && topic.raw_topics.join(', ')) || "Curriculum Unit";
+                        const categoriesHtml = (topic.categories || ['General']).map(c => `<span class="category-badge">${c}</span>`).join('');
+                        
+                        let lessonsHtml = '';
+                        if (topic.lessons && topic.lessons.length > 0) {
+                            topic.lessons.forEach(lesson => {
+                                const lessonId = typeof lesson === 'object' ? lesson.id : lesson;
+                                lessonsHtml += `
+                                    <a href="/app/#/lesson/${lessonId}" class="content-link-btn">📖 Read</a>
+                                    <a href="/app/#/quiz/${lessonId}" class="content-link-btn" style="border-color: rgba(16,185,129,0.3); color: #059669;">✍️ Quiz</a>
+                                `;
+                            });
+                        }
+
+                        let legacyLinks = '';
+                        if (topic.generated_items) {
+                            topic.generated_items.forEach(item => {
+                                if (item.html_file) legacyLinks += `<a href="${item.html_file}" class="content-link-btn" target="_blank">🌐 Web</a>`;
+                                if (item.pdf_file) legacyLinks += `<a href="${item.pdf_file}" class="content-link-btn" target="_blank">📕 PDF</a>`;
+                            });
+                        }
+
+                        html += `
+                            <div class="topic-card">
+                                <div class="topic-main-info">
+                                    <div class="topic-card-title">${title}</div>
+                                    <div class="topic-card-meta">
+                                        ${categoriesHtml}
+                                        <span class="status-badge ${itemStatus}">${itemStatus}</span>
+                                    </div>
+                                </div>
+                                <div class="topic-card-actions">
+                                    ${isPending ? `<button onclick="generateTopic('${topic.id}', this)" class="btn-generate-stream">⚡ Live Stream</button>` : ''}
+                                    ${lessonsHtml}
+                                    ${legacyLinks}
+                                </div>
+                            </div>
+                        `;
+                    });
+                    html += `</div>`;
+                    libraryContent.innerHTML = html;
+                }
+
+                renderLibrary('all');
+
+                filterButtons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        renderLibrary(btn.dataset.category);
+                    });
+                });
+
+            } catch (error) {
+                libraryContent.innerHTML = `<p class="error" style="text-align: center; color: var(--error); padding: 2rem;">Error: ${error.message}</p>`;
+            }
+        }
+
+        function closeStreamModal() {
+            const modal = document.getElementById('stream-modal');
+            if (modal) modal.style.display = 'none';
+        }
+        window.closeStreamModal = closeStreamModal;
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initLibrary);
+        } else {
+            initLibrary();
+        }
+    </script>
+</body>
+</html>

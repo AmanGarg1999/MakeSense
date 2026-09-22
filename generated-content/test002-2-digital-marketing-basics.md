@@ -3,8 +3,10 @@
 **Generated for:** Maria Garcia
 **Submission ID:** test002
 **Requested:** 2026-09-19T13:05:00.000Z
-**Generated:** 2026-09-19T13:10:19.710211
+**Generated:** 2026-09-20T03:14:20.036517
 **Topic Index:** 2/3
+**Category:** Business/Finance
+**Content File:** digital-marketing-basics.md
 
 ---
 
@@ -33,6 +35,33 @@ In a production pipeline, this would contain:
 ⏳ Content generation in progress (placeholder)
 ⬜ Content review and quality assurance
 ⬜ Published to learning platform
+
+---
+
+## Feedback Summary
+
+**Community Feedback:** 0 👍 / 1 👎 (Score: -1)## Feedback-Informed Improvements
+
+Based on community feedback, this version includes:
+
+- **More practical examples** - Users requested more hands-on content
+- **Clearer explanations** - Simplified technical jargon based on feedback
+- **Additional resources** - Added further reading links
+
+**Recent User Comments:**
+- "Too basic, needs more advanced strategies."
+
+---
+
+## Feedback
+
+**Was this content helpful?**
+
+<div class="feedback-buttons" data-content-file="test002-2-digital-marketing-basics.md" data-topic="Digital marketing basics" data-submission-id="test002">
+    <button class="feedback-btn thumbs-up" data-feedback="up" title="Helpful">👍 Helpful</button>
+    <button class="feedback-btn thumbs-down" data-feedback="down" title="Not helpful">👎 Not Helpful</button>
+</div>
+<div class="feedback-message" style="display: none;"></div>
 
 ---
 

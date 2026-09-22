@@ -30,8 +30,101 @@ jobs:
           SUBMISSION="${{ github.event.inputs.submission || github.event.client_payload.submission }}"
           echo "submission=$SUBMISSION" >> $GITHUB_OUTPUT
 
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install jsonschema
+        run: pip install jsonschema
+
+      - name: Validate submission
+        id: validate
+        if: ${{ always() }}
+        run: |
+          SUBMISSION="${{ steps.parse.outputs.submission }}"
+          python3 -c "
+          import sys, json, jsonschema
+          with open('schemas/topic-submission.json') as f:
+              schema = json.load(f)
+          data = json.loads(sys.argv[1])
+          try:
+              jsonschema.validate(data, schema)
+              print('Validation passed')
+          except jsonschema.exceptions.ValidationError as e:
+              print('Validation error:', e.message)
+              sys.exit(1)
+          " "$SUBMISSION"
+
+      - name: Check honeypot and rate limit
+        id: checks
+        run: |
+          SUBMISSION="${{ steps.parse.outputs.submission }}"
+          python3 -c "
+          import json, os, sys, time
+          data = json.loads(os.environ['SUBMISSION'])
+
+          # Check honeypot
+          website_url = data.get('website_url', '')
+          if website_url and website_url.strip() != '':
+              print('Honeypot triggered')
+              with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+                  print('honeypot_triggered=true', file=f)
+              sys.exit(0)
+
+          # Get IP
+          ip = data.get('ip')
+          if not ip:
+              print('No IP in submission')
+              sys.exit(1)
+
+          # Path to rate limit file
+          rate_limit_file = 'data/rate_limit.json'
+
+          # Read current rate limit data
+          if os.path.exists(rate_limit_file):
+              with open(rate_limit_file, 'r') as f:
+                  try:
+                      rate_limit_data = json.load(f)
+                  except:
+                      rate_limit_data = {}
+          else:
+              rate_limit_data = {}
+
+          # Current time
+          now = time.time()
+          one_hour_ago = now - 3600
+
+          # Initialize entry for IP if not exists
+          if ip not in rate_limit_data:
+              rate_limit_data[ip] = []
+
+          # Remove timestamps older than 1 hour
+          rate_limit_data[ip] = [ts for ts in rate_limit_data[ip] if ts > one_hour_ago]
+
+          # Check if rate limited
+          if len(rate_limit_data[ip]) >= 5:
+              print(f'Rate limit exceeded for IP {ip}: {len(rate_limit_data[ip])} submissions in the last hour')
+              with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+                  print('honeypot_triggered=false', file=f)
+                  print('rate_limited=true', file=f)
+              sys.exit(0)
+          else:
+              # Add current timestamp
+              rate_limit_data[ip].append(now)
+              # Write back
+              with open(rate_limit_file, 'w') as f:
+                  json.dump(rate_limit_data, f, indent=2)
+              with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+                  print('honeypot_triggered=false', file=f)
+                  print('rate_limited=false', file=f)
+                  print('rate_limit_updated=true', file=f)
+              sys.exit(0)
+          "
+
       - name: Read current topics
         id: read-topics
+        if: ${{ steps.checks.outputs.honeypot_triggered == 'false' && steps.checks.outputs.rate_limited == 'false' }}
         run: |
           if [ -f data/topics.json ]; then
             cat data/topics.json
@@ -39,33 +132,163 @@ jobs:
             echo "[]"
           fi
 
+      - name: Check for duplicate and update if found
+        id: duplicate-check
+        if: ${{ steps.checks.outputs.honeypot_triggered == 'false' && steps.checks.outputs.rate_limited == 'false' }}
+        run: |
+          SUBMISSION="${{ steps.parse.outputs.submission }}"
+          CURRENT="${{ steps.read-topics.outputs.stdout }}"
+          python3 -c "
+          import sys, json, os, re, datetime
+          from datetime import timezone
+
+          def normalize_topic(topic):
+              # Remove punctuation, lowercase, strip
+              return re.sub(r'[^\\\\w\\\\s]', '', topic.lower()).strip()
+
+          submission = json.loads(os.environ['SUBMISSION'])
+          email = submission.get('email', '')
+          topic = submission.get('topic', '')
+
+          try:
+              current_topics = json.loads(os.environ['CURRENT'])
+          except:
+              current_topics = []
+
+          cutoff = datetime.datetime.now(timezone.utc) - datetime.timedelta(days=30)
+          duplicate_found = False
+          updated_topics = current_topics  # we'll update in place if duplicate found
+
+          for item in current_topics:
+              item_email = item.get('email', '')
+              if item_email.lower() == email.lower():
+                  for t in item.get('topics', []):
+                      if normalize_topic(t) == normalize_topic(topic):
+                          item_timestamp = item.get('timestamp')
+                          if item_timestamp:
+                              try:
+                                  dt = datetime.datetime.fromisoformat(item_timestamp.replace('Z', '+00:00'))
+                                  if dt >= cutoff:
+                                      # Found duplicate within 30 days
+                                      item['timestamp'] = datetime.datetime.now(timezone.utc).isoformat()
+                                      item['submission_count'] = item.get('submission_count', 0) + 1
+                                      duplicate_found = True
+                                      break
+                              except Exception as e:
+                                  pass
+                  if duplicate_found:
+                      break
+
+          # Outputs
+          print(f'duplicate_found={str(duplicate_found).lower()}')
+          print(f'updated_topics={json.dumps(updated_topics)}')
+          " >> $GITHUB_OUTPUT
+
+      - name: Transform submission to topics.json item
+        id: transform
+        if: ${{ steps.checks.outputs.honeypot_triggered == 'false' && steps.checks.outputs.rate_limited == 'false' }}
+        run: |
+          SUBMISSION="${{ steps.parse.outputs.submission }}"
+          python3 -c "
+          import sys, json, uuid, datetime, re
+          data = json.loads(sys.argv[1])
+          # Generate id
+          item_id = str(uuid.uuid4())
+          # Timestamp: use submission timestamp if provided and valid, else now
+          if data.get('timestamp'):
+              try:
+                  datetime.datetime.fromisoformat(data['timestamp'].replace('Z', '+00:00'))
+                  timestamp = data['timestamp']
+              except:
+                  timestamp = datetime.datetime.now(datetime.timezone.utc).isoformat()
+          else:
+              timestamp = datetime.datetime.now(datetime.timezone.utc).isoformat()
+          # Name: from email or empty
+          email = data.get('email')
+          if email and '@' in email:
+              name = email.split('@')[0]
+          else:
+              name = ''
+          # Topics: combine topic and categories
+          topics = []
+          if data.get('topic'):
+              topics.append(data['topic'])
+          if data.get('categories'):
+              topics.extend(data['categories'])
+          # Status
+          status = 'processing'
+          # Generated at: now
+          generated_at = datetime.datetime.now(datetime.timezone.utc).isoformat()
+          # Generated items: for each topic, create a placeholder
+          generated_items = []
+          for idx, topic in enumerate(topics, start=1):
+              # Simple slug: lowercase, replace non-alnum with hyphen
+              slug = re.sub(r'[^a-z0-9]+', '-', topic.lower()).strip('-')
+              file_path = f'generated-content/{item_id}-{idx}-{slug}.md'
+              generated_items.append({
+                  'topic': topic,
+                  'file': file_path,
+                  'status': 'placeholder_generated'
+              })
+          # Construct item
+          item = {
+              'id': item_id,
+              'timestamp': timestamp,
+              'name': name,
+              'email': email if email else None,
+              'topics': topics,
+              'status': status,
+              'generated_at': generated_at,
+              'generated_items': generated_items
+          }
+          print(json.dumps(item))
+          " "$SUBMISSION" >> $GITHUB_OUTPUT
+          echo "transformed_item=$(cat)" >> $GITHUB_OUTPUT
+
       - name: Update topics.json
         id: update
+        if: ${{ steps.checks.outputs.honeypot_triggered == 'false' && steps.checks.outputs.rate_limited == 'false' }}
         run: |
           CURRENT="${{ steps.read-topics.outputs.stdout }}"
-          NEW="${{ steps.parse.outputs.submission }}"
+          DUPLICATE_FOUND="${{ steps.duplicate-check.outputs.duplicate_found }}"
+          UPDATED_TOPICS="${{ steps.duplicate-check.outputs.updated_topics }}"
+          NEW_ITEM="${{ steps.transform.outputs.transformed_item }}"
 
-          # Use node to properly merge JSON
-          node -e "
-            const current = JSON.parse(process.env.CURRENT || '[]');
-            const newItem = JSON.parse(process.env.NEW);
-            const updated = [newItem, ...current];
-            console.log(JSON.stringify(updated, null, 2));
-          " > data/topics.json
-
+          if [[ "$DUPLICATE_FOUND" == "true" ]]; then
+              echo "$UPDATED_TOPICS" > data/topics.json
+          else
+              # Use node to prepend NEW_ITEM to CURRENT
+              node -e "
+                const current = JSON.parse(process.env.CURRENT || '[]');
+                const newItem = JSON.parse(process.env.NEW_ITEM);
+                const updated = [newItem, ...current];
+                console.log(JSON.stringify(updated, null, 2));
+              " > data/topics.json
+          fi
           cat data/topics.json
 
       - name: Commit and push
+        if: ${{ steps.checks.outputs.honeypot_triggered == 'false' && steps.checks.outputs.rate_limited == 'false' }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/topics.json
-          git commit -m "chore: add topic submission from survey" || echo "No changes to commit"
+          git commit -m \"chore: add topic submission from survey\" || echo \"No changes to commit\"
           git push origin HEAD:main
 
       - name: Trigger content generation
+        if: ${{ steps.checks.outputs.honeypot_triggered == 'false' && steps.checks.outputs.rate_limited == 'false' }}
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           event-type: content-generation-trigger
-          client-payload: '{"source": "survey-handler", "topics_file": "data/topics.json"}'
+          client-payload: '{\"source\": \"survey-handler\", \"topics_file\": \"data/topics.json\"}'
+
+      - name: Commit rate limit updates
+        if: ${{ steps.checks.outputs.rate_limit_updated == 'true' }}
+        run: |
+          git config user.name \"github-actions[bot]\"
+          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"
+          git add data/rate_limit.json
+          git commit -m \"chore: update rate limit data\" || echo \"No changes to commit\"
+          git push origin HEAD:main

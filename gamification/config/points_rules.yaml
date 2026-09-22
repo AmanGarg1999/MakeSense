@@ -1,0 +1,13 @@
+# Points awarded per event type
+course_completion: 100
+lesson_completion: 20
+question_answer_correct: 10
+question_answer_incorrect: 5
+streak_bonus: 50
+daily_login: 5
+peer_help: 15
+content_contribution: 25
+review_completion: 15
+achievement_unlock: 0
+referral_bonus: 50
+manual_adjustment: 0

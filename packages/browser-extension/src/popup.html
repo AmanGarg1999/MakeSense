@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MakeSense - Browse to Learn</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="brand">
+        <img src="../icons/icon-48.png" alt="MakeSense" class="logo">
+        <div>
+          <h2>MakeSense</h2>
+          <span class="badge">RunAnywhere AI</span>
+        </div>
+      </div>
+      <button id="btn-settings" class="icon-btn" title="Settings">⚙️</button>
+    </header>
+
+    <div id="settings-panel" class="settings-panel hidden">
+      <label for="server-url">MakeSense Server URL:</label>
+      <input type="text" id="server-url" value="http://localhost:8090">
+      <label for="model-select">Target Model:</label>
+      <select id="model-select">
+        <option value="qwen2.5:3b" selected>Qwen 2.5 (3B) - On-Device</option>
+        <option value="qwen2.5:1.5b">Qwen 2.5 (1.5B) - Fast</option>
+        <option value="llama3.2:3b">Llama 3.2 (3B)</option>
+      </select>
+      <button id="btn-save-settings" class="secondary-btn">Save Settings</button>
+    </div>
+
+    <main class="main-content">
+      <div class="card page-card">
+        <span class="card-label">CURRENT PAGE</span>
+        <h3 id="page-title">Loading active tab...</h3>
+        <div class="meta-row">
+          <span id="detected-category" class="tag">Detecting...</span>
+          <span id="model-tag" class="tag-subtle">qwen2.5:3b</span>
+        </div>
+      </div>
+
+      <div class="action-grid">
+        <button id="btn-create-lesson" class="primary-btn">
+          <span>🚀</span> Create Full Lesson on MakeSense
+        </button>
+        <button id="btn-quick-quiz" class="secondary-btn">
+          <span>🧠</span> Quick On-Device Quiz
+        </button>
+      </div>
+
+      <div id="status-container" class="status-container hidden">
+        <div class="spinner"></div>
+        <p id="status-text">Analyzing page content with local model...</p>
+      </div>
+
+      <div id="result-card" class="card result-card hidden">
+        <h4>🎉 Lesson Created!</h4>
+        <p id="result-summary"></p>
+        <a id="btn-open-lesson" class="open-link" href="#" target="_blank">
+          Open in MakeSense Dashboard &rarr;
+        </a>
+      </div>
+
+      <div id="quiz-card" class="card quiz-card hidden">
+        <h4>Instant Active Recall</h4>
+        <div id="quiz-content"></div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <span>100% Private &bull; On-Device Inference</span>
+    </footer>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

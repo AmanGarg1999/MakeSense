@@ -55,8 +55,8 @@ def update_generation_success_rate() -> Dict[str, Any]:
 
 def update_user_satisfaction(feedback_data: list) -> Dict[str, Any]:
     """Calculate user satisfaction ratio from feedback data."""
-    upvotes = sum(1 for f in feedback_data if f.get('rating') == 'up')
-    downvotes = sum(1 for f in feedback_data if f.get('rating') == 'down')
+    upvotes = sum(1 for f in feedback_data if f.get('feedback_type') == 'up')
+    downvotes = sum(1 for f in feedback_data if f.get('feedback_type') == 'down')
     total = upvotes + downvotes
     ratio = upvotes / total if total > 0 else 0.0
     return {

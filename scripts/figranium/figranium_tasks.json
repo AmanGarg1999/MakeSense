@@ -1,0 +1,3084 @@
+[
+  {
+    "name": "test-task",
+    "steps": [
+      {
+        "type": "navigate",
+        "url": "https://example.com"
+      },
+      {
+        "type": "screenshot"
+      }
+    ],
+    "id": "task_1787305497422",
+    "variables": {},
+    "stealth": {
+      "allowTypos": false,
+      "idleMovements": false,
+      "overscroll": false,
+      "deadClicks": false,
+      "fatigue": false,
+      "naturalTyping": true,
+      "cursorGlide": false,
+      "randomizeClicks": false
+    },
+    "rotateProxies": false,
+    "rotateViewport": false,
+    "extractionFormat": "json",
+    "includeHtml": false,
+    "includeShadowDom": true,
+    "disableRecording": false,
+    "statelessExecution": false,
+    "last_opened": 1787327925389,
+    "versions": []
+  },
+  {
+    "name": "hn-scraper",
+    "url": "https://news.ycombinator.com",
+    "mode": "scrape",
+    "actions": [
+      {
+        "type": "wait_selector",
+        "selector": ".hnname"
+      },
+      {
+        "type": "javascript",
+        "value": "return Array.from(document.querySelectorAll(\".athing\")).slice(0,5).map(tr => ({ title: tr.querySelector(\".titleline > a\")?.innerText, href: tr.querySelector(\".titleline > a\")?.href, score: tr.querySelector(\".score\")?.innerText }));",
+        "varName": "stories"
+      }
+    ],
+    "id": "task_1787305557261",
+    "versions": []
+  },
+  {
+    "name": "scmp-world-news",
+    "url": "https://www.scmp.com/news/world",
+    "mode": "scrape",
+    "wait": 5,
+    "actions": [
+      {
+        "type": "wait_selector",
+        "selector": ".article-card, .article-item, article, .headline"
+      },
+      {
+        "type": "javascript",
+        "value": "return Array.from(document.querySelectorAll(\"article, .article-card, .article-item, .headline\")).slice(0,20).map(el => ({ title: el.querySelector(\"h1, h2, h3, .title, .headline\")?.innerText?.trim(), url: el.querySelector(\"a\")?.href, summary: el.querySelector(\".summary, .excerpt, p\")?.innerText?.trim() })).filter(x => x.title && x.title.length > 10);",
+        "varName": "articles"
+      }
+    ],
+    "id": "task_1787308160825",
+    "versions": []
+  },
+  {
+    "name": "bbc-world-news",
+    "url": "https://www.bbc.com/news/world",
+    "mode": "scrape",
+    "wait": 5,
+    "actions": [
+      {
+        "type": "wait_selector",
+        "selector": ".gs-c-promo, article"
+      },
+      {
+        "type": "javascript",
+        "value": "return Array.from(document.querySelectorAll(\"article, .gs-c-promo\")).slice(0,20).map(el => ({ title: el.querySelector(\"h1, h2, h3, .gs-c-promo-heading\")?.innerText?.trim(), url: el.querySelector(\"a\")?.href, summary: el.querySelector(\".gs-c-promo-summary, p\")?.innerText?.trim() })).filter(x => x.title && x.title.length > 10);",
+        "varName": "articles"
+      }
+    ],
+    "id": "task_1787308228940",
+    "versions": []
+  },
+  {
+    "name": "reuters-world-news",
+    "url": "https://www.reuters.com/world/",
+    "mode": "scrape",
+    "wait": 5,
+    "actions": [
+      {
+        "type": "wait_selector",
+        "selector": "article, .story-card, .media-story-card"
+      },
+      {
+        "type": "javascript",
+        "value": "return Array.from(document.querySelectorAll(\"article, .story-card, .media-story-card\")).slice(0,20).map(el => ({ title: el.querySelector(\"h1, h2, h3, .story-title, .media-story-card__heading\")?.innerText?.trim(), url: el.querySelector(\"a\")?.href, summary: el.querySelector(\".story-body, .media-story-card__summary, p\")?.innerText?.trim() })).filter(x => x.title && x.title.length > 10);",
+        "varName": "articles"
+      }
+    ],
+    "id": "task_1787308239621",
+    "versions": []
+  },
+  {
+    "name": "aljazeera-world-news",
+    "url": "https://www.aljazeera.com/news/",
+    "mode": "scrape",
+    "wait": 5,
+    "actions": [
+      {
+        "type": "wait_selector",
+        "selector": "article, .gc__content, .featured-article"
+      },
+      {
+        "type": "javascript",
+        "value": "return Array.from(document.querySelectorAll(\"article, .gc__content, .featured-article\")).slice(0,20).map(el => ({ title: el.querySelector(\"h1, h2, h3, .gc__title, .featured-article__title\")?.innerText?.trim(), url: el.querySelector(\"a\")?.href, summary: el.querySelector(\".gc__excerpt, .featured-article__excerpt, p\")?.innerText?.trim() })).filter(x => x.title && x.title.length > 10);",
+        "varName": "articles"
+      }
+    ],
+    "id": "task_1787308263324",
+    "versions": []
+  },
+  {
+    "name": "guardian-world-news",
+    "url": "https://www.theguardian.com/world",
+    "mode": "scrape",
+    "wait": 5,
+    "actions": [
+      {
+        "type": "wait_selector",
+        "selector": ".dcr-1v2gv60, .fc-item, article"
+      },
+      {
+        "type": "javascript",
+        "value": "return Array.from(document.querySelectorAll(\"article, .fc-item, .dcr-1v2gv60\")).slice(0,20).map(el => ({ title: el.querySelector(\"h1, h2, h3, .fc-item__title, .dcr-1v2gv60\")?.innerText?.trim(), url: el.querySelector(\"a\")?.href, summary: el.querySelector(\".fc-item__standfirst, .dcr-1v2gv60, p\")?.innerText?.trim() })).filter(x => x.title && x.title.length > 10);",
+        "varName": "articles"
+      }
+    ],
+    "id": "task_1787308330132",
+    "versions": []
+  },
+  {
+    "name": "nyt-world-news",
+    "url": "https://www.nytimes.com/section/world",
+    "mode": "scrape",
+    "wait": 5,
+    "actions": [
+      {
+        "type": "wait_selector",
+        "selector": "article, .css-1l4spti, .story-wrapper"
+      },
+      {
+        "type": "javascript",
+        "value": "return Array.from(document.querySelectorAll(\"article, .css-1l4spti, .story-wrapper\")).slice(0,20).map(el => ({ title: el.querySelector(\"h1, h2, h3, .css-1j9dxys, .indicate-hover\")?.innerText?.trim(), url: el.querySelector(\"a\")?.href, summary: el.querySelector(\".css-1pga48a, .summary, p\")?.innerText?.trim() })).filter(x => x.title && x.title.length > 10);",
+        "varName": "articles"
+      }
+    ],
+    "id": "task_1787308353154",
+    "versions": []
+  },
+  {
+    "name": "france24-world-news",
+    "url": "https://www.france24.com/en/world/",
+    "mode": "scrape",
+    "wait": 5,
+    "actions": [
+      {
+        "type": "wait_selector",
+        "selector": "article, .o-layout-list__item, .article-en"
+      },
+      {
+        "type": "javascript",
+        "value": "return Array.from(document.querySelectorAll(\"article, .o-layout-list__item, .article-en\")).slice(0,20).map(el => ({ title: el.querySelector(\"h1, h2, h3, .article-en__title\")?.innerText?.trim(), url: el.querySelector(\"a\")?.href, summary: el.querySelector(\".article-en__summary, .o-layout-list__item__summary, p\")?.innerText?.trim() })).filter(x => x.title && x.title.length > 10);",
+        "varName": "articles"
+      }
+    ],
+    "id": "task_1787308363522",
+    "versions": []
+  },
+  {
+    "name": "dw-world-news",
+    "url": "https://www.dw.com/en/top-stories/world",
+    "mode": "scrape",
+    "wait": 5,
+    "actions": [
+      {
+        "type": "wait_selector",
+        "selector": "article, .newsCard, .teaser"
+      },
+      {
+        "type": "javascript",
+        "value": "return Array.from(document.querySelectorAll(\"article, .newsCard, .teaser\")).slice(0,20).map(el => ({ title: el.querySelector(\"h1, h2, h3, .newsCard__title, .teaser__title\")?.innerText?.trim(), url: el.querySelector(\"a\")?.href, summary: el.querySelector(\".newsCard__summary, .teaser__summary, p\")?.innerText?.trim() })).filter(x => x.title && x.title.length > 10);",
+        "varName": "articles"
+      }
+    ],
+    "id": "task_1787308377329",
+    "versions": []
+  },
+  {
+    "name": "strait-times-news",
+    "url": "https://www.straitstimes.com/world",
+    "mode": "scrape",
+    "wait": 5,
+    "actions": [
+      {
+        "type": "wait_selector",
+        "selector": "article, .story-card, .media-object"
+      },
+      {
+        "type": "javascript",
+        "value": "return Array.from(document.querySelectorAll(\"article, .story-card, .media-object\")).slice(0,20).map(el => ({ title: el.querySelector(\"h1, h2, h3, .story-card__title, .media-object__title\")?.innerText?.trim(), url: el.querySelector(\"a\")?.href, summary: el.querySelector(\".story-card__summary, .media-object__summary, p\")?.innerText?.trim() })).filter(x => x.title && x.title.length > 10);",
+        "varName": "articles"
+      }
+    ],
+    "id": "task_1787308391133",
+    "versions": []
+  },
+  {
+    "name": "hindu-world-news",
+    "url": "https://www.thehindu.com/news/international/",
+    "mode": "scrape",
+    "wait": 5,
+    "actions": [
+      {
+        "type": "wait_selector",
+        "selector": "article, .story-card, .element"
+      },
+      {
+        "type": "javascript",
+        "value": "return Array.from(document.querySelectorAll(\"article, .story-card, .element\")).slice(0,20).map(el => ({ title: el.querySelector(\"h1, h2, h3, .title\")?.innerText?.trim(), url: el.querySelector(\"a\")?.href, summary: el.querySelector(\".summary, .intro, p\")?.innerText?.trim() })).filter(x => x.title && x.title.length > 10);",
+        "varName": "articles"
+      }
+    ],
+    "id": "task_1787308396704",
+    "versions": []
+  },
+  {
+    "name": "france24_world",
+    "description": "Scrape France24 World News",
+    "steps": [
+      {
+        "action": "navigate",
+        "url": "https://www.france24.com/en/world/"
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "extract",
+        "selector": "body",
+        "attribute": "outerHTML"
+      }
+    ],
+    "id": "task_1787319719406",
+    "versions": []
+  },
+  {
+    "name": "dw_world",
+    "description": "Scrape DW World News",
+    "steps": [
+      {
+        "action": "navigate",
+        "url": "https://www.dw.com/en/top-stories/world"
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "extract",
+        "selector": "body",
+        "attribute": "outerHTML"
+      }
+    ],
+    "id": "task_1787319729733",
+    "versions": []
+  },
+  {
+    "name": "reuters_world",
+    "description": "Scrape Reuters World News",
+    "steps": [
+      {
+        "action": "navigate",
+        "url": "https://www.reuters.com/world/"
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "extract",
+        "selector": "body",
+        "attribute": "outerHTML"
+      }
+    ],
+    "id": "task_1787319750290",
+    "versions": []
+  },
+  {
+    "name": "france24_world_v2",
+    "description": "Scrape France24 World News with headful browser",
+    "steps": [
+      {
+        "action": "navigate",
+        "url": "https://www.france24.com/en/world/",
+        "headless": false
+      },
+      {
+        "action": "wait",
+        "seconds": 8
+      },
+      {
+        "action": "click",
+        "selector": "button:has-text(\"Accept\"), button:has-text(\"I agree\"), #onetrust-accept-btn-handler, .cookie-accept"
+      },
+      {
+        "action": "wait",
+        "seconds": 3
+      },
+      {
+        "action": "scroll",
+        "direction": "down",
+        "amount": 3
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "extract",
+        "selector": "body",
+        "attribute": "outerHTML"
+      }
+    ],
+    "id": "task_1787328159197",
+    "versions": []
+  },
+  {
+    "name": "dw_world_v2",
+    "description": "Scrape DW World News with headful browser",
+    "steps": [
+      {
+        "action": "navigate",
+        "url": "https://www.dw.com/en/top-stories/world",
+        "headless": false
+      },
+      {
+        "action": "wait",
+        "seconds": 8
+      },
+      {
+        "action": "click",
+        "selector": "button:has-text(\"Accept\"), button:has-text(\"I agree\"), #onetrust-accept-btn-handler, .cookie-accept, [data-testid=\"uc-accept-all-button\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 3
+      },
+      {
+        "action": "scroll",
+        "direction": "down",
+        "amount": 3
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "extract",
+        "selector": "body",
+        "attribute": "outerHTML"
+      }
+    ],
+    "id": "task_1787328233525",
+    "versions": []
+  },
+  {
+    "name": "reuters_world_v2",
+    "description": "Scrape Reuters World News with headful browser",
+    "steps": [
+      {
+        "action": "navigate",
+        "url": "https://www.reuters.com/world/",
+        "headless": false
+      },
+      {
+        "action": "wait",
+        "seconds": 8
+      },
+      {
+        "action": "click",
+        "selector": "button:has-text(\"Accept\"), button:has-text(\"I agree\"), #onetrust-accept-btn-handler, .cookie-accept, [data-testid=\"uc-accept-all-button\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 3
+      },
+      {
+        "action": "scroll",
+        "direction": "down",
+        "amount": 3
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "extract",
+        "selector": "body",
+        "attribute": "outerHTML"
+      }
+    ],
+    "id": "task_1787328250114",
+    "versions": []
+  },
+  {
+    "name": "france24_rss",
+    "description": "France24 World RSS Feed",
+    "steps": [
+      {
+        "action": "navigate",
+        "url": "https://www.france24.com/en/world/rss"
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "extract",
+        "selector": "body",
+        "attribute": "outerHTML"
+      }
+    ],
+    "id": "task_1787328286874",
+    "versions": []
+  },
+  {
+    "name": "dw_rss",
+    "description": "DW World RSS Feed",
+    "steps": [
+      {
+        "action": "navigate",
+        "url": "https://rss.dw.com/rdf/rss-en-all"
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "extract",
+        "selector": "body",
+        "attribute": "outerHTML"
+      }
+    ],
+    "id": "task_1787328304679",
+    "versions": []
+  },
+  {
+    "name": "reuters_rss",
+    "description": "Reuters World RSS Feed",
+    "steps": [
+      {
+        "action": "navigate",
+        "url": "https://www.reuters.com/arc/outboundfeeds/rss/category/worldNews/"
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "extract",
+        "selector": "body",
+        "attribute": "outerHTML"
+      }
+    ],
+    "id": "task_1787328310456",
+    "versions": []
+  },
+  {
+    "name": "news-site-interaction",
+    "url": "http://100.106.2.107:8080/",
+    "steps": [
+      {
+        "action": "navigate",
+        "url": "http://100.106.2.107:8080/",
+        "headless": false
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "initial-load"
+      },
+      {
+        "action": "click",
+        "selector": "button.nav-tab[data-view=\"topics\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "screenshot",
+        "name": "topics-view"
+      },
+      {
+        "action": "click",
+        "selector": "button.nav-tab[data-view=\"briefings\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "screenshot",
+        "name": "briefings-view"
+      },
+      {
+        "action": "click",
+        "selector": "button.nav-tab[data-view=\"chat\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "screenshot",
+        "name": "chat-view"
+      },
+      {
+        "action": "type",
+        "selector": "#chatInput",
+        "text": "What are the top geopolitical stories today?"
+      },
+      {
+        "action": "click",
+        "selector": "#chatSend"
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "chat-response"
+      },
+      {
+        "action": "click",
+        "selector": "button.nav-tab[data-view=\"articles\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "click",
+        "selector": ".article-card .btn-primary"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "screenshot",
+        "name": "article-detail"
+      },
+      {
+        "action": "click",
+        "selector": "#closeDetailBtn"
+      },
+      {
+        "action": "wait",
+        "seconds": 1
+      },
+      {
+        "action": "click",
+        "selector": "#sourceFilters input[data-source=\"bbc\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "screenshot",
+        "name": "bbc-filtered"
+      },
+      {
+        "action": "click",
+        "selector": "#categoryFilters input[data-category=\"geopolitics\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "screenshot",
+        "name": "geopolitics-filtered"
+      },
+      {
+        "action": "extract",
+        "selector": "body",
+        "attribute": "outerHTML"
+      }
+    ],
+    "stealth": {
+      "allowTypos": false,
+      "idleMovements": false,
+      "overscroll": false,
+      "deadClicks": false,
+      "fatigue": false,
+      "naturalTyping": true,
+      "cursorGlide": false,
+      "randomizeClicks": false
+    },
+    "rotateProxies": false,
+    "rotateViewport": false,
+    "extractionFormat": "json",
+    "includeHtml": true,
+    "includeShadowDom": true,
+    "disableRecording": false,
+    "statelessExecution": false,
+    "id": "task_1787670928425",
+    "versions": []
+  },
+  {
+    "name": "news-site-full-workflow",
+    "url": "http://100.106.2.107:8080/",
+    "steps": [
+      {
+        "action": "navigate",
+        "url": "http://100.106.2.107:8080/",
+        "headless": false
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "01-initial-load"
+      },
+      {
+        "action": "click",
+        "selector": "button.nav-tab[data-view=\"topics\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "screenshot",
+        "name": "02-topics-view"
+      },
+      {
+        "action": "click",
+        "selector": ".topic-item[data-topic=\"iran\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 3
+      },
+      {
+        "action": "screenshot",
+        "name": "03-iran-topic-detail"
+      },
+      {
+        "action": "click",
+        "selector": ".topic-articles .article-card .btn-primary"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "screenshot",
+        "name": "04-iran-article-detail"
+      },
+      {
+        "action": "click",
+        "selector": "#closeDetailBtn"
+      },
+      {
+        "action": "wait",
+        "seconds": 1
+      },
+      {
+        "action": "click",
+        "selector": "button.nav-tab[data-view=\"topics\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 1
+      },
+      {
+        "action": "click",
+        "selector": "button.nav-tab[data-view=\"briefings\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 3
+      },
+      {
+        "action": "screenshot",
+        "name": "05-briefings-view"
+      },
+      {
+        "action": "click",
+        "selector": ".briefing-card .btn-primary"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "screenshot",
+        "name": "06-briefing-detail"
+      },
+      {
+        "action": "click",
+        "selector": "button.nav-tab[data-view=\"briefings\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 1
+      },
+      {
+        "action": "click",
+        "selector": "button.nav-tab[data-view=\"chat\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "screenshot",
+        "name": "07-chat-view"
+      },
+      {
+        "action": "type",
+        "selector": "#chatInput",
+        "text": "What are the top geopolitical stories today?"
+      },
+      {
+        "action": "click",
+        "selector": "#chatSend"
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "08-chat-response-geopolitics"
+      },
+      {
+        "action": "type",
+        "selector": "#chatInput",
+        "text": "How do different sources cover Iran nuclear issues?"
+      },
+      {
+        "action": "click",
+        "selector": "#chatSend"
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "09-chat-response-iran"
+      },
+      {
+        "action": "click",
+        "selector": "button.nav-tab[data-view=\"articles\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "screenshot",
+        "name": "10-articles-view"
+      },
+      {
+        "action": "click",
+        "selector": "#sourceFilters input[data-source=\"bbc\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "screenshot",
+        "name": "11-bbc-filtered"
+      },
+      {
+        "action": "click",
+        "selector": "#sourceFilters input[data-source=\"bbc\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 1
+      },
+      {
+        "action": "click",
+        "selector": "#categoryFilters input[data-category=\"geopolitics_conflict\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "screenshot",
+        "name": "12-geopolitics-filtered"
+      },
+      {
+        "action": "click",
+        "selector": "#categoryFilters input[data-category=\"geopolitics_conflict\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 1
+      },
+      {
+        "action": "click",
+        "selector": "#sourceFilters input[data-source=\"aljazeera\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "screenshot",
+        "name": "13-aljazeera-filtered"
+      },
+      {
+        "action": "click",
+        "selector": "#sourceFilters input[data-source=\"aljazeera\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 1
+      },
+      {
+        "action": "click",
+        "selector": ".article-card .btn-primary"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "screenshot",
+        "name": "14-article-detail-final"
+      },
+      {
+        "action": "extract",
+        "selector": "body",
+        "attribute": "outerHTML"
+      }
+    ],
+    "stealth": {
+      "allowTypos": false,
+      "idleMovements": false,
+      "overscroll": false,
+      "deadClicks": false,
+      "fatigue": false,
+      "naturalTyping": true,
+      "cursorGlide": false,
+      "randomizeClicks": false
+    },
+    "rotateProxies": false,
+    "rotateViewport": false,
+    "extractionFormat": "json",
+    "includeHtml": true,
+    "includeShadowDom": true,
+    "disableRecording": false,
+    "statelessExecution": false,
+    "id": "task_1787671718920",
+    "versions": []
+  },
+  {
+    "name": "trending-topics-discovery",
+    "description": "Discover trending topics from YouTube Trending, Google Trends, and Twitter/X",
+    "url": "https://www.youtube.com/feed/trending",
+    "steps": [
+      {
+        "action": "navigate",
+        "url": "https://www.youtube.com/feed/trending",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "youtube-trending-initial"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('ytd-video-renderer, ytd-rich-item-renderer')).slice(0, 50).map(el => ({ title: el.querySelector('#video-title, .yt-core-attributed-string--link-inherit-color')?.innerText?.trim(), url: el.querySelector('#video-title, a#video-title-link')?.href, channel: el.querySelector('#channel-name, .ytd-channel-name a')?.innerText?.trim(), views: el.querySelector('#metadata-line span, .inline-metadata-item')?.innerText?.trim(), thumbnail: el.querySelector('img.yt-core-image--fill-parent-height')?.src })).filter(x => x.title && x.title.length > 5);",
+        "varName": "youtube_trending"
+      },
+      {
+        "action": "navigate",
+        "url": "https://trends.google.com/trending?geo=US",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "google-trends-initial"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('.feed-item, .trending-story, .mZ3RIc')).slice(0, 30).map(el => ({ title: el.querySelector('.title, .mZ3RIc, h3')?.innerText?.trim(), url: el.querySelector('a')?.href, searchVolume: el.querySelector('.search-volume, .qe8AG')?.innerText?.trim(), category: el.querySelector('.category, .topic-tag')?.innerText?.trim() })).filter(x => x.title && x.title.length > 3);",
+        "varName": "google_trends"
+      },
+      {
+        "action": "navigate",
+        "url": "https://x.com/explore/tabs/trending",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "twitter-trending-initial"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('[data-testid=\"trend\"] .css-175oi2r, [aria-label=\"Timeline: Trending now\"] div[dir=\"ltr\"]')).slice(0, 30).map(el => ({ topic: el.querySelector('[dir=\"ltr\"] span, .css-146c3p1')?.innerText?.trim(), tweetVolume: el.querySelector('.css-1dbjc4n.r-18u37iz span')?.innerText?.trim(), category: el.querySelector('[data-testid=\"trend-category\"]')?.innerText?.trim() })).filter(x => x.topic && x.topic.length > 2);",
+        "varName": "twitter_trending"
+      },
+      {
+        "action": "extract",
+        "selector": "body",
+        "attribute": "outerHTML"
+      }
+    ],
+    "stealth": {
+      "allowTypos": false,
+      "idleMovements": false,
+      "overscroll": false,
+      "deadClicks": false,
+      "fatigue": false,
+      "naturalTyping": true,
+      "cursorGlide": false,
+      "randomizeClicks": false
+    },
+    "rotateProxies": false,
+    "rotateViewport": false,
+    "extractionFormat": "json",
+    "includeHtml": true,
+    "includeShadowDom": true,
+    "disableRecording": false,
+    "statelessExecution": true,
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "youtube_trending": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "channel": {
+                "type": "string"
+              },
+              "views": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "google_trends": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "searchVolume": {
+                "type": "string"
+              },
+              "category": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title"
+            ]
+          }
+        },
+        "twitter_trending": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "topic": {
+                "type": "string"
+              },
+              "tweetVolume": {
+                "type": "string"
+              },
+              "category": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "topic"
+            ]
+          }
+        },
+        "scraped_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "youtube_trending",
+        "google_trends",
+        "twitter_trending",
+        "scraped_at"
+      ]
+    },
+    "id": "task_1788082204119",
+    "versions": []
+  },
+  {
+    "name": "story-content-extraction",
+    "description": "Extract story/content from high-performing niche channels and news sites",
+    "url": "https://www.youtube.com/@TheEconomist",
+    "steps": [
+      {
+        "action": "navigate",
+        "url": "https://www.youtube.com/@TheEconomist/videos",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "economist-videos-initial"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('ytd-rich-grid-media, ytd-grid-video-renderer')).slice(0, 30).map(el => ({ title: el.querySelector('#video-title, .yt-core-attributed-string--link-inherit-color')?.innerText?.trim(), url: el.querySelector('#video-title, a#video-title-link')?.href, views: el.querySelector('#metadata-line span, .inline-metadata-item')?.innerText?.trim(), uploadDate: el.querySelector('#metadata-line span:last-child, .inline-metadata-item:last-child')?.innerText?.trim(), thumbnail: el.querySelector('img.yt-core-image--fill-parent-height')?.src, duration: el.querySelector('.badge-shape-wiz__text, .ytd-thumbnail-overlay-time-status-renderer')?.innerText?.trim() })).filter(x => x.title && x.title.length > 5);",
+        "varName": "economist_videos"
+      },
+      {
+        "action": "navigate",
+        "url": "https://www.youtube.com/@RealEngineering/videos",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "realengineering-videos-initial"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('ytd-rich-grid-media, ytd-grid-video-renderer')).slice(0, 30).map(el => ({ title: el.querySelector('#video-title, .yt-core-attributed-string--link-inherit-color')?.innerText?.trim(), url: el.querySelector('#video-title, a#video-title-link')?.href, views: el.querySelector('#metadata-line span, .inline-metadata-item')?.innerText?.trim(), uploadDate: el.querySelector('#metadata-line span:last-child, .inline-metadata-item:last-child')?.innerText?.trim(), thumbnail: el.querySelector('img.yt-core-image--fill-parent-height')?.src, duration: el.querySelector('.badge-shape-wiz__text, .ytd-thumbnail-overlay-time-status-renderer')?.innerText?.trim() })).filter(x => x.title && x.title.length > 5);",
+        "varName": "realengineering_videos"
+      },
+      {
+        "action": "navigate",
+        "url": "https://www.youtube.com/@WendoverProductions/videos",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "wendover-videos-initial"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('ytd-rich-grid-media, ytd-grid-video-renderer')).slice(0, 30).map(el => ({ title: el.querySelector('#video-title, .yt-core-attributed-string--link-inherit-color')?.innerText?.trim(), url: el.querySelector('#video-title, a#video-title-link')?.href, views: el.querySelector('#metadata-line span, .inline-metadata-item')?.innerText?.trim(), uploadDate: el.querySelector('#metadata-line span:last-child, .inline-metadata-item:last-child')?.innerText?.trim(), thumbnail: el.querySelector('img.yt-core-image--fill-parent-height')?.src, duration: el.querySelector('.badge-shape-wiz__text, .ytd-thumbnail-overlay-time-status-renderer')?.innerText?.trim() })).filter(x => x.title && x.title.length > 5);",
+        "varName": "wendover_videos"
+      },
+      {
+        "action": "navigate",
+        "url": "https://www.nytimes.com/section/world",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "nyt-world-initial"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('article, .css-1l4spti, .story-wrapper')).slice(0, 20).map(el => ({ title: el.querySelector('h1, h2, h3, .css-1j9dxys, .indicate-hover')?.innerText?.trim(), url: el.querySelector('a')?.href, summary: el.querySelector('.css-1pga48a, .summary, p')?.innerText?.trim(), author: el.querySelector('.css-1baulvz, .byline')?.innerText?.trim(), publishTime: el.querySelector('time')?.dateTime })).filter(x => x.title && x.title.length > 10);",
+        "varName": "nyt_articles"
+      },
+      {
+        "action": "navigate",
+        "url": "https://www.bbc.com/news/world",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "bbc-world-initial"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('article, .gs-c-promo')).slice(0, 20).map(el => ({ title: el.querySelector('h1, h2, h3, .gs-c-promo-heading')?.innerText?.trim(), url: el.querySelector('a')?.href, summary: el.querySelector('.gs-c-promo-summary, p')?.innerText?.trim(), category: el.querySelector('.gs-c-section-link, .media__tag')?.innerText?.trim() })).filter(x => x.title && x.title.length > 10);",
+        "varName": "bbc_articles"
+      },
+      {
+        "action": "extract",
+        "selector": "body",
+        "attribute": "outerHTML"
+      }
+    ],
+    "stealth": {
+      "allowTypos": false,
+      "idleMovements": false,
+      "overscroll": false,
+      "deadClicks": false,
+      "fatigue": false,
+      "naturalTyping": true,
+      "cursorGlide": false,
+      "randomizeClicks": false
+    },
+    "rotateProxies": false,
+    "rotateViewport": false,
+    "extractionFormat": "json",
+    "includeHtml": true,
+    "includeShadowDom": true,
+    "disableRecording": false,
+    "statelessExecution": true,
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "economist_videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "views": {
+                "type": "string"
+              },
+              "uploadDate": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "realengineering_videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "views": {
+                "type": "string"
+              },
+              "uploadDate": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "wendover_videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "views": {
+                "type": "string"
+              },
+              "uploadDate": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "nyt_articles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "author": {
+                "type": "string"
+              },
+              "publishTime": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "bbc_articles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "category": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "scraped_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "economist_videos",
+        "realengineering_videos",
+        "wendover_videos",
+        "nyt_articles",
+        "bbc_articles",
+        "scraped_at"
+      ]
+    },
+    "id": "task_1788091247661",
+    "versions": []
+  },
+  {
+    "name": "competitor-video-metadata",
+    "description": "Extract competitor video metadata (titles, descriptions, tags, retention graphs)",
+    "url": "https://www.youtube.com/@TheEconomist",
+    "steps": [
+      {
+        "action": "navigate",
+        "url": "https://www.youtube.com/@TheEconomist/videos",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "competitor-economist-initial"
+      },
+      {
+        "action": "javascript",
+        "value": "const videoElements = document.querySelectorAll('ytd-rich-grid-media, ytd-grid-video-renderer');\nconst topVideos = Array.from(videoElements).slice(0, 10).map(el => {\n  const titleEl = el.querySelector('#video-title, .yt-core-attributed-string--link-inherit-color');\n  const linkEl = el.querySelector('#video-title, a#video-title-link');\n  const viewsEl = el.querySelector('#metadata-line span, .inline-metadata-item');\n  const dateEl = el.querySelector('#metadata-line span:last-child, .inline-metadata-item:last-child');\n  const thumbnailEl = el.querySelector('img.yt-core-image--fill-parent-height');\n  const durationEl = el.querySelector('.badge-shape-wiz__text, .ytd-thumbnail-overlay-time-status-renderer');\n  return {\n    title: titleEl?.innerText?.trim(),\n    url: linkEl?.href,\n    views: viewsEl?.innerText?.trim(),\n    uploadDate: dateEl?.innerText?.trim(),\n    thumbnail: thumbnailEl?.src,\n    duration: durationEl?.innerText?.trim()\n  };\n}).filter(x => x.title && x.title.length > 5);\nreturn topVideos;",
+        "varName": "economist_top_videos"
+      },
+      {
+        "action": "javascript",
+        "value": "const results = [];\nconst videos = window.economist_top_videos || [];\nfor (let i = 0; i < Math.min(videos.length, 5); i++) {\n  const video = videos[i];\n  if (!video.url) continue;\n  try {\n    const response = await fetch(video.url);\n    const html = await response.text();\n    const parser = new DOMParser();\n    const doc = parser.parseFromString(html, 'text/html');\n    \n    const descMeta = doc.querySelector('meta[name=\"description\"]');\n    const description = descMeta?.getAttribute('content') || '';\n    \n    const keywordsMeta = doc.querySelector('meta[name=\"keywords\"]');\n    const tags = keywordsMeta?.getAttribute('content')?.split(',').map(t => t.trim()) || [];\n    \n    const likeEl = doc.querySelector('#segmented-like-button, .yt-spec-button-shape-next--tonal');\n    const likes = likeEl?.getAttribute('aria-label') || '';\n    \n    const videoIdMatch = video.url?.match(/[?&]v=([^&]+)/);\n    const videoId = videoIdMatch ? videoIdMatch[1] : null;\n    \n    results.push({\n      title: video.title,\n      url: video.url,\n      videoId: videoId,\n      views: video.views,\n      uploadDate: video.uploadDate,\n      duration: video.duration,\n      description: description.substring(0, 500),\n      tags: tags,\n      likes: likes\n    });\n  } catch (e) {\n    results.push({\n      title: video.title,\n      url: video.url,\n      error: e.message\n    });\n  }\n}\nreturn results;",
+        "varName": "economist_detailed"
+      },
+      {
+        "action": "navigate",
+        "url": "https://www.youtube.com/@RealEngineering/videos",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "competitor-realengineering-initial"
+      },
+      {
+        "action": "javascript",
+        "value": "const videoElements = document.querySelectorAll('ytd-rich-grid-media, ytd-grid-video-renderer');\nconst topVideos = Array.from(videoElements).slice(0, 10).map(el => {\n  const titleEl = el.querySelector('#video-title, .yt-core-attributed-string--link-inherit-color');\n  const linkEl = el.querySelector('#video-title, a#video-title-link');\n  const viewsEl = el.querySelector('#metadata-line span, .inline-metadata-item');\n  const dateEl = el.querySelector('#metadata-line span:last-child, .inline-metadata-item:last-child');\n  const thumbnailEl = el.querySelector('img.yt-core-image--fill-parent-height');\n  const durationEl = el.querySelector('.badge-shape-wiz__text, .ytd-thumbnail-overlay-time-status-renderer');\n  return {\n    title: titleEl?.innerText?.trim(),\n    url: linkEl?.href,\n    views: viewsEl?.innerText?.trim(),\n    uploadDate: dateEl?.innerText?.trim(),\n    thumbnail: thumbnailEl?.src,\n    duration: durationEl?.innerText?.trim()\n  };\n}).filter(x => x.title && x.title.length > 5);\nreturn topVideos;",
+        "varName": "realengineering_top_videos"
+      },
+      {
+        "action": "javascript",
+        "value": "const results = [];\nconst videos = window.realengineering_top_videos || [];\nfor (let i = 0; i < Math.min(videos.length, 5); i++) {\n  const video = videos[i];\n  if (!video.url) continue;\n  try {\n    const response = await fetch(video.url);\n    const html = await response.text();\n    const parser = new DOMParser();\n    const doc = parser.parseFromString(html, 'text/html');\n    \n    const descMeta = doc.querySelector('meta[name=\"description\"]');\n    const description = descMeta?.getAttribute('content') || '';\n    \n    const keywordsMeta = doc.querySelector('meta[name=\"keywords\"]');\n    const tags = keywordsMeta?.getAttribute('content')?.split(',').map(t => t.trim()) || [];\n    \n    const likeEl = doc.querySelector('#segmented-like-button, .yt-spec-button-shape-next--tonal');\n    const likes = likeEl?.getAttribute('aria-label') || '';\n    \n    const videoIdMatch = video.url?.match(/[?&]v=([^&]+)/);\n    const videoId = videoIdMatch ? videoIdMatch[1] : null;\n    \n    results.push({\n      title: video.title,\n      url: video.url,\n      videoId: videoId,\n      views: video.views,\n      uploadDate: video.uploadDate,\n      duration: video.duration,\n      description: description.substring(0, 500),\n      tags: tags,\n      likes: likes\n    });\n  } catch (e) {\n    results.push({\n      title: video.title,\n      url: video.url,\n      error: e.message\n    });\n  }\n}\nreturn results;",
+        "varName": "realengineering_detailed"
+      },
+      {
+        "action": "navigate",
+        "url": "https://www.youtube.com/@WendoverProductions/videos",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "competitor-wendover-initial"
+      },
+      {
+        "action": "javascript",
+        "value": "const videoElements = document.querySelectorAll('ytd-rich-grid-media, ytd-grid-video-renderer');\nconst topVideos = Array.from(videoElements).slice(0, 10).map(el => {\n  const titleEl = el.querySelector('#video-title, .yt-core-attributed-string--link-inherit-color');\n  const linkEl = el.querySelector('#video-title, a#video-title-link');\n  const viewsEl = el.querySelector('#metadata-line span, .inline-metadata-item');\n  const dateEl = el.querySelector('#metadata-line span:last-child, .inline-metadata-item:last-child');\n  const thumbnailEl = el.querySelector('img.yt-core-image--fill-parent-height');\n  const durationEl = el.querySelector('.badge-shape-wiz__text, .ytd-thumbnail-overlay-time-status-renderer');\n  return {\n    title: titleEl?.innerText?.trim(),\n    url: linkEl?.href,\n    views: viewsEl?.innerText?.trim(),\n    uploadDate: dateEl?.innerText?.trim(),\n    thumbnail: thumbnailEl?.src,\n    duration: durationEl?.innerText?.trim()\n  };\n}).filter(x => x.title && x.title.length > 5);\nreturn topVideos;",
+        "varName": "wendover_top_videos"
+      },
+      {
+        "action": "javascript",
+        "value": "const results = [];\nconst videos = window.wendover_top_videos || [];\nfor (let i = 0; i < Math.min(videos.length, 5); i++) {\n  const video = videos[i];\n  if (!video.url) continue;\n  try {\n    const response = await fetch(video.url);\n    const html = await response.text();\n    const parser = new DOMParser();\n    const doc = parser.parseFromString(html, 'text/html');\n    \n    const descMeta = doc.querySelector('meta[name=\"description\"]');\n    const description = descMeta?.getAttribute('content') || '';\n    \n    const keywordsMeta = doc.querySelector('meta[name=\"keywords\"]');\n    const tags = keywordsMeta?.getAttribute('content')?.split(',').map(t => t.trim()) || [];\n    \n    const likeEl = doc.querySelector('#segmented-like-button, .yt-spec-button-shape-next--tonal');\n    const likes = likeEl?.getAttribute('aria-label') || '';\n    \n    const videoIdMatch = video.url?.match(/[?&]v=([^&]+)/);\n    const videoId = videoIdMatch ? videoIdMatch[1] : null;\n    \n    results.push({\n      title: video.title,\n      url: video.url,\n      videoId: videoId,\n      views: video.views,\n      uploadDate: video.uploadDate,\n      duration: video.duration,\n      description: description.substring(0, 500),\n      tags: tags,\n      likes: likes\n    });\n  } catch (e) {\n    results.push({\n      title: video.title,\n      url: video.url,\n      error: e.message\n    });\n  }\n}\nreturn results;",
+        "varName": "wendover_detailed"
+      },
+      {
+        "action": "extract",
+        "selector": "body",
+        "attribute": "outerHTML"
+      }
+    ],
+    "stealth": {
+      "allowTypos": false,
+      "idleMovements": false,
+      "overscroll": false,
+      "deadClicks": false,
+      "fatigue": false,
+      "naturalTyping": true,
+      "cursorGlide": false,
+      "randomizeClicks": false
+    },
+    "rotateProxies": false,
+    "rotateViewport": false,
+    "extractionFormat": "json",
+    "includeHtml": true,
+    "includeShadowDom": true,
+    "disableRecording": false,
+    "statelessExecution": true,
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "economist_detailed": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "videoId": {
+                "type": "string"
+              },
+              "views": {
+                "type": "string"
+              },
+              "uploadDate": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "likes": {
+                "type": "string"
+              },
+              "retentionData": {
+                "type": "string"
+              },
+              "error": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "realengineering_detailed": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "videoId": {
+                "type": "string"
+              },
+              "views": {
+                "type": "string"
+              },
+              "uploadDate": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "likes": {
+                "type": "string"
+              },
+              "error": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "wendover_detailed": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "videoId": {
+                "type": "string"
+              },
+              "views": {
+                "type": "string"
+              },
+              "uploadDate": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "likes": {
+                "type": "string"
+              },
+              "error": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "scraped_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "economist_detailed",
+        "realengineering_detailed",
+        "wendover_detailed",
+        "scraped_at"
+      ]
+    },
+    "id": "task_1788091294982",
+    "versions": []
+  },
+  {
+    "name": "trending-topics-discovery",
+    "description": "Discover trending topics from YouTube Trending, Google Trends, and Twitter/X",
+    "url": "https://www.youtube.com/feed/trending",
+    "steps": [
+      {
+        "action": "navigate",
+        "url": "https://www.youtube.com/feed/trending",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "youtube-trending-initial"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('ytd-video-renderer, ytd-rich-item-renderer')).slice(0, 50).map(el => ({ title: el.querySelector('#video-title, .yt-core-attributed-string--link-inherit-color')?.innerText?.trim(), url: el.querySelector('#video-title, a#video-title-link')?.href, channel: el.querySelector('#channel-name, .ytd-channel-name a')?.innerText?.trim(), views: el.querySelector('#metadata-line span, .inline-metadata-item')?.innerText?.trim(), thumbnail: el.querySelector('img.yt-core-image--fill-parent-height')?.src })).filter(x => x.title && x.title.length > 5);",
+        "varName": "youtube_trending"
+      },
+      {
+        "action": "navigate",
+        "url": "https://trends.google.com/trending?geo=US",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "google-trends-initial"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('.feed-item, .trending-story, .mZ3RIc')).slice(0, 30).map(el => ({ title: el.querySelector('.title, .mZ3RIc, h3')?.innerText?.trim(), url: el.querySelector('a')?.href, searchVolume: el.querySelector('.search-volume, .qe8AG')?.innerText?.trim(), category: el.querySelector('.category, .topic-tag')?.innerText?.trim() })).filter(x => x.title && x.title.length > 3);",
+        "varName": "google_trends"
+      },
+      {
+        "action": "navigate",
+        "url": "https://x.com/explore/tabs/trending",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "twitter-trending-initial"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('[data-testid=\"trend\"] .css-175oi2r, [aria-label=\"Timeline: Trending now\"] div[dir=\"ltr\"]')).slice(0, 30).map(el => ({ topic: el.querySelector('[dir=\"ltr\"] span, .css-146c3p1')?.innerText?.trim(), tweetVolume: el.querySelector('.css-1dbjc4n.r-18u37iz span')?.innerText?.trim(), category: el.querySelector('[data-testid=\"trend-category\"]')?.innerText?.trim() })).filter(x => x.topic && x.topic.length > 2);",
+        "varName": "twitter_trending"
+      },
+      {
+        "action": "extract",
+        "selector": "body",
+        "attribute": "outerHTML"
+      }
+    ],
+    "stealth": {
+      "allowTypos": false,
+      "idleMovements": false,
+      "overscroll": false,
+      "deadClicks": false,
+      "fatigue": false,
+      "naturalTyping": true,
+      "cursorGlide": false,
+      "randomizeClicks": false
+    },
+    "rotateProxies": false,
+    "rotateViewport": false,
+    "extractionFormat": "json",
+    "includeHtml": true,
+    "includeShadowDom": true,
+    "disableRecording": false,
+    "statelessExecution": true,
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "youtube_trending": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "channel": {
+                "type": "string"
+              },
+              "views": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "google_trends": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "searchVolume": {
+                "type": "string"
+              },
+              "category": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title"
+            ]
+          }
+        },
+        "twitter_trending": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "topic": {
+                "type": "string"
+              },
+              "tweetVolume": {
+                "type": "string"
+              },
+              "category": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "topic"
+            ]
+          }
+        },
+        "scraped_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "youtube_trending",
+        "google_trends",
+        "twitter_trending",
+        "scraped_at"
+      ]
+    },
+    "id": "task_1788093379344",
+    "versions": []
+  },
+  {
+    "name": "trending-topics-discovery-jsonlines",
+    "description": "Discover trending topics from YouTube Trending, Google Trends, and Twitter/X and output JSON Lines",
+    "url": "https://www.youtube.com/feed/trending",
+    "steps": [
+      {
+        "action": "navigate",
+        "url": "https://www.youtube.com/feed/trending",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('ytd-video-renderer, ytd-rich-item-renderer')).slice(0, 50).map(el => ({ title: el.querySelector('#video-title, .yt-core-attributed-string--link-inherit-color')?.innerText?.trim(), url: el.querySelector('#video-title, a#video-title-link')?.href, views: el.querySelector('#metadata-line span, .inline-metadata-item')?.innerText?.trim() })).filter(x => x.title && x.title.length > 5);",
+        "varName": "youtube_trending"
+      },
+      {
+        "action": "navigate",
+        "url": "https://trends.google.com/trending?geo=US",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('.feed-item, .trending-story, .mZ3RIc')).slice(0, 30).map(el => ({ title: el.querySelector('.title, .mZ3RIc, h3')?.innerText?.trim(), url: el.querySelector('a')?.href, searchVolume: el.querySelector('.search-volume, .qe8AG')?.innerText?.trim() })).filter(x => x.title && x.title.length > 3);",
+        "varName": "google_trends"
+      },
+      {
+        "action": "navigate",
+        "url": "https://x.com/explore/tabs/trending",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('[data-testid=\\\"trend\\\"] .css-175oi2r, [aria-label=\\\"Timeline: Trending now\\\"] div[dir=\\\"ltr\\\"]')).slice(0, 30).map(el => ({ topic: el.querySelector('[dir=\\\"ltr\\\"] span, .css-146c3p1')?.innerText?.trim(), tweetVolume: el.querySelector('.css-1dbjc4n.r-18u37iz span')?.innerText?.trim() })).filter(x => x.topic && x.topic.length > 2);",
+        "varName": "twitter_trending"
+      },
+      {
+        "action": "javascript",
+        "value": "var result = []; window.youtube_trending.forEach(item => { result.push({ source: 'youtube', topic: item.title, volume: item.views, timestamp: new Date().toISOString(), url: item.url }); }); window.google_trends.forEach(item => { result.push({ source: 'google_trends', topic: item.title, volume: item.searchVolume, timestamp: new Date().toISOString(), url: item.url }); }); window.twitter_trending.forEach(item => { result.push({ source: 'twitter', topic: item.topic, volume: item.tweetVolume, timestamp: new Date().toISOString(), url: 'https://x.com/explore/tabs/trending' }); }); return result;",
+        "varName": "combined_result"
+      },
+      {
+        "action": "javascript",
+        "value": "var container = document.createElement('div'); container.id = 'result'; container.textContent = JSON.stringify(window.combined_result); document.body.appendChild(container);"
+      },
+      {
+        "action": "extract",
+        "selector": "#result",
+        "attribute": "textContent"
+      }
+    ],
+    "stealth": {
+      "allowTypos": false,
+      "idleMovements": false,
+      "overscroll": false,
+      "deadClicks": false,
+      "fatigue": false,
+      "naturalTyping": true,
+      "cursorGlide": false,
+      "randomizeClicks": false
+    },
+    "rotateProxies": false,
+    "rotateViewport": false,
+    "extractionFormat": "text",
+    "includeHtml": false,
+    "includeShadowDom": false,
+    "disableRecording": false,
+    "statelessExecution": true,
+    "id": "task_1788145385713",
+    "versions": []
+  },
+  {
+    "name": "trending-topics-discovery-v2",
+    "description": "Discover trending topics from YouTube Trending, Google Trends, and Twitter/X and output JSON Lines",
+    "url": "https://www.youtube.com/feed/trending",
+    "steps": [
+      {
+        "action": "navigate",
+        "url": "https://www.youtube.com/feed/trending",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('ytd-video-renderer, ytd-rich-item-renderer')).slice(0, 50).map(el => ({ title: el.querySelector('#video-title, .yt-core-attributed-string--link-inherit-color')?.innerText?.trim(), url: el.querySelector('#video-title, a#video-title-link')?.href, views: el.querySelector('#metadata-line span, .inline-metadata-item')?.innerText?.trim() })).filter(x => x.title && x.title.length > 5);",
+        "varName": "youtube_trending"
+      },
+      {
+        "action": "navigate",
+        "url": "https://trends.google.com/trending?geo=US",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('.feed-item, .trending-story, .mZ3RIc')).slice(0, 30).map(el => ({ title: el.querySelector('.title, .mZ3RIc, h3')?.innerText?.trim(), url: el.querySelector('a')?.href, searchVolume: el.querySelector('.search-volume, .qe8AG')?.innerText?.trim() })).filter(x => x.title && x.title.length > 3);",
+        "varName": "google_trends"
+      },
+      {
+        "action": "navigate",
+        "url": "https://x.com/explore/tabs/trending",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('[data-testid=\\\"trend\\\"] .css-175oi2r, [aria-label=\\\"Timeline: Trending now\\\"] div[dir=\\\"ltr\\\"]')).slice(0, 30).map(el => ({ topic: el.querySelector('[dir=\\\"ltr\\\"] span, .css-146c3p1')?.innerText?.trim(), tweetVolume: el.querySelector('.css-1dbjc4n.r-18u37iz span')?.innerText?.trim() })).filter(x => x.topic && x.topic.length > 2);",
+        "varName": "twitter_trending"
+      },
+      {
+        "action": "javascript",
+        "value": "var result = []; window.youtube_trending.forEach(item => { result.push({ source: 'youtube', topic: item.title, volume: item.views, timestamp: new Date().toISOString(), url: item.url }); }); window.google_trends.forEach(item => { result.push({ source: 'google_trends', topic: item.title, volume: item.searchVolume, timestamp: new Date().toISOString(), url: item.url }); }); window.twitter_trending.forEach(item => { result.push({ source: 'twitter', topic: item.topic, volume: item.tweetVolume, timestamp: new Date().toISOString(), url: 'https://x.com/explore/tabs/trending' }); }); return result;",
+        "varName": "combined_result"
+      },
+      {
+        "action": "javascript",
+        "value": "var container = document.createElement('div'); container.id = 'result'; container.textContent = JSON.stringify(window.combined_result); document.body.appendChild(container);"
+      },
+      {
+        "action": "extract",
+        "selector": "#result",
+        "attribute": "textContent"
+      }
+    ],
+    "stealth": {
+      "allowTypos": false,
+      "idleMovements": false,
+      "overscroll": false,
+      "deadClicks": false,
+      "fatigue": false,
+      "naturalTyping": true,
+      "cursorGlide": false,
+      "randomizeClicks": false
+    },
+    "rotateProxies": false,
+    "rotateViewport": false,
+    "extractionFormat": "text",
+    "includeHtml": false,
+    "includeShadowDom": false,
+    "disableRecording": false,
+    "statelessExecution": true,
+    "id": "task_1788145494706",
+    "versions": []
+  },
+  {
+    "name": "competitor-video-metadata",
+    "description": "Extract competitor video metadata including titles, descriptions, tags, retention graphs",
+    "url": "https://www.youtube.com",
+    "steps": [
+      {
+        "action": "navigate",
+        "url": "https://www.youtube.com/@LinusTechTips/videos",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "linus-tech-tips-videos"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('ytd-grid-video-renderer, ytd-rich-grid-media')).slice(0, 15).map(el => ({ title: el.querySelector('#video-title, .yt-core-attributed-string--link-inherit-color')?.innerText?.trim(), url: el.querySelector('#video-title, a#video-title-link')?.href, views: el.querySelector('#metadata-line span, .inline-metadata-item')?.innerText?.trim(), uploaded: el.querySelector('#metadata-line span:nth-child(2), .inline-metadata-item:nth-child(2)')?.innerText?.trim(), duration: el.querySelector('#text, .yt-badge')?.innerText?.trim(), thumbnail: el.querySelector('img.yt-core-image--fill-parent-height')?.src })).filter(x => x.title && x.title.length > 5);",
+        "varName": "linus_videos"
+      },
+      {
+        "action": "navigate",
+        "url": "https://www.youtube.com/@MarquesBrownlee/videos",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "marques-brownlee-videos"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('ytd-grid-video-renderer, ytd-rich-grid-media')).slice(0, 15).map(el => ({ title: el.querySelector('#video-title, .yt-core-attributed-string--link-inherit-color')?.innerText?.trim(), url: el.querySelector('#video-title, a#video-title-link')?.href, views: el.querySelector('#metadata-line span, .inline-metadata-item')?.innerText?.trim(), uploaded: el.querySelector('#metadata-line span:nth-child(2), .inline-metadata-item:nth-child(2)')?.innerText?.trim(), duration: el.querySelector('#text, .yt-badge')?.innerText?.trim(), thumbnail: el.querySelector('img.yt-core-image--fill-parent-height')?.src })).filter(x => x.title && x.title.length > 5);",
+        "varName": "marques_videos"
+      },
+      {
+        "action": "navigate",
+        "url": "https://www.youtube.com/@UnboxTherapy/videos",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "unbox-therapy-videos"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('ytd-grid-video-renderer, ytd-rich-grid-media')).slice(0, 15).map(el => ({ title: el.querySelector('#video-title, .yt-core-attributed-string--link-inherit-color')?.innerText?.trim(), url: el.querySelector('#video-title, a#video-title-link')?.href, views: el.querySelector('#metadata-line span, .inline-metadata-item')?.innerText?.trim(), uploaded: el.querySelector('#metadata-line span:nth-child(2), .inline-metadata-item:nth-child(2)')?.innerText?.trim(), duration: el.querySelector('#text, .yt-badge')?.innerText?.trim(), thumbnail: el.querySelector('img.yt-core-image--fill-parent-height')?.src })).filter(x => x.title && x.title.length > 5);",
+        "varName": "unbox_videos"
+      },
+      {
+        "action": "navigate",
+        "url": "https://www.youtube.com/@iJustine/videos",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "ijustine-videos"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('ytd-grid-video-renderer, ytd-rich-grid-media')).slice(0, 15).map(el => ({ title: el.querySelector('#video-title, .yt-core-attributed-string--link-inherit-color')?.innerText?.trim(), url: el.querySelector('#video-title, a#video-title-link')?.href, views: el.querySelector('#metadata-line span, .inline-metadata-item')?.innerText?.trim(), uploaded: el.querySelector('#metadata-line span:nth-child(2), .inline-metadata-item:nth-child(2)')?.innerText?.trim(), duration: el.querySelector('#text, .yt-badge')?.innerText?.trim(), thumbnail: el.querySelector('img.yt-core-image--fill-parent-height')?.src })).filter(x => x.title && x.title.length > 5);",
+        "varName": "ijustine_videos"
+      },
+      {
+        "action": "navigate",
+        "url": "https://www.youtube.com/@TechWithTim/videos",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "techwithtim-videos"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('ytd-grid-video-renderer, ytd-rich-grid-media')).slice(0, 15).map(el => ({ title: el.querySelector('#video-title, .yt-core-attributed-string--link-inherit-color')?.innerText?.trim(), url: el.querySelector('#video-title, a#video-title-link')?.href, views: el.querySelector('#metadata-line span, .inline-metadata-item')?.innerText?.trim(), uploaded: el.querySelector('#metadata-line span:nth-child(2), .inline-metadata-item:nth-child(2)')?.innerText?.trim(), duration: el.querySelector('#text, .yt-badge')?.innerText?.trim(), thumbnail: el.querySelector('img.yt-core-image--fill-parent-height')?.src })).filter(x => x.title && x.title.length > 5);",
+        "varName": "techwithtim_videos"
+      },
+      {
+        "action": "extract",
+        "selector": "body",
+        "attribute": "outerHTML"
+      }
+    ],
+    "stealth": {
+      "allowTypos": false,
+      "idleMovements": false,
+      "overscroll": false,
+      "deadClicks": false,
+      "fatigue": false,
+      "naturalTyping": true,
+      "cursorGlide": false,
+      "randomizeClicks": false
+    },
+    "rotateProxies": false,
+    "rotateViewport": false,
+    "extractionFormat": "json",
+    "includeHtml": true,
+    "includeShadowDom": true,
+    "disableRecording": false,
+    "statelessExecution": true,
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "linus_videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "views": {
+                "type": "string"
+              },
+              "uploaded": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "marques_videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "views": {
+                "type": "string"
+              },
+              "uploaded": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "unbox_videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "views": {
+                "type": "string"
+              },
+              "uploaded": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "ijustine_videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "views": {
+                "type": "string"
+              },
+              "uploaded": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "techwithtim_videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "views": {
+                "type": "string"
+              },
+              "uploaded": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "scraped_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "linus_videos",
+        "marques_videos",
+        "unbox_videos",
+        "ijustine_videos",
+        "techwithtim_videos",
+        "scraped_at"
+      ]
+    },
+    "id": "task_1788146175936",
+    "versions": []
+  },
+  {
+    "name": "competitor-video-metadata",
+    "description": "Extract competitor video metadata including titles, descriptions, tags, retention graphs",
+    "url": "https://www.youtube.com",
+    "steps": [
+      {
+        "action": "navigate",
+        "url": "https://www.youtube.com/@LinusTechTips/videos",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "linus-tech-tips-videos"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('ytd-grid-video-renderer, ytd-rich-grid-media')).slice(0, 15).map(el => ({ title: el.querySelector('#video-title, .yt-core-attributed-string--link-inherit-color')?.innerText?.trim(), url: el.querySelector('#video-title, a#video-title-link')?.href, views: el.querySelector('#metadata-line span, .inline-metadata-item')?.innerText?.trim(), uploaded: el.querySelector('#metadata-line span:nth-child(2), .inline-metadata-item:nth-child(2)')?.innerText?.trim(), duration: el.querySelector('#text, .yt-badge')?.innerText?.trim(), thumbnail: el.querySelector('img.yt-core-image--fill-parent-height')?.src })).filter(x => x.title && x.title.length > 5);",
+        "varName": "linus_videos"
+      },
+      {
+        "action": "navigate",
+        "url": "https://www.youtube.com/@MarquesBrownlee/videos",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "marques-brownlee-videos"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('ytd-grid-video-renderer, ytd-rich-grid-media')).slice(0, 15).map(el => ({ title: el.querySelector('#video-title, .yt-core-attributed-string--link-inherit-color')?.innerText?.trim(), url: el.querySelector('#video-title, a#video-title-link')?.href, views: el.querySelector('#metadata-line span, .inline-metadata-item')?.innerText?.trim(), uploaded: el.querySelector('#metadata-line span:nth-child(2), .inline-metadata-item:nth-child(2)')?.innerText?.trim(), duration: el.querySelector('#text, .yt-badge')?.innerText?.trim(), thumbnail: el.querySelector('img.yt-core-image--fill-parent-height')?.src })).filter(x => x.title && x.title.length > 5);",
+        "varName": "marques_videos"
+      },
+      {
+        "action": "navigate",
+        "url": "https://www.youtube.com/@UnboxTherapy/videos",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "unbox-therapy-videos"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('ytd-grid-video-renderer, ytd-rich-grid-media')).slice(0, 15).map(el => ({ title: el.querySelector('#video-title, .yt-core-attributed-string--link-inherit-color')?.innerText?.trim(), url: el.querySelector('#video-title, a#video-title-link')?.href, views: el.querySelector('#metadata-line span, .inline-metadata-item')?.innerText?.trim(), uploaded: el.querySelector('#metadata-line span:nth-child(2), .inline-metadata-item:nth-child(2)')?.innerText?.trim(), duration: el.querySelector('#text, .yt-badge')?.innerText?.trim(), thumbnail: el.querySelector('img.yt-core-image--fill-parent-height')?.src })).filter(x => x.title && x.title.length > 5);",
+        "varName": "unbox_videos"
+      },
+      {
+        "action": "navigate",
+        "url": "https://www.youtube.com/@iJustine/videos",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "ijustine-videos"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('ytd-grid-video-renderer, ytd-rich-grid-media')).slice(0, 15).map(el => ({ title: el.querySelector('#video-title, .yt-core-attributed-string--link-inherit-color')?.innerText?.trim(), url: el.querySelector('#video-title, a#video-title-link')?.href, views: el.querySelector('#metadata-line span, .inline-metadata-item')?.innerText?.trim(), uploaded: el.querySelector('#metadata-line span:nth-child(2), .inline-metadata-item:nth-child(2)')?.innerText?.trim(), duration: el.querySelector('#text, .yt-badge')?.innerText?.trim(), thumbnail: el.querySelector('img.yt-core-image--fill-parent-height')?.src })).filter(x => x.title && x.title.length > 5);",
+        "varName": "ijustine_videos"
+      },
+      {
+        "action": "navigate",
+        "url": "https://www.youtube.com/@TechWithTim/videos",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "techwithtim-videos"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('ytd-grid-video-renderer, ytd-rich-grid-media')).slice(0, 15).map(el => ({ title: el.querySelector('#video-title, .yt-core-attributed-string--link-inherit-color')?.innerText?.trim(), url: el.querySelector('#video-title, a#video-title-link')?.href, views: el.querySelector('#metadata-line span, .inline-metadata-item')?.innerText?.trim(), uploaded: el.querySelector('#metadata-line span:nth-child(2), .inline-metadata-item:nth-child(2)')?.innerText?.trim(), duration: el.querySelector('#text, .yt-badge')?.innerText?.trim(), thumbnail: el.querySelector('img.yt-core-image--fill-parent-height')?.src })).filter(x => x.title && x.title.length > 5);",
+        "varName": "techwithtim_videos"
+      },
+      {
+        "action": "extract",
+        "selector": "body",
+        "attribute": "outerHTML"
+      }
+    ],
+    "stealth": {
+      "allowTypos": false,
+      "idleMovements": false,
+      "overscroll": false,
+      "deadClicks": false,
+      "fatigue": false,
+      "naturalTyping": true,
+      "cursorGlide": false,
+      "randomizeClicks": false
+    },
+    "rotateProxies": false,
+    "rotateViewport": false,
+    "extractionFormat": "json",
+    "includeHtml": true,
+    "includeShadowDom": true,
+    "disableRecording": false,
+    "statelessExecution": true,
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "linus_videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "views": {
+                "type": "string"
+              },
+              "uploaded": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "marques_videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "views": {
+                "type": "string"
+              },
+              "uploaded": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "unbox_videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "views": {
+                "type": "string"
+              },
+              "uploaded": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "ijustine_videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "views": {
+                "type": "string"
+              },
+              "uploaded": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "techwithtim_videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "views": {
+                "type": "string"
+              },
+              "uploaded": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "scraped_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "linus_videos",
+        "marques_videos",
+        "unbox_videos",
+        "ijustine_videos",
+        "techwithtim_videos",
+        "scraped_at"
+      ]
+    },
+    "id": "task_1788146183331",
+    "versions": []
+  },
+  {
+    "name": "story-content-extraction",
+    "description": "Extract stories and content from high-performing niche channels and news sites",
+    "url": "https://www.youtube.com",
+    "steps": [
+      {
+        "action": "navigate",
+        "url": "https://www.youtube.com/@MrBeast",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "mrbeast-channel"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('ytd-grid-video-renderer, ytd-rich-grid-media')).slice(0, 20).map(el => ({ title: el.querySelector('#video-title, .yt-core-attributed-string--link-inherit-color')?.innerText?.trim(), url: el.querySelector('#video-title, a#video-title-link')?.href, views: el.querySelector('#metadata-line span, .inline-metadata-item')?.innerText?.trim(), duration: el.querySelector('#text, .yt-badge')?.innerText?.trim(), thumbnail: el.querySelector('img.yt-core-image--fill-parent-height')?.src })).filter(x => x.title && x.title.length > 5);",
+        "varName": "mrbeast_videos"
+      },
+      {
+        "action": "navigate",
+        "url": "https://www.youtube.com/@Veritasium",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "veritasium-channel"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('ytd-grid-video-renderer, ytd-rich-grid-media')).slice(0, 20).map(el => ({ title: el.querySelector('#video-title, .yt-core-attributed-string--link-inherit-color')?.innerText?.trim(), url: el.querySelector('#video-title, a#video-title-link')?.href, views: el.querySelector('#metadata-line span, .inline-metadata-item')?.innerText?.trim(), duration: el.querySelector('#text, .yt-badge')?.innerText?.trim(), thumbnail: el.querySelector('img.yt-core-image--fill-parent-height')?.src })).filter(x => x.title && x.title.length > 5);",
+        "varName": "veritasium_videos"
+      },
+      {
+        "action": "navigate",
+        "url": "https://www.youtube.com/@Kurzgesagt",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "kurzgesagt-channel"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('ytd-grid-video-renderer, ytd-rich-grid-media')).slice(0, 20).map(el => ({ title: el.querySelector('#video-title, .yt-core-attributed-string--link-inherit-color')?.innerText?.trim(), url: el.querySelector('#video-title, a#video-title-link')?.href, views: el.querySelector('#metadata-line span, .inline-metadata-item')?.innerText?.trim(), duration: el.querySelector('#text, .yt-badge')?.innerText?.trim(), thumbnail: el.querySelector('img.yt-core-image--fill-parent-height')?.src })).filter(x => x.title && x.title.length > 5);",
+        "varName": "kurzgesagt_videos"
+      },
+      {
+        "action": "navigate",
+        "url": "https://www.reuters.com/technology/",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "reuters-tech"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('article, .story-card, .media-story-card')).slice(0, 20).map(el => ({ title: el.querySelector('h1, h2, h3, .story-title, .media-story-card__heading')?.innerText?.trim(), url: el.querySelector('a')?.href, summary: el.querySelector('.story-body, .media-story-card__summary, p')?.innerText?.trim(), image: el.querySelector('img')?.src })).filter(x => x.title && x.title.length > 10);",
+        "varName": "reuters_tech"
+      },
+      {
+        "action": "navigate",
+        "url": "https://www.theverge.com/tech",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "theverge-tech"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('.c-entry-box--compact, .c-entry-box--compact__body, article')).slice(0, 20).map(el => ({ title: el.querySelector('h2, h3, .c-entry-box--compact__title')?.innerText?.trim(), url: el.querySelector('a')?.href, summary: el.querySelector('.c-entry-box--compact__dek, p')?.innerText?.trim(), image: el.querySelector('img')?.src })).filter(x => x.title && x.title.length > 10);",
+        "varName": "theverge_tech"
+      },
+      {
+        "action": "navigate",
+        "url": "https://arstechnica.com/",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "arstechnica-home"
+      },
+      {
+        "action": "javascript",
+        "value": "return Array.from(document.querySelectorAll('.tease, article, .article')).slice(0, 20).map(el => ({ title: el.querySelector('h2, h3, .headline')?.innerText?.trim(), url: el.querySelector('a')?.href, summary: el.querySelector('.excerpt, .summary, p')?.innerText?.trim(), image: el.querySelector('img')?.src })).filter(x => x.title && x.title.length > 10);",
+        "varName": "arstechnica_articles"
+      },
+      {
+        "action": "extract",
+        "selector": "body",
+        "attribute": "outerHTML"
+      }
+    ],
+    "stealth": {
+      "allowTypos": false,
+      "idleMovements": false,
+      "overscroll": false,
+      "deadClicks": false,
+      "fatigue": false,
+      "naturalTyping": true,
+      "cursorGlide": false,
+      "randomizeClicks": false
+    },
+    "rotateProxies": false,
+    "rotateViewport": false,
+    "extractionFormat": "json",
+    "includeHtml": true,
+    "includeShadowDom": true,
+    "disableRecording": false,
+    "statelessExecution": true,
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "mrbeast_videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "views": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "veritasium_videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "views": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "kurzgesagt_videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "views": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "reuters_tech": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "image": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "theverge_tech": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "image": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "arstechnica_articles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "image": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ]
+          }
+        },
+        "scraped_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "mrbeast_videos",
+        "veritasium_videos",
+        "kurzgesagt_videos",
+        "reuters_tech",
+        "theverge_tech",
+        "arstechnica_articles",
+        "scraped_at"
+      ]
+    },
+    "id": "task_1788146467969",
+    "versions": []
+  },
+  {
+    "name": "news-site-full-workflow",
+    "url": "http://100.106.2.107:8080/",
+    "steps": [
+      {
+        "action": "navigate",
+        "url": "http://100.106.2.107:8080/",
+        "headless": false
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "01-initial-load"
+      },
+      {
+        "action": "click",
+        "selector": "button.nav-tab[data-view=\"topics\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "screenshot",
+        "name": "02-topics-view"
+      },
+      {
+        "action": "click",
+        "selector": ".topic-item[data-topic=\"iran\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 3
+      },
+      {
+        "action": "screenshot",
+        "name": "03-iran-topic-detail"
+      },
+      {
+        "action": "click",
+        "selector": ".topic-articles .article-card .btn-primary"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "screenshot",
+        "name": "04-iran-article-detail"
+      },
+      {
+        "action": "click",
+        "selector": "#closeDetailBtn"
+      },
+      {
+        "action": "wait",
+        "seconds": 1
+      },
+      {
+        "action": "click",
+        "selector": "button.nav-tab[data-view=\"briefings\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 3
+      },
+      {
+        "action": "screenshot",
+        "name": "05-briefings-view"
+      },
+      {
+        "action": "click",
+        "selector": ".briefing-card .btn-primary"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "screenshot",
+        "name": "06-briefing-detail"
+      },
+      {
+        "action": "click",
+        "selector": "button.nav-tab[data-view=\"chat\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "screenshot",
+        "name": "07-chat-view"
+      },
+      {
+        "action": "type",
+        "selector": "#chatInput",
+        "text": "What are the top geopolitical stories today?"
+      },
+      {
+        "action": "click",
+        "selector": "#chatSend"
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "08-chat-response-geopolitics"
+      },
+      {
+        "action": "type",
+        "selector": "#chatInput",
+        "text": "How do different sources cover Iran nuclear issues?"
+      },
+      {
+        "action": "click",
+        "selector": "#chatSend"
+      },
+      {
+        "action": "wait",
+        "seconds": 5
+      },
+      {
+        "action": "screenshot",
+        "name": "09-chat-response-iran"
+      },
+      {
+        "action": "click",
+        "selector": "button.nav-tab[data-view=\"articles\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "screenshot",
+        "name": "10-articles-view"
+      },
+      {
+        "action": "click",
+        "selector": "#sourceFilters input[data-source=\"bbc\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "screenshot",
+        "name": "11-bbc-filtered"
+      },
+      {
+        "action": "click",
+        "selector": "#sourceFilters input[data-source=\"bbc\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 1
+      },
+      {
+        "action": "click",
+        "selector": "#categoryFilters input[data-category=\"geopolitics_conflict\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "screenshot",
+        "name": "12-geopolitics-filtered"
+      },
+      {
+        "action": "click",
+        "selector": "#categoryFilters input[data-category=\"geopolitics_conflict\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 1
+      },
+      {
+        "action": "click",
+        "selector": "#sourceFilters input[data-source=\"aljazeera\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "screenshot",
+        "name": "13-aljazeera-filtered"
+      },
+      {
+        "action": "click",
+        "selector": "#sourceFilters input[data-source=\"aljazeera\"]"
+      },
+      {
+        "action": "wait",
+        "seconds": 1
+      },
+      {
+        "action": "click",
+        "selector": ".article-card .btn-primary"
+      },
+      {
+        "action": "wait",
+        "seconds": 2
+      },
+      {
+        "action": "screenshot",
+        "name": "14-article-detail-final"
+      },
+      {
+        "action": "extract",
+        "selector": "body",
+        "attribute": "outerHTML"
+      }
+    ],
+    "stealth": {
+      "allowTypos": false,
+      "idleMovements": false,
+      "overscroll": false,
+      "deadClicks": false,
+      "fatigue": false,
+      "naturalTyping": true,
+      "cursorGlide": false,
+      "randomizeClicks": false
+    },
+    "rotateProxies": false,
+    "rotateViewport": false,
+    "extractionFormat": "json",
+    "includeHtml": true,
+    "includeShadowDom": true,
+    "disableRecording": false,
+    "statelessExecution": false,
+    "id": "task_1788309083922",
+    "versions": []
+  },
+  {
+    "name": "test-youtube-metadata",
+    "description": "Extract metadata from a single YouTube video",
+    "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "mode": "scrape",
+    "wait": 3,
+    "actions": [
+      {
+        "action": "navigate",
+        "value": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        "headless": true
+      },
+      {
+        "action": "wait",
+        "seconds": 3
+      },
+      {
+        "action": "javascript",
+        "value": "return { video_id: new URL(window.location.href).searchParams.get('v'), title: document.querySelector('h1.title ytd-video-primary-info-renderer')?.innerText?.trim() }",
+        "varName": "video_data"
+      }
+    ],
+    "extractionFormat": "json",
+    "includeHtml": false,
+    "includeShadowDom": true,
+    "disableRecording": false,
+    "statelessExecution": true,
+    "id": "task_1788422133665",
+    "versions": []
+  }
+]

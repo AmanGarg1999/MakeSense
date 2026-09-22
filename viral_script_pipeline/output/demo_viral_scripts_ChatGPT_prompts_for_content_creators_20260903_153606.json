@@ -1,0 +1,331 @@
+{
+  "topic": "ChatGPT prompts for content creators",
+  "generated_at": "2026-09-03T15:36:06.558037",
+  "input_context_summary": "Topic: ChatGPT prompts for content creators | Source: google_trends | Stories used: 3 | Volume: 189000",
+  "variants": [
+    {
+      "framework": "AIDA",
+      "predicted_ctr": 0.3,
+      "predicted_retention": 0.40475,
+      "engagement_score": 0.40182,
+      "overall_score": 0.6520872549019608,
+      "score_breakdown": {
+        "predicted_ctr": 0.3,
+        "predicted_retention": 0.40475,
+        "engagement_score": 0.40182,
+        "overall_score": 0.6520872549019608,
+        "hook_analysis": {
+          "predicted_ctr": 0.3,
+          "base_technique_score": 0.65,
+          "positive_bonus": 0.06,
+          "negative_penalty": 0.0,
+          "length_bonus": 0.05
+        },
+        "retention_analysis": {
+          "predicted_retention": 0.40475,
+          "beat_count": 6,
+          "count_score": 1.0,
+          "diversity_score": 1.0,
+          "positive_score": 0.25,
+          "negative_penalty": 0.03,
+          "visual_score": 1.0,
+          "structure_score": 0.8125
+        },
+        "engagement_analysis": {
+          "engagement_score": 0.40182,
+          "cta_base": 0.75,
+          "placement_bonus": 0.0,
+          "title_ctr": 0.0091,
+          "trigger_score": 0.4,
+          "question_score": 0.5
+        },
+        "weights": {
+          "predicted_ctr": 0.35,
+          "predicted_retention": 0.4,
+          "engagement_score": 0.25
+        }
+      },
+      "hook": {
+        "text": "What if I told you a 19-year-old makes $15k/month without ever showing his face?",
+        "technique": "question",
+        "estimated_retention_impact": 0.78
+      },
+      "beats": [
+        {
+          "timestamp": "0:03-0:15",
+          "content": "Meet Alex. 19. Dropped out of college. Built a faceless empire.",
+          "purpose": "build_tension",
+          "visual_cue": "Split screen: dorm room \u2192 luxury apartment"
+        },
+        {
+          "timestamp": "0:15-0:30",
+          "content": "His secret? Not the AI tools everyone talks about. It's the SCRIPT FRAMEWORK.",
+          "purpose": "deliver_value",
+          "visual_cue": "Text overlay: 'AIDA + Curiosity Gaps = 68% retention'"
+        },
+        {
+          "timestamp": "0:30-0:45",
+          "content": "I reverse-engineered his top 50 videos. Same 4-beat pattern every time.",
+          "purpose": "proof",
+          "visual_cue": "Timeline showing beat structure"
+        },
+        {
+          "timestamp": "0:45-1:00",
+          "content": "Beat 1: Hook with a question. Beat 2: Tease the answer. Beat 3: Deliver. Beat 4: CTA.",
+          "purpose": "deliver_value",
+          "visual_cue": "Animated beat diagram"
+        },
+        {
+          "timestamp": "1:00-1:15",
+          "content": "The tools don't matter. MiniMax, Sora, Runway - they all work IF the script works.",
+          "purpose": "transition",
+          "visual_cue": "Tool logos fading in/out"
+        },
+        {
+          "timestamp": "1:15-1:30",
+          "content": "I'm giving you his exact prompt templates free in the description. Steal them.",
+          "purpose": "payoff",
+          "visual_cue": "Arrow pointing to description"
+        }
+      ],
+      "cta": {
+        "primary": "Comment 'SCRIPT' and I'll DM you my exact prompt templates",
+        "secondary": "Subscribe for weekly AI video breakdowns",
+        "placement": "end",
+        "style": "value_first"
+      },
+      "title_ideas": {
+        "titles": [
+          "The AI Script Framework That Got Me 68% Retention",
+          "Stop Using AI Video Tools Wrong (Do This Instead)",
+          "19-Year-Old's $15k/Month Faceless Channel Blueprint"
+        ],
+        "thumbnail_concepts": [
+          "Split screen: bored creator vs. viral analytics dashboard",
+          "MiniMax H3 logo with 'CONSISTENT CHARACTERS' badge",
+          "Person holding phone showing $15k revenue screenshot"
+        ],
+        "predicted_ctr": [
+          0.085,
+          0.072,
+          0.091
+        ]
+      },
+      "full_script": "What if I told you a 19-year-old makes $15k/month without ever showing his face? Meet Alex. 19. Dropped out of college. Built a faceless empire. His secret? Not the AI tools everyone talks about. It's the SCRIPT FRAMEWORK. I reverse-engineered his top 50 videos. Same 4-beat pattern every time. Beat 1: Hook with a question. Beat 2: Tease the answer. Beat 3: Deliver. Beat 4: CTA. The tools don't matter. MiniMax, Sora, Runway - they all work IF the script works. I'm giving you his exact prompt templates free in the description. Steal them. Comment 'SCRIPT' and I'll DM you my exact prompt templates",
+      "estimated_duration_seconds": 90,
+      "word_count": 104
+    },
+    {
+      "framework": "PAS",
+      "predicted_ctr": 0.3,
+      "predicted_retention": 0.389125,
+      "engagement_score": 0.36432,
+      "overall_score": 0.6343176470588234,
+      "score_breakdown": {
+        "predicted_ctr": 0.3,
+        "predicted_retention": 0.389125,
+        "engagement_score": 0.36432,
+        "overall_score": 0.6343176470588234,
+        "hook_analysis": {
+          "predicted_ctr": 0.3,
+          "base_technique_score": 0.55,
+          "positive_bonus": 0.03,
+          "negative_penalty": 0.0,
+          "length_bonus": -0.05
+        },
+        "retention_analysis": {
+          "predicted_retention": 0.389125,
+          "beat_count": 5,
+          "count_score": 1.0,
+          "diversity_score": 1.0,
+          "positive_score": 0.125,
+          "negative_penalty": 0.03,
+          "visual_score": 1.0,
+          "structure_score": 0.78125
+        },
+        "engagement_analysis": {
+          "engagement_score": 0.36432,
+          "cta_base": 0.75,
+          "placement_bonus": 0.0,
+          "title_ctr": 0.0091,
+          "trigger_score": 0.4,
+          "question_score": 0.25
+        },
+        "weights": {
+          "predicted_ctr": 0.35,
+          "predicted_retention": 0.4,
+          "engagement_score": 0.25
+        }
+      },
+      "hook": {
+        "text": "You're posting daily, getting 200 views, and wondering why the algorithm hates you.",
+        "technique": "pain_point",
+        "estimated_retention_impact": 0.75
+      },
+      "beats": [
+        {
+          "timestamp": "0:03-0:20",
+          "content": "You spend 20 hours editing. Get 300 views. The algorithm buries you. Why?",
+          "purpose": "build_tension",
+          "visual_cue": "Analytics dashboard flatlining"
+        },
+        {
+          "timestamp": "0:20-0:40",
+          "content": "It's not your niche. Not your thumbnail. It's the FIRST 3 SECONDS. You're boring people.",
+          "purpose": "agitate",
+          "visual_cue": "Red X over boring intros"
+        },
+        {
+          "timestamp": "0:40-1:00",
+          "content": "Top 1% creators use PAS: Problem \u2192 Agitate \u2192 Solution. Watch me break it down.",
+          "purpose": "deliver_value",
+          "visual_cue": "PAS framework animation"
+        },
+        {
+          "timestamp": "1:00-1:15",
+          "content": "Problem: 'Algorithm hates me.' Agitate: 'While competitors steal your audience.' Solution: 'This framework.'",
+          "purpose": "payoff",
+          "visual_cue": "Side-by-side comparison"
+        },
+        {
+          "timestamp": "1:15-1:30",
+          "content": "Download my PAS script template. Next video hits different. Link in bio.",
+          "purpose": "payoff",
+          "visual_cue": "Download button animation"
+        }
+      ],
+      "cta": {
+        "primary": "Comment 'SCRIPT' and I'll DM you my exact prompt templates",
+        "secondary": "Subscribe for weekly AI video breakdowns",
+        "placement": "end",
+        "style": "value_first"
+      },
+      "title_ideas": {
+        "titles": [
+          "The AI Script Framework That Got Me 68% Retention",
+          "Stop Using AI Video Tools Wrong (Do This Instead)",
+          "19-Year-Old's $15k/Month Faceless Channel Blueprint"
+        ],
+        "thumbnail_concepts": [
+          "Split screen: bored creator vs. viral analytics dashboard",
+          "MiniMax H3 logo with 'CONSISTENT CHARACTERS' badge",
+          "Person holding phone showing $15k revenue screenshot"
+        ],
+        "predicted_ctr": [
+          0.085,
+          0.072,
+          0.091
+        ]
+      },
+      "full_script": "You're posting daily, getting 200 views, and wondering why the algorithm hates you. You spend 20 hours editing. Get 300 views. The algorithm buries you. Why? It's not your niche. Not your thumbnail. It's the FIRST 3 SECONDS. You're boring people. Top 1% creators use PAS: Problem \u2192 Agitate \u2192 Solution. Watch me break it down. Problem: 'Algorithm hates me.' Agitate: 'While competitors steal your audience.' Solution: 'This framework.' Download my PAS script template. Next video hits different. Link in bio. Comment 'SCRIPT' and I'll DM you my exact prompt templates",
+      "estimated_duration_seconds": 90,
+      "word_count": 91
+    },
+    {
+      "framework": "CURIOSITY_GAP",
+      "predicted_ctr": 0.3,
+      "predicted_retention": 0.389125,
+      "engagement_score": 0.36432,
+      "overall_score": 0.6343176470588234,
+      "score_breakdown": {
+        "predicted_ctr": 0.3,
+        "predicted_retention": 0.389125,
+        "engagement_score": 0.36432,
+        "overall_score": 0.6343176470588234,
+        "hook_analysis": {
+          "predicted_ctr": 0.3,
+          "base_technique_score": 0.55,
+          "positive_bonus": 0.0,
+          "negative_penalty": 0.0,
+          "length_bonus": 0.05
+        },
+        "retention_analysis": {
+          "predicted_retention": 0.389125,
+          "beat_count": 5,
+          "count_score": 1.0,
+          "diversity_score": 1.0,
+          "positive_score": 0.125,
+          "negative_penalty": 0.03,
+          "visual_score": 1.0,
+          "structure_score": 0.78125
+        },
+        "engagement_analysis": {
+          "engagement_score": 0.36432,
+          "cta_base": 0.75,
+          "placement_bonus": 0.0,
+          "title_ctr": 0.0091,
+          "trigger_score": 0.4,
+          "question_score": 0.25
+        },
+        "weights": {
+          "predicted_ctr": 0.35,
+          "predicted_retention": 0.4,
+          "engagement_score": 0.25
+        }
+      },
+      "hook": {
+        "text": "This AI tool just replaced my entire video production team. Here's the prompt...",
+        "technique": "curiosity_gap",
+        "estimated_retention_impact": 0.82
+      },
+      "beats": [
+        {
+          "timestamp": "0:03-0:15",
+          "content": "I found a prompt that makes MiniMax generate CONSISTENT characters. Every. Single. Time.",
+          "purpose": "tease",
+          "visual_cue": "Character consistency comparison grid"
+        },
+        {
+          "timestamp": "0:15-0:35",
+          "content": "But there's a catch. The prompt has 3 hidden parameters nobody talks about.",
+          "purpose": "tease",
+          "visual_cue": "Blurred parameter fields"
+        },
+        {
+          "timestamp": "0:35-0:55",
+          "content": "Parameter 1: Seed locking. Parameter 2: Reference image weight. Parameter 3: Temporal consistency.",
+          "purpose": "reveal",
+          "visual_cue": "Code snippets revealing"
+        },
+        {
+          "timestamp": "0:55-1:10",
+          "content": "Here's the exact prompt structure. Copy-paste. Test in 30 seconds.",
+          "purpose": "payoff",
+          "visual_cue": "Full prompt on screen"
+        },
+        {
+          "timestamp": "1:10-1:30",
+          "content": "Want my MiniMax H3 prompt library? 50 tested prompts. Free. Comment 'MINIMAX'.",
+          "purpose": "extension",
+          "visual_cue": "Comment prompt"
+        }
+      ],
+      "cta": {
+        "primary": "Comment 'SCRIPT' and I'll DM you my exact prompt templates",
+        "secondary": "Subscribe for weekly AI video breakdowns",
+        "placement": "end",
+        "style": "value_first"
+      },
+      "title_ideas": {
+        "titles": [
+          "The AI Script Framework That Got Me 68% Retention",
+          "Stop Using AI Video Tools Wrong (Do This Instead)",
+          "19-Year-Old's $15k/Month Faceless Channel Blueprint"
+        ],
+        "thumbnail_concepts": [
+          "Split screen: bored creator vs. viral analytics dashboard",
+          "MiniMax H3 logo with 'CONSISTENT CHARACTERS' badge",
+          "Person holding phone showing $15k revenue screenshot"
+        ],
+        "predicted_ctr": [
+          0.085,
+          0.072,
+          0.091
+        ]
+      },
+      "full_script": "This AI tool just replaced my entire video production team. Here's the prompt... I found a prompt that makes MiniMax generate CONSISTENT characters. Every. Single. Time. But there's a catch. The prompt has 3 hidden parameters nobody talks about. Parameter 1: Seed locking. Parameter 2: Reference image weight. Parameter 3: Temporal consistency. Here's the exact prompt structure. Copy-paste. Test in 30 seconds. Want my MiniMax H3 prompt library? 50 tested prompts. Free. Comment 'MINIMAX'. Comment 'SCRIPT' and I'll DM you my exact prompt templates",
+      "estimated_duration_seconds": 90,
+      "word_count": 84
+    }
+  ]
+}
