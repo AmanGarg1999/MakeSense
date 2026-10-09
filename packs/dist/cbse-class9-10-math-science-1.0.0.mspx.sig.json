@@ -1,0 +1,9 @@
+{
+  "pack_id": "cbse-class9-10-math-science",
+  "version": "1.0.0",
+  "file": "cbse-class9-10-math-science-1.0.0.mspx",
+  "algorithm": "sha256",
+  "sha256": "ae320331e295a64ec7432f4754855907c1bdb3cf15bbb2a24c3789dd623ed69a",
+  "signer": "fleet-dev (sha256 content signature; ed25519 deferred to fleet KMS)",
+  "signed_at": "2026-10-09T11:25:00+00:00"
+}

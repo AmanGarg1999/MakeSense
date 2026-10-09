@@ -1,0 +1,14 @@
+{
+  "effective_license": "CC-BY-NC-SA-4.0",
+  "license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+  "sources": [
+    {
+      "source": "NCERT",
+      "url": "https://ncert.nic.in",
+      "license": "CC-BY-NC-SA-4.0"
+    }
+  ],
+  "packs": [
+    "cbse-class9-10-math-science-1.0.0.mspx"
+  ]
+}

@@ -10,3 +10,6 @@ build/
 .worktrees/
 n8n_data/
 postgres_data/
+
+# keep built content packs in git (REM-1)
+!packs/dist/
