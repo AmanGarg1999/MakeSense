@@ -13,6 +13,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
 COPY app/ ./app/
+# LL-04 delivery dial thresholds (single source of truth for the flip rule)
+COPY config/delivery_dial.json ./config/delivery_dial.json
 
 # Expose ports
 EXPOSE 8000 8001

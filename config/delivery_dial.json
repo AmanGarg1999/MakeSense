@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "_comment": "LL-04 delivery dial thresholds. Shared by frontend/src/delivery and services/event-tracker. All flip-rule numbers live here, never in code.",
+  "modes": {
+    "passive": ["explain", "read", "watch"],
+    "active": ["predict_before_reveal", "retrieval_prompt", "mini_task", "teach_it_back", "project_step"]
+  },
+  "_track_defaults_note": "mode values must be concrete names from modes.*; classes are derived",
+  "track_defaults": {
+    "hobby": { "default_mode": "read", "intake_mode": "read", "consolidation_mode": "retrieval_prompt", "active_ratio_target": 0.35 },
+    "job-ready": { "default_mode": "retrieval_prompt", "intake_mode": "read", "consolidation_mode": "mini_task", "active_ratio_target": 0.6 },
+    "expert": { "default_mode": "project_step", "intake_mode": "predict_before_reveal", "consolidation_mode": "teach_it_back", "active_ratio_target": 0.7 }
+  },
+  "energy_overrides": { "low": "passive", "energy_max": 2 },
+  "segment_classifier": {
+    "intake_markers": ["new_concept", "first_exposure", "explanation", "demo", "watch", "read", "introduce", "overview"],
+    "consolidation_markers": ["practice", "retrieval", "recap", "quiz", "review", "apply", "exercise", "consolidate", "revisit"],
+    "first_visit_is_intake": true
+  },
+  "engagement": {
+    "dwell_floor_seconds": 8,
+    "abandon_before_seconds": 15,
+    "pause_ratio_attention_threshold": 0.5
+  },
+  "flip_rule": {
+    "min_sessions_per_skill": 3,
+    "passive_abandon_rate_threshold": 0.5,
+    "failed_retrieval_count_threshold": 2,
+    "lookback_sessions": 10,
+    "escalation_sessions": 5,
+    "min_retrieval_gap_sessions": 1
+  },
+  "companion_voice": {
+    "max_bridge_words": 45,
+    "gap_callout_min_failed": 2,
+    "near_rung_remaining_sessions_max": 5
+  }
+}

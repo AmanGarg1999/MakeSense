@@ -1,6 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import { getUserId } from '../hooks/useApi';
+import { useDeliveryTelemetry, trackEngagement } from '../hooks/useDeliveryTelemetry';
+import { generateBridge } from '../delivery/deliveryEngine';
+import { ModeBadge, RetrievalPrompt, PredictBeforeReveal, CompanionBridge } from '../delivery/DeliveryWidgets';
+
+const EVENT_TRACKER = import.meta.env?.VITE_EVENT_TRACKER_URL || 'http://localhost:8000';
 
 export default function LessonViewer() {
   const { lessonId } = useParams();
@@ -9,11 +14,46 @@ export default function LessonViewer() {
   const pathId = location.state?.pathId || searchParams.get('pathId');
   const nodeId = location.state?.nodeId || searchParams.get('nodeId');
   const pathTitle = location.state?.pathTitle || '';
+  const track = location.state?.track || null; // LL-02 track object when launched from a track
 
   const [lesson, setLesson] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [feedbackSent, setFeedbackSent] = useState(false);
+  const [bridge, setBridge] = useState(null);
+
+  const sessionId = useRef(`lsn-${lessonId}-${Date.now()}`).current;
+  const skillTag = (track?.skill_tag) || (lesson?.skill_tags?.[0]) || `lesson:${lessonId}`;
+  const telemetry = useDeliveryTelemetry({
+    track, trackId: track?.id, skillTag,
+    sessionId, energy: location.state?.energy ?? null,
+  });
+
+  // Pull the LL-04 escalation state for this skill so mode resolution honors
+  // the adaptive flip rule (escalated skills get active delivery next N sessions).
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`${EVENT_TRACKER}/api/delivery/escalations/${getUserId()}/${encodeURIComponent(skillTag)}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => { if (!cancelled && d?.escalation) telemetry.setEscalation(d.escalation); })
+      .catch(() => {});
+    return () => { cancelled = true; };
+  }, [skillTag]);
+
+  // Companion bridge from LL-02 ladder/mastery state when available.
+  useEffect(() => {
+    if (!track?.ladder || !track?.mastery_vector) return;
+    setBridge(generateBridge(
+      { skillTag, currentLadderRung: track.current_ladder_rung ?? 0 },
+      track.mastery_vector, track.ladder));
+  }, [track, skillTag]);
+
+  const decision = useMemo(() => (
+    lesson ? telemetry.decide(
+      { title: lesson.title, contentType: lesson.content_type || 'read',
+        tags: lesson.skill_tags || [], kind: lesson.segment_kind },
+      lesson.prior_visits || 0) : null
+  ), [lesson, telemetry.decide]);
 
   useEffect(() => {
     async function loadLesson() {
@@ -48,6 +88,45 @@ export default function LessonViewer() {
     }
   };
 
+  // LL-04: engagement + telemetry for the played lesson segment.
+  const segRef = useRef(null);
+  const engagementRef = useRef(null);
+  const retrievalRef = useRef('none');
+  useEffect(() => {
+    if (!lesson || !decision) return;
+    engagementRef.current = trackEngagement(segRef.current, {
+      onSignal: (sig) => {
+        telemetry.recordSegment({
+          segment_index: 0,
+          title: lesson.title,
+          content_type: lesson.content_type || 'read',
+          tags: lesson.skill_tags || [],
+          kind_hint: decision.segment_kind,
+          delivery_mode: decision.mode,
+          mode_class: decision.modeClass,
+          decided_by: decision.decidedBy,
+          dwell_seconds: sig.dwell_seconds,
+          paused_seconds: sig.paused_seconds,
+          abandoned: sig.abandoned,
+          retrieval_outcome: retrievalRef.current,
+          ladder_level: track?.current_ladder_rung ?? null,
+        });
+      },
+    });
+    return () => engagementRef.current?.stop();
+  }, [lesson, decision]);
+
+  const onRetrieval = (outcome) => {
+    retrievalRef.current = outcome;
+    if (engagementRef.current) { engagementRef.current.stop(); engagementRef.current = null; }
+    telemetry.recordSegment({
+      segment_index: 1, kind_hint: 'consolidation',
+      title: `${lesson?.title} — retrieval`, delivery_mode: decision?.mode || 'retrieval_prompt',
+      mode_class: 'active', decided_by: decision?.decidedBy || 'classifier',
+      retrieval_outcome: outcome, dwell_seconds: 0,
+    });
+  };
+
   if (loading) {
     return (
       <div style={{ textAlign: 'center', padding: '4rem 1rem', color: 'var(--text-muted)' }}>
@@ -72,6 +151,7 @@ export default function LessonViewer() {
 
   return (
     <div className="lesson-viewer">
+      <CompanionBridge bridge={bridge} />
       {pathId && (
         <div style={{ marginBottom: '1rem' }}>
           <Link
@@ -97,6 +177,7 @@ export default function LessonViewer() {
         <div className="lesson-meta">
           <span className="badge badge-difficulty">{lesson.difficulty || 'Intermediate'}</span>
           <span className="badge badge-time">⏱ {lesson.estimated_time_minutes || 15} min read</span>
+          {decision && <ModeBadge modeClass={decision.modeClass} decidedBy={decision.decidedBy} />}
           {(lesson.skill_tags || []).map(tag => (
             <span key={tag} className="badge badge-skill">{tag}</span>
           ))}
@@ -105,7 +186,15 @@ export default function LessonViewer() {
         {lesson.summary && <p className="lesson-summary">{lesson.summary}</p>}
       </div>
 
-      <div className="lesson-sections-wrapper">
+      <div className="lesson-sections-wrapper" ref={segRef}
+        data-expected-seconds={(lesson.estimated_time_minutes || 15) * 60}
+        data-completed="false">
+        {decision?.mode === 'predict_before_reveal' && (
+          <PredictBeforeReveal
+            question={content.predict_question || `Before the details: what do you think ${lesson.title} comes down to?`}
+            answer={content.predict_answer || lesson.summary || sections[0]?.content || ''}
+            onOutcome={onRetrieval} />
+        )}
         {sections.map((section, i) => (
           <section key={i} className="lesson-section">
             <h2>{section.heading}</h2>
@@ -133,6 +222,14 @@ export default function LessonViewer() {
             )}
           </section>
         ))}
+
+        {decision?.segment_kind === 'consolidation'
+          && decision?.modeClass === 'active' && decision.mode !== 'predict_before_reveal' && (
+          <RetrievalPrompt
+            prompt={content.retrieval_prompt || `From memory: what were the key points of ${lesson.title}?`}
+            answer={(sections[0]?.key_points || []).join('; ') || lesson.summary || ''}
+            onOutcome={onRetrieval} />
+        )}
 
         {examples.length > 0 && (
           <div className="lesson-section" style={{ background: '#0f172a', color: '#f8fafc', borderColor: 'rgba(255,255,255,0.1)' }}>

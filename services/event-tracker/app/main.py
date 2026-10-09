@@ -23,7 +23,12 @@ ALLOWED_EVENT_TYPES = {
     "lesson_complete",
     "question_submit",
     "question_answer",
-    "streak_milestone"
+    "streak_milestone",
+    # LL-04 delivery-dial session telemetry
+    "segment_play",        # metadata: track_id, skill_tag, mode, mode_class, segment_kind
+    "engagement_signal",   # metadata: pause|abandon|dwell + seconds
+    "retrieval_result",    # metadata: correct|partial|incorrect, mode_class
+    "mode_flip",           # metadata: reason, evidence (adaptive flip rule decision)
 }
 
 # Redis connection (assuming Redis is running on localhost:6379)
@@ -110,6 +115,10 @@ async def lifespan(app: FastAPI):
     logger.info("Event tracker service shutting down")
 
 app = FastAPI(title="User Interaction Event Tracker", lifespan=lifespan)
+
+# LL-04 delivery-dial surface (mode decisions + session telemetry + bridges)
+from app.delivery_routes import router as delivery_router
+app.include_router(delivery_router)
 
 @app.post("/api/events")
 async def track_event(event: UserInteractionEvent, background_tasks: BackgroundTasks):
