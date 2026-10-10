@@ -29,6 +29,11 @@ ALLOWED_EVENT_TYPES = {
     "engagement_signal",   # metadata: pause|abandon|dwell + seconds
     "retrieval_result",    # metadata: correct|partial|incorrect, mode_class
     "mode_flip",           # metadata: reason, evidence (adaptive flip rule decision)
+    # LL-08 interest-routing signals
+    "interest_signal",     # metadata: domain, kind (search|content|track_start|track_abandon), weight
+    "search",              # metadata: query, domain (inferred interest point)
+    "track_start",         # metadata: track_id, skill_tag, goal_type
+    "track_abandon",       # metadata: track_id, skill_tag
 }
 
 # Redis connection (assuming Redis is running on localhost:6379)
@@ -119,6 +124,10 @@ app = FastAPI(title="User Interaction Event Tracker", lifespan=lifespan)
 # LL-04 delivery-dial surface (mode decisions + session telemetry + bridges)
 from app.delivery_routes import router as delivery_router
 app.include_router(delivery_router)
+
+# LL-08 interest-drift / future-paths / learning-mode surface
+from app.interest_routes import router as interest_router
+app.include_router(interest_router)
 
 @app.post("/api/events")
 async def track_event(event: UserInteractionEvent, background_tasks: BackgroundTasks):

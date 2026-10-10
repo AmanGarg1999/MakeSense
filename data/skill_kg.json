@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "_comment": "Competency KG seed — the queryable contract that mk-008 (CBSE Curriculum Parser -> Neo4j) exports for LL-08's future-path suggestions and project-together reverse-derivation. `skills[].topics` are the named sub-skills used to seed mastery vectors; `skills[].prerequisites` are the edges walked BACKWARDS to derive a project curriculum; `adjacency[]` edges carry a `why` string reused verbatim in 'why this, why now' narratives. Replace this file with the mk-008 export when it lands.",
+  "levels": ["novice", "competent", "proficient", "expert"],
+  "skills": {
+    "python": {
+      "name": "Python",
+      "domain": "programming",
+      "prerequisites": [],
+      "topics": ["syntax", "data structures", "functions", "files", "testing"]
+    },
+    "data_analysis": {
+      "name": "Data Analysis",
+      "domain": "data",
+      "prerequisites": ["python"],
+      "topics": ["pandas", "cleaning", "aggregation", "visualization"]
+    },
+    "statistics": {
+      "name": "Statistics",
+      "domain": "data",
+      "prerequisites": [],
+      "topics": ["descriptive", "probability", "inference", "regression"]
+    },
+    "linear_algebra": {
+      "name": "Linear Algebra",
+      "domain": "data",
+      "prerequisites": [],
+      "topics": ["vectors", "matrices", "eigen"]
+    },
+    "machine_learning": {
+      "name": "Machine Learning",
+      "domain": "ml",
+      "prerequisites": ["python", "statistics", "linear_algebra"],
+      "topics": ["regression", "classification", "evaluation", "features"]
+    },
+    "web_development": {
+      "name": "Web Development",
+      "domain": "programming",
+      "prerequisites": ["python"],
+      "topics": ["html", "css", "http", "rest"]
+    },
+    "guitar": {
+      "name": "Guitar",
+      "domain": "music",
+      "prerequisites": [],
+      "topics": ["chords", "strumming", "barre", "repertoire"]
+    },
+    "music_theory": {
+      "name": "Music Theory",
+      "domain": "music",
+      "prerequisites": [],
+      "topics": ["intervals", "scales", "harmony", "modes"]
+    },
+    "music_production": {
+      "name": "Music Production",
+      "domain": "music",
+      "prerequisites": ["music_theory"],
+      "topics": ["daw", "arrangement", "mixing", "mastering"]
+    },
+    "photography": {
+      "name": "Photography",
+      "domain": "creative",
+      "prerequisites": [],
+      "topics": ["exposure", "composition", "lighting", "editing"]
+    },
+    "digital_marketing": {
+      "name": "Digital Marketing",
+      "domain": "business",
+      "prerequisites": [],
+      "topics": ["seo", "content", "analytics", "social"]
+    },
+    "personal_finance": {
+      "name": "Personal Finance",
+      "domain": "finance",
+      "prerequisites": [],
+      "topics": ["budgeting", "debt", "investing", "tax"]
+    },
+    "algebra": {
+      "name": "Algebra",
+      "domain": "academic",
+      "prerequisites": [],
+      "topics": ["expressions", "identities", "factorization", "equations"],
+      "citation_keywords": ["exploring algebraic", "the world of numbers", "mathematics of maybe"]
+    },
+    "coordinate_geometry": {
+      "name": "Coordinate Geometry",
+      "domain": "academic",
+      "prerequisites": ["algebra"],
+      "topics": ["cartesian plane", "plotting", "distance formula", "section formula"],
+      "citation_keywords": ["coordinate geometry", "the world of numbers", "mathematics of maybe"]
+    }
+  },
+  "adjacency": [
+    {"from": "guitar", "to": "music_theory", "weight": 0.8, "why": "theory names the patterns your hands already know"},
+    {"from": "music_theory", "to": "music_production", "weight": 0.7, "why": "theory turns into arrangement and mixing decisions"},
+    {"from": "python", "to": "data_analysis", "weight": 0.9, "why": "your Python fluency is the execution layer for analysis"},
+    {"from": "python", "to": "web_development", "weight": 0.7, "why": "reuse Python for the backend of a web app"},
+    {"from": "statistics", "to": "machine_learning", "weight": 0.9, "why": "ML is applied statistics with a loss function"},
+    {"from": "data_analysis", "to": "machine_learning", "weight": 0.8, "why": "cleaned, analysable data is the entry ticket to modelling"},
+    {"from": "photography", "to": "digital_marketing", "weight": 0.5, "why": "your images become marketing assets"},
+    {"from": "algebra", "to": "coordinate_geometry", "weight": 0.85, "why": "algebraic identities are the algebra behind the coordinate plane"},
+    {"from": "personal_finance", "to": "data_analysis", "weight": 0.3, "why": "spreadsheet modelling is applied data wrangling"}
+  ]
+}

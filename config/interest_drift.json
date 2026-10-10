@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "_comment": "LL-08 interest-drift router, learning-mode routing, and future-path thresholds. Shared by services/event-tracker (python) and frontend/src/learning (js). No magic numbers in code — every threshold lives here. Companion to config/delivery_dial.json (LL-04).",
+  "time": {
+    "half_life_days": 21,
+    "day_seconds": 86400
+  },
+  "signal_weights": {
+    "_comment": "relative pull of each telemetry source on the rolling interest profile",
+    "session": 1.0,
+    "content": 0.7,
+    "search": 1.2,
+    "track_start": 2.0,
+    "track_abandon": 1.5
+  },
+  "profile": {
+    "min_domain_weight": 0.05,
+    "confidence_min_signals": 3,
+    "confidence_min_sources": 2,
+    "confidence_weight_scale": 2.0,
+    "confidence_cap": 0.95
+  },
+  "change_point": {
+    "_comment": "windowed share-shift detector: compare mean share over the recent buckets against the baseline buckets. bucket_seconds=86400 -> daily buckets.",
+    "bucket_seconds": 86400,
+    "baseline_buckets": 4,
+    "recent_buckets": 3,
+    "min_share_delta": 0.15,
+    "min_domain_weight": 0.2,
+    "min_confidence": 0.45
+  },
+  "drift": {
+    "quest_offer_min_confidence": 0.5,
+    "quest_offer_min_delta": 0.15,
+    "offer_cooldown_days": 14,
+    "max_offers": 3,
+    "example_domain_min_confidence": 0.4
+  },
+  "goal_protection": {
+    "_comment": "Non-negotiable #5: the stated goal is the main path. Drift NEVER auto-changes it; a goal change requires an explicit ask (the one place we DO ask).",
+    "never_auto_change_goal": true,
+    "explicit_ask_on": ["goal_track_falling", "goal_track_stalled"],
+    "goal_change_question": "You set {goal} as your goal, but recent sessions lean towards {drift_domain}. Do you want to keep {goal} as the main line and take {drift_domain} as a side quest, or switch your stated goal?"
+  },
+  "mode_routing": {
+    "_comment": "One skill, many doors. Every mode terminates at the SAME LL-05 verification endpoint.",
+    "modes": ["guided", "project_together", "explore_explain", "drill_verify"],
+    "descriptions": {
+      "guided": "step-by-step coach path",
+      "project_together": "build a real artifact side-by-side; curriculum derived backwards from the project",
+      "explore_explain": "content-first with coach interruptions",
+      "drill_verify": "retrieval-heavy mode before verification checkpoints"
+    },
+    "by_level": {
+      "novice": "guided",
+      "beginner": "guided",
+      "intermediate": "project_together",
+      "proficient": "drill_verify",
+      "advanced": "drill_verify",
+      "expert": "project_together"
+    },
+    "by_goal": {
+      "hobby": "guided",
+      "job-ready": "project_together",
+      "expert": "project_together"
+    },
+    "verification_endpoint": "/api/verification/checkpoint",
+    "verification_note": "LL-05 owns this endpoint. All four modes POST here; no mode has its own verification path."
+  },
+  "future_paths": {
+    "max_suggestions": 3,
+    "rung_clear_score": 0.7,
+    "rung_gap_score": 0.5,
+    "mastery_strong_score": 0.75,
+    "adjacency_min_weight": 0.3,
+    "consolidate_priority_bonus": 0.15,
+    "next_level_priority_bonus": 0.2,
+    "cross_track_priority_bonus": 0.1
+  },
+  "project_mode": {
+    "max_steps": 6,
+    "citations_per_step": 2,
+    "require_cited_content": true
+  }
+}
