@@ -1,0 +1,51 @@
+{
+  "rubric_id": "web-dev-l1-deploy",
+  "version": "v1",
+  "prompt_version": "v1.2",
+  "skill_tag": "web-development",
+  "level_index": 1,
+  "evidence_class": "E1",
+  "levels": [
+    { "score": 0, "label": "absent", "descriptor": "Does not meet the criterion at all." },
+    { "score": 1, "label": "developing", "descriptor": "Partial; major gaps remain." },
+    { "score": 2, "label": "proficient", "descriptor": "Meets the rung expectation with minor gaps." },
+    { "score": 3, "label": "exemplary", "descriptor": "Exceeds the rung expectation cleanly." }
+  ],
+  "criteria": [
+    {
+      "criterion_id": "correctness",
+      "name": "The deployed app behaves as specified",
+      "weight": 0.5,
+      "levels": {
+        "0": { "description": "App crashes or does not run." },
+        "1": { "description": "Runs but core requirement broken." },
+        "2": { "description": "Core requirements work; minor edge cases off.", "anchors": [{ "ref": "anchor:web-dev-l1/correctness-2.py" }] },
+        "3": { "description": "All requirements including edge cases.", "anchors": [{ "ref": "anchor:web-dev-l1/correctness-3.py" }] }
+      }
+    },
+    {
+      "criterion_id": "code_quality",
+      "name": "Readable, structured, error-handled code",
+      "weight": 0.3,
+      "levels": {
+        "0": { "description": "Unreadable or single blob with no handling." },
+        "1": { "description": "Works but no structure or error handling." },
+        "2": { "description": "Structured, some error handling; minor smells.", "anchors": [{ "ref": "anchor:web-dev-l1/quality-2.py" }] },
+        "3": { "description": "Clean, typed, well-handled.", "anchors": [{ "ref": "anchor:web-dev-l1/quality-3.py" }] }
+      }
+    },
+    {
+      "criterion_id": "problem_solving",
+      "name": "Evidence of debugging/iteration process",
+      "weight": 0.2,
+      "levels": {
+        "0": { "description": "No evidence of process." },
+        "1": { "description": "Trial-and-error only." },
+        "2": { "description": "Identified and fixed real issues.", "anchors": [{ "ref": "anchor:web-dev-l1/process-2.log" }] },
+        "3": { "description": "Systematic diagnosis with tests.", "anchors": [{ "ref": "anchor:web-dev-l1/process-3.log" }] }
+      }
+    }
+  ],
+  "pass_threshold": 0.6,
+  "escalation_band": 0.1
+}

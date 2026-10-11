@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "makesense://schemas/scoring_result.json",
+  "title": "RubricScoringResult",
+  "type": "object",
+  "required": ["rubric_ref", "submission_id", "criterion_scores", "weighted_score", "passed", "verifier", "evidence_cited"],
+  "properties": {
+    "rubric_ref": { "type": "string", "description": "rubric_id@version — scoring is prompt/rubric-versioned." },
+    "prompt_version": { "type": "string" },
+    "submission_id": { "type": "string" },
+    "criterion_scores": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["criterion_id", "score", "rationale", "confidence", "evidence_refs"],
+        "properties": {
+          "criterion_id": { "type": "string" },
+          "score": { "type": "integer", "minimum": 0 },
+          "max_score": { "type": "integer", "minimum": 1 },
+          "rationale": { "type": "string", "minLength": 1 },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+          "evidence_refs": { "type": "array", "items": { "type": "string" }, "minItems": 1, "description": "Every criterion score must cite the evidence it looked at." }
+        }
+      }
+    },
+    "weighted_score": { "type": "number", "minimum": 0, "maximum": 1 },
+    "passed": { "type": "boolean" },
+    "human_escalation": { "type": "boolean", "description": "True when weighted_score lands within the rubric's escalation band of pass_threshold." },
+    "verifier": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": { "enum": ["model", "human", "hybrid", "deterministic"] },
+        "model": { "type": "string" },
+        "human_id": { "type": "string" }
+      }
+    },
+    "evidence_cited": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+  }
+}

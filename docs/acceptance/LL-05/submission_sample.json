@@ -1,0 +1,29 @@
+{
+  "submission_id": "accept-ll05-0001",
+  "user_id": "u_accept_1",
+  "skill_tag": "web-development",
+  "level_index": 1,
+  "rung_evidence_types": ["artifact", "performance"],
+  "requires_performance": true,
+  "evidence": {
+    "kind": "code_execution",
+    "artifacts": [
+      { "ref": "artifact:accept/task-queue-app.py", "media_type": "text/x-python", "captured_via": "direct_upload" }
+    ],
+    "execution": {
+      "ran": true,
+      "tests_passed": 7,
+      "tests_total": 8,
+      "sandbox": "docker:python3.12-slim",
+      "duration_s": 42.3,
+      "exit_code": 0
+    }
+  },
+  "provenance": {
+    "timestamp": "2026-10-11T09:30:00+00:00",
+    "environment": "app-sandbox/run-881",
+    "device": "desktop-chrome",
+    "session_id": "sess-accept-77",
+    "process_signals": { "elapsed_s": 3120, "revision_count": 14 }
+  }
+}

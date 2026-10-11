@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "makesense://schemas/evidence_submission.json",
+  "title": "EvidenceSubmission",
+  "description": "A verification evidence submission. The 'rung_evidence_types' field carries the ladder rung's required evidence types (LL-02 skill_ladders.evidence_types). SCHEMA-LEVEL INTEGRITY RULE: when the rung requires a performance-grade evidence type, an explain-only submission can never be a valid pass candidate.",
+  "type": "object",
+  "required": ["submission_id", "user_id", "skill_tag", "level_index", "rung_evidence_types", "evidence", "provenance"],
+  "properties": {
+    "submission_id": { "type": "string", "minLength": 8 },
+    "user_id": { "type": ["string", "integer"] },
+    "skill_tag": { "type": "string", "minLength": 1 },
+    "level_index": { "type": "integer", "minimum": 0, "maximum": 3 },
+    "track_id": { "type": "string" },
+    "requires_performance": {
+      "type": "boolean",
+      "description": "Set by the intake layer from rung_evidence_types (defense-in-depth: the if/then below also derives the rule from rung_evidence_types itself, so a client cannot bypass it by omitting this field)."
+    },
+    "rung_evidence_types": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "enum": ["quiz", "artifact", "project", "performance", "oral_defense", "transfer_test", "in_app", "simulation"] }
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": {
+          "enum": ["code_execution", "media_recording", "photo", "project_repo", "in_app_capture", "explanation", "quiz_result"],
+          "description": "Submission type. 'explanation' is theoretical-only (Miller 'knows'); everything else carries performance."
+        },
+        "artifacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["ref"],
+            "properties": {
+              "ref": { "type": "string", "description": "URI or store key of the artifact (file path, blob URL, repo@sha)." },
+              "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+              "media_type": { "type": "string" },
+              "captured_via": {
+                "type": "string",
+                "description": "Capture pipeline used (mk-019 adapters), e.g. 'camera_ocr', 'handwriting', 'voice_asr', 'sandbox_runner', 'in_app_recorder', 'direct_upload'."
+              }
+            }
+          }
+        },
+        "execution": {
+          "type": "object",
+          "description": "Required when kind == code_execution: sandbox run + unit test outcome.",
+          "required": ["ran", "tests_passed", "tests_total"],
+          "properties": {
+            "ran": { "type": "boolean" },
+            "tests_passed": { "type": "integer", "minimum": 0 },
+            "tests_total": { "type": "integer", "minimum": 1 },
+            "sandbox": { "type": "string" },
+            "duration_s": { "type": "number" },
+            "exit_code": { "type": "integer" }
+          }
+        },
+        "performance": {
+          "type": "object",
+          "description": "Required when kind == in_app_capture: metrics captured in-app.",
+          "required": ["completed", "metric"],
+          "properties": {
+            "completed": { "type": "boolean" },
+            "metric": { "type": "string" },
+            "value": {},
+            "threshold": {},
+            "environment": { "type": "string" }
+          }
+        },
+        "transcript": { "type": "string", "description": "ASR transcript of audio/video evidence (voice_asr capture)." },
+        "ocr_text": { "type": "string", "description": "OCR/handwriting-extracted text from photo evidence (camera_ocr / handwriting capture)." },
+        "repo": {
+          "type": "object",
+          "description": "Required when kind == project_repo.",
+          "properties": {
+            "url": { "type": "string" },
+            "head_sha": { "type": "string" },
+            "commit_count": { "type": "integer", "minimum": 0 },
+            "author_commits": { "type": "integer", "minimum": 0 }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "kind": { "const": "code_execution" } }, "required": ["kind"] },
+          "then": { "required": ["execution"] }
+        },
+        {
+          "if": { "properties": { "kind": { "const": "in_app_capture" } }, "required": ["kind"] },
+          "then": { "required": ["performance"] }
+        },
+        {
+          "if": { "properties": { "kind": { "const": "project_repo" } }, "required": ["kind"] },
+          "then": { "required": ["repo"] }
+        },
+        {
+          "if": { "properties": { "kind": { "const": "media_recording" } }, "required": ["kind"] },
+          "then": { "required": ["artifacts"] }
+        },
+        {
+          "if": { "properties": { "kind": { "const": "photo" } }, "required": ["kind"] },
+          "then": { "required": ["artifacts"] }
+        }
+      ]
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["timestamp", "environment"],
+      "properties": {
+        "timestamp": { "type": "string", "format": "date-time" },
+        "environment": { "type": "string", "description": "Device/browser/sandbox/context the evidence was produced in (E2/E5 grounding: context rotates for re-checks)." },
+        "device": { "type": "string" },
+        "session_id": { "type": "string" },
+        "process_signals": {
+          "type": "object",
+          "description": "Optional process evidence (E5): edit timeline, keystroke cadence, commit-graph shape.",
+          "properties": {
+            "elapsed_s": { "type": "number" },
+            "revision_count": { "type": "integer" },
+            "ai_detector_prior": { "type": "number", "minimum": 0, "maximum": 1, "description": "NEVER a verdict (LL-01 §3.1); only raises escalation rung." }
+          }
+        }
+      }
+    },
+    "defense": {
+      "type": "object",
+      "description": "Optional oral-defense / transfer-test responses attached to the same submission.",
+      "properties": {
+        "probes_answered": { "type": "integer", "minimum": 0 },
+        "probes_total": { "type": "integer", "minimum": 1 },
+        "transcript_ref": { "type": "string" },
+        "satisfactory": { "type": ["boolean", "null"] }
+      }
+    }
+  },
+  "$defs": {},
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "rung_evidence_types": { "contains": { "enum": ["artifact", "project", "performance", "in_app", "simulation", "transfer_test"] } }
+        },
+        "required": ["rung_evidence_types"]
+      },
+      "then": {
+        "properties": { "evidence": { "properties": { "kind": { "not": { "const": "explanation" } } } } },
+        "description": "INTEGRITY: performance-grade rung — explain-only submission is schema-invalid."
+      }
+    }
+  ]
+}

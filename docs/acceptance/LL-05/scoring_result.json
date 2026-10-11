@@ -1,0 +1,49 @@
+{
+  "rubric_ref": "web-dev-l1-deploy@v1",
+  "prompt_version": "v1.2",
+  "submission_id": "accept-ll05-0001",
+  "criterion_scores": [
+    {
+      "criterion_id": "correctness",
+      "score": 2,
+      "max_score": 3,
+      "rationale": "The code implements enqueueing, background processing, status retrieval, and retry, and the sandbox log reports 7/8 unit tests passing, so core requirements work. Edge cases are not fully handled, including the deferred flaky report-consistency test and weak validation of job IDs or missing Content-Length. This fits proficient rather than exemplary.",
+      "confidence": 0.85,
+      "evidence_refs": [
+        "artifact:accept/task-queue-app.py",
+        "sandbox:docker:python3.12-slim"
+      ]
+    },
+    {
+      "criterion_id": "code_quality",
+      "score": 2,
+      "max_score": 3,
+      "rationale": "The app is structured into database, worker, processing, and HTTP handler functions with some error handling and a SQLite timeout. It lacks typing, logging, robust input validation, and consistent resource cleanup, such as the unclosed connection in the report path. These are minor smells, so the score is proficient.",
+      "confidence": 0.9,
+      "evidence_refs": [
+        "artifact:accept/task-queue-app.py"
+      ]
+    },
+    {
+      "criterion_id": "problem_solving",
+      "score": 2,
+      "max_score": 3,
+      "rationale": "The run log shows concrete diagnosis and fixes for startup locking, 404 behavior, and busy polling, plus unit-test evidence. However, the process summary is brief and one flaky test was deferred rather than systematically resolved, so it demonstrates real issue fixing more than exemplary systematic diagnosis.",
+      "confidence": 0.8,
+      "evidence_refs": [
+        "sandbox:docker:python3.12-slim"
+      ]
+    }
+  ],
+  "weighted_score": 0.6667,
+  "passed": true,
+  "human_escalation": true,
+  "verifier": {
+    "kind": "model",
+    "model": "qwen3.8-flash-next"
+  },
+  "evidence_cited": [
+    "artifact:accept/task-queue-app.py",
+    "sandbox:docker:python3.12-slim"
+  ]
+}
