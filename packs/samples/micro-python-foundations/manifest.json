@@ -1,0 +1,24 @@
+{
+  "schema_version": "1",
+  "pack_id": "micro-python-foundations",
+  "version": "1.0.0",
+  "title": "Python Foundations — micro/certificate pathway pack",
+  "created_at": "2026-10-12T09:00:00+00:00",
+  "locale": "en-IN",
+  "source": { "name": "MakeSense curriculum team", "license": "CC-BY-SA-4.0" },
+  "index": [
+    { "id": "py/ch1/t001", "kind": "text", "chapter": "Ch.1 Variables", "path": "content/py__ch1__t001.json", "sha256": "0000000000000000000000000000000000000000000000000000000000000011" },
+    { "id": "py/ch1/q001", "kind": "qa", "chapter": "Ch.1 Variables", "path": "content/py__ch1__q001.json", "sha256": "0000000000000000000000000000000000000000000000000000000000000012" }
+  ],
+  "encryption": { "payload": "aes-256-gcm", "kdf": "hkdf-sha256", "key_ref": "fleet-dev" },
+  "delta": { "delta_from": null, "changed_chunks": [], "removed_chunks": [] },
+  "stats": { "chunks": 2 },
+  "level_target": ["micro", "certificate"],
+  "prerequisites": [],
+  "credit_value": 0,
+  "estimated_hours": 8,
+  "assessment_spec": { "type": "auto", "rubric_ref": "py-foundations-l1@v1", "passing_threshold": 0.7 },
+  "learning_outcomes": [
+    { "bloom_level": "apply", "competency_id": "py-syntax-basics", "measurable_criterion": "write a script using variables, loops and functions that passes 8/10 unit tests" }
+  ]
+}

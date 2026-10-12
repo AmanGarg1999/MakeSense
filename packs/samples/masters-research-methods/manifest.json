@@ -1,0 +1,27 @@
+{
+  "schema_version": "1",
+  "pack_id": "masters-research-methods",
+  "version": "1.0.0",
+  "title": "Research Methods — masters pathway pack",
+  "created_at": "2026-10-12T09:00:00+00:00",
+  "locale": "en-IN",
+  "source": { "name": "MakeSense curriculum team", "subject": "Research Methods", "license": "CC-BY-SA-4.0" },
+  "index": [
+    { "id": "rm/ch1/t001", "kind": "text", "chapter": "Ch.1 Study Design", "path": "content/rm__ch1__t001.json", "sha256": "0000000000000000000000000000000000000000000000000000000000000031" },
+    { "id": "rm/ch1/x001", "kind": "exercise", "chapter": "Ch.1 Study Design", "path": "content/rm__ch1__x001.json", "sha256": "0000000000000000000000000000000000000000000000000000000000000032" }
+  ],
+  "encryption": { "payload": "aes-256-gcm", "kdf": "hkdf-sha256", "key_ref": "fleet-dev" },
+  "delta": { "delta_from": null, "changed_chunks": [], "removed_chunks": [] },
+  "stats": { "chunks": 2 },
+  "level_target": ["masters"],
+  "prerequisites": [
+    { "pack_id": "undergrad-data-foundations", "min_mastery": 0.85, "level_context": "undergrad" }
+  ],
+  "credit_value": 4,
+  "estimated_hours": 60,
+  "assessment_spec": { "type": "defense", "rubric_ref": "research-methods-defense@v1", "passing_threshold": 0.8 },
+  "learning_outcomes": [
+    { "bloom_level": "evaluate", "competency_id": "rm-study-design", "measurable_criterion": "critique two published study designs for validity threats and propose a corrected design" },
+    { "bloom_level": "create", "competency_id": "rm-proposal", "measurable_criterion": "defend a pre-registration-style research proposal before a panel, answering challenge questions" }
+  ]
+}

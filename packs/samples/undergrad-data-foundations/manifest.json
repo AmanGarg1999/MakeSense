@@ -1,0 +1,27 @@
+{
+  "schema_version": "1",
+  "pack_id": "undergrad-data-foundations",
+  "version": "1.0.0",
+  "title": "Data Foundations — undergrad pathway pack",
+  "created_at": "2026-10-12T09:00:00+00:00",
+  "locale": "en-IN",
+  "source": { "name": "MakeSense curriculum team", "subject": "Data Science", "license": "CC-BY-SA-4.0" },
+  "index": [
+    { "id": "ds/ch1/t001", "kind": "text", "chapter": "Ch.1 Data Wrangling", "path": "content/ds__ch1__t001.json", "sha256": "0000000000000000000000000000000000000000000000000000000000000021" },
+    { "id": "ds/ch2/t001", "kind": "text", "chapter": "Ch.2 Statistics", "path": "content/ds__ch2__t001.json", "sha256": "0000000000000000000000000000000000000000000000000000000000000022" }
+  ],
+  "encryption": { "payload": "aes-256-gcm", "kdf": "hkdf-sha256", "key_ref": "fleet-dev" },
+  "delta": { "delta_from": null, "changed_chunks": [], "removed_chunks": [] },
+  "stats": { "chunks": 2 },
+  "level_target": ["undergrad", "certificate"],
+  "prerequisites": [
+    { "pack_id": "micro-python-foundations", "min_mastery": 0.8, "level_context": "certificate" }
+  ],
+  "credit_value": 3,
+  "estimated_hours": 45,
+  "assessment_spec": { "type": "case_study", "rubric_ref": "ds-foundations-undergrad@v2", "passing_threshold": 0.75 },
+  "learning_outcomes": [
+    { "bloom_level": "analyze", "competency_id": "ds-data-wrangling", "measurable_criterion": "clean and join three messy datasets, documenting joins and nulls, in a reproducible notebook" },
+    { "bloom_level": "apply", "competency_id": "ds-inferential-stats", "measurable_criterion": "design and run a two-sample test with stated assumptions on a provided dataset" }
+  ]
+}
