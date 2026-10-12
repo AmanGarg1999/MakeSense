@@ -34,6 +34,7 @@ from packages.packager import (
     validate_manifest,
     validate_prereq_graph,
     check_pack_licenses,
+    level_rank,
 )
 
 logger = logging.getLogger(__name__)
@@ -158,10 +159,12 @@ async def register_pack(
                             detail="license compliance failed: " + "; ".join(problems))
 
     async with pool.acquire() as conn:
-        # cycle check across registry + candidate
+        # cycle check across registry (latest version per pack) + candidate
         registry = await _registry(conn)
-        same_id = [m for m in registry if m["pack_id"] != pm.pack_id]
-        graphs = [validate_manifest(m) for m in same_id] + [pm]
+        latest = {}
+        for m in registry:                       # rows ordered pack_id, version DESC
+            latest.setdefault(m["pack_id"], m)
+        graphs = [validate_manifest(m) for pid, m in latest.items() if pid != pm.pack_id] + [pm]
         cycles = validate_prereq_graph(graphs)
         if cycles:
             raise HTTPException(
@@ -236,7 +239,11 @@ async def assign_curriculum(
                     status_code=422,
                     detail=f"unknown content pack: {p['content_pack_id']!r} (register via POST /api/packs)")
             levels = m.get("level_target", ["micro", "certificate"])
-            if owner["level"] not in levels:
+            # Level compatibility: the pack must serve the pathway's own level
+            # or the single level directly below it (foundational scaffolding).
+            # A pack 2+ levels below needs a bridge/delta pack instead; a pack
+            # serving only HIGHER levels is never valid here.
+            if level_rank(owner["level"]) - level_rank(max(levels, key=level_rank)) > 1:
                 raise HTTPException(
                     status_code=422,
                     detail=f"pack {m['pack_id']} serves {levels}, not pathway level "

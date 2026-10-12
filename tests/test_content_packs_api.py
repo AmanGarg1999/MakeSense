@@ -187,16 +187,17 @@ def test_prereq_satisfied_filter(client, registry):
     ids = {p["pack_id"] for p in r.json()["packs"]}
     assert registry["masters-research-methods"] in ids
 
-    # and a low mastery does NOT satisfy
+    # and a low mastery does NOT satisfy: the transcript entry is an upsert
+    # (latest score wins per user+pathway+pack), so 0.1 replaces 0.9 and the
+    # masters pack is gated out again.
     r = client.post(f"/api/pathways/{pw}/transcript", json={
         "content_pack_id": registry["undergrad-data-foundations"],
         "mastery_score": 0.1}, headers=hdr())
     assert r.status_code == 200
-    # MAX(mastery) across transcript rows keeps 0.9 => still satisfied.
     r = client.get("/api/packs",
                    params={"level": "masters", "prereq_satisfied": "true"},
                    headers=hdr())
-    assert registry["masters-research-methods"] in {
+    assert registry["masters-research-methods"] not in {
         p["pack_id"] for p in r.json()["packs"]}
 
 
@@ -218,10 +219,11 @@ def test_register_rejects_license_violation(client, registry):
 
 
 def test_register_rejects_prereq_cycle(client, registry):
-    """A -> B -> A across registry + new pack must be rejected."""
-    # undergrad already prereqs micro; register micro prereq'ing undergrad
+    """A -> B -> A across registry + candidate must be rejected."""
+    # undergrad already prereqs micro; re-register micro (same pack_id; the
+    # cycle check runs BEFORE the upsert, so a rejection leaves the registry
+    # untouched) with micro prereq'ing undergrad -> real cycle.
     m = namespaced("micro-python-foundations", registry)
-    m["pack_id"] = f"cycle-micro-{SUFFIX}"
     m["prerequisites"] = [{"pack_id": registry["undergrad-data-foundations"],
                            "min_mastery": 0.5}]
     r = client.post("/api/packs", json=m, headers=hdr())
