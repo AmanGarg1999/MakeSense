@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://makesense.dev/schema/pack-manifest-v0.json",
+  "title": "MakeSense content pack manifest v0",
+  "type": "object",
+  "required": [
+    "schema_version", "pack_id", "version", "title", "created_at",
+    "locale", "source", "index", "encryption", "delta", "stats"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": "0" },
+    "pack_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,63}$" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "title": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "locale": { "type": "string", "pattern": "^[a-z]{2}(-[A-Z]{2})?$" },
+    "source": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "grade": { "type": ["integer", "null"], "minimum": 1, "maximum": 12 },
+        "subject": { "type": ["string", "null"] },
+        "license": { "type": "string" },
+        "upstream_url": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "legal": { "$ref": "#/$defs/legal" },
+    "index": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "kind", "chapter", "path", "sha256"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._/-]{1,127}$" },
+          "kind": { "enum": ["text", "qa", "exercise", "figure", "video_ref"] },
+          "chapter": { "type": "string" },
+          "path": { "type": "string" },
+          "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "tokens": { "type": ["integer", "null"] }
+        },
+        "additionalProperties": false
+      }
+    },
+    "encryption": {
+      "type": "object",
+      "required": ["payload"],
+      "properties": {
+        "payload": { "enum": ["aes-256-gcm"] },
+        "kdf": { "const": "hkdf-sha256" },
+        "key_ref": { "type": ["string", "null"] },
+        "note": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "delta": {
+      "type": "object",
+      "required": ["delta_from", "changed_chunks", "removed_chunks"],
+      "properties": {
+        "delta_from": { "type": ["string", "null"] },
+        "changed_chunks": { "type": "array", "items": { "type": "string" } },
+        "removed_chunks": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "stats": {
+      "type": "object",
+      "required": ["chunks"],
+      "properties": {
+        "chunks": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": { "type": ["integer", "number"] }
+    }
+  },
+  "$defs": {
+    "legal": {
+      "title": "In-pack license obligations",
+      "description": "Records the redistribution obligations a pack must carry. Required for any pack that embeds a model build; see docs/legal/MAK-17-GEMMA-LEGAL-READ.md. Without this a Gemma-bearing pack cannot state its own NOTICE, so the schema would make MAK-17's binding checklist unrepresentable.",
+      "type": "object",
+      "required": ["model_licenses", "notices_included"],
+      "properties": {
+        "model_licenses": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["model", "license", "terms_url", "redistribution"],
+            "properties": {
+              "model": { "type": "string", "minLength": 1 },
+              "license": { "type": "string", "minLength": 1 },
+              "terms_url": { "type": "string", "minLength": 1 },
+              "redistribution": { "enum": ["permitted", "conditional", "not_permitted"] },
+              "derivative_of": { "type": ["string", "null"] },
+              "modified_by_us": { "type": ["boolean", "null"] }
+            },
+            "additionalProperties": false
+          }
+        },
+        "notices_included": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "description": "Relative paths of notice files bundled in the pack. Empty is schema-valid but rejected by the semantic check when a model requires conditional redistribution — see mspack.manifest._validate_legal."
+        },
+        "terms_bundled": { "type": ["boolean", "null"] },
+        "prohibited_use_flowdown": { "type": ["boolean", "null"] },
+        "attribution_text": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": "0",
+  "pack_id": "legacy-v0-study-pack",
+  "version": "1.0.0",
+  "title": "Legacy v0 pack — no level metadata (back-compat fixture)",
+  "created_at": "2026-09-18T10:00:00+00:00",
+  "locale": "en-IN",
+  "source": { "name": "MakeSense sample", "license": "CC-BY-SA-4.0" },
+  "index": [
+    { "id": "legacy/ch1/t001", "kind": "text", "chapter": "Ch.1", "path": "content/legacy__ch1__t001.json", "sha256": "0000000000000000000000000000000000000000000000000000000000000001" }
+  ],
+  "encryption": { "payload": "aes-256-gcm", "kdf": "hkdf-sha256", "key_ref": "fleet-dev" },
+  "delta": { "delta_from": null, "changed_chunks": [], "removed_chunks": [] },
+  "stats": { "chunks": 1 }
+}

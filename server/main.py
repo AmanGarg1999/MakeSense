@@ -47,7 +47,7 @@ app.add_middleware(
 )
 
 # Import and include routers
-from server.routers import topics, content, quiz, feedback, paths, streaks, achievements, reviews, tracks, pathways, coach, export_api
+from server.routers import topics, content, quiz, feedback, paths, streaks, achievements, reviews, tracks, pathways, coach, packs, export_api
 app.include_router(topics.router, prefix="/api", tags=["Topics"])
 app.include_router(content.router, prefix="/api", tags=["Content"])
 app.include_router(quiz.router, prefix="/api", tags=["Quiz"])
@@ -59,6 +59,7 @@ app.include_router(reviews.router, prefix="/api", tags=["Reviews"])
 app.include_router(tracks.router, prefix="", tags=["Skill Tracks"])
 app.include_router(pathways.router, prefix="", tags=["Learning Pathways"])
 app.include_router(coach.router, prefix="", tags=["Coach Engine (LL-09b)"])
+app.include_router(packs.router, prefix="", tags=["Content Packs"])
 app.include_router(export_api.router, prefix="", tags=["Transcript Export (LL-09d)"])
 
 # Import gamification router
