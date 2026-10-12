@@ -5,6 +5,8 @@ import LessonViewer from './pages/LessonViewer';
 import QuizPage from './pages/QuizPage';
 import LearningPathView from './pages/LearningPathView';
 import ReviewDeck from './pages/ReviewDeck';
+import TrackDashboard from './pages/TrackDashboard';
+import TrackDetail from './pages/TrackDetail';
 import MentorProfilingModal from './components/MentorProfilingModal';
 import { getUserId, useApi } from './hooks/useApi';
 import './index.css';
@@ -89,6 +91,7 @@ export default function App() {
               <span>🧠</span>
               <span>Curate 3D Path</span>
             </button>
+            <NavLink to="/tracks" className={({ isActive }) => isActive ? 'active' : ''}>Tracks</NavLink>
             <a href="/">Submit</a>
             <a href="/library.html">Library</a>
             <NavLink to="/" end className={({ isActive }) => isActive ? 'active' : ''}>Dashboard</NavLink>
@@ -103,6 +106,8 @@ export default function App() {
             <Route path="/lesson/:lessonId" element={<LessonViewer />} />
             <Route path="/quiz/:lessonId" element={<QuizPage />} />
             <Route path="/reviews" element={<ReviewDeck />} />
+            <Route path="/tracks" element={<TrackDashboard />} />
+            <Route path="/tracks/:trackId" element={<TrackDetail />} />
           </Routes>
         </main>
 
