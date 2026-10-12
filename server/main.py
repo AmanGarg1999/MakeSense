@@ -19,8 +19,15 @@ async def lifespan(app: FastAPI):
     await init_db()
     from server.database import get_pool
     app.state.db_pool = await get_pool()
+    # Initialize skill ladder service
+    from server.skill_ladder_service import create_skill_ladder_service
+    from server.config import settings
+    app.state.ladder_service = await create_skill_ladder_service(settings.database_url)
     yield
     await close_db()
+    # Close ladder service pool
+    if hasattr(app.state, 'ladder_service') and app.state.ladder_service:
+        await app.state.ladder_service.pool.close()
 
 
 app = FastAPI(
@@ -40,7 +47,7 @@ app.add_middleware(
 )
 
 # Import and include routers
-from server.routers import topics, content, quiz, feedback, paths, streaks, achievements, reviews
+from server.routers import topics, content, quiz, feedback, paths, streaks, achievements, reviews, tracks
 app.include_router(topics.router, prefix="/api", tags=["Topics"])
 app.include_router(content.router, prefix="/api", tags=["Content"])
 app.include_router(quiz.router, prefix="/api", tags=["Quiz"])
@@ -49,6 +56,7 @@ app.include_router(paths.router, prefix="/api/paths", tags=["Learning Paths"])
 app.include_router(streaks.router, prefix="/api", tags=["Streaks"])
 app.include_router(achievements.router, prefix="/api", tags=["Achievements"])
 app.include_router(reviews.router, prefix="/api", tags=["Reviews"])
+app.include_router(tracks.router, prefix="", tags=["Skill Tracks"])
 
 # Import gamification router
 import sys
