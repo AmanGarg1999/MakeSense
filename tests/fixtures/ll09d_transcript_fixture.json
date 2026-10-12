@@ -1,0 +1,47 @@
+{
+  "_comment": "LL-09d transcript export contract fixture. Input shape = GET /api/pathways/{id} + GET /api/pathways/{id}/transcript payloads (LL-09a). Both test_ll09d_transcript_export.mjs (JS mirror) and test_ll09d_export.py (Python) run this through their builders and must agree on every expected value.",
+  "pathway": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "user_id": 42,
+    "level": "undergrad",
+    "title": "B.Sc. Test Program",
+    "status": "active",
+    "started_at": "2025-08-01T00:00:00+00:00",
+    "target_completion": "2029-05-01",
+    "completed_at": null,
+    "curriculum": [
+      { "content_pack_id": "cs101", "sequence": 0, "required": true, "credits": 4 },
+      { "content_pack_id": "cs102", "sequence": 1, "required": true, "credits": 4 },
+      { "content_pack_id": "math201", "sequence": 2, "required": true, "credits": 3 },
+      { "content_pack_id": "ethics100", "sequence": 3, "required": false, "credits": 2 },
+      { "content_pack_id": "capstone401", "sequence": 4, "required": true, "credits": 6 }
+    ]
+  },
+  "transcript": [
+    { "content_pack_id": "cs101", "mastery_score": 0.91, "completed_at": "2025-12-10T00:00:00+00:00", "credential_issued": false, "credential_type": null },
+    { "content_pack_id": "cs102", "mastery_score": 0.78, "completed_at": "2026-05-02T00:00:00+00:00", "credential_issued": false, "credential_type": null },
+    { "content_pack_id": "math201", "mastery_score": 0.64, "completed_at": "2026-05-20T00:00:00+00:00", "credential_issued": true, "credential_type": "math_module" },
+    { "content_pack_id": "dropped_pack", "mastery_score": 0.5, "completed_at": "2026-01-15T00:00:00+00:00", "credential_issued": false, "credential_type": null }
+  ],
+  "level_row": {
+    "level": "undergrad",
+    "typical_duration_weeks": 180,
+    "credit_system": "credit hours",
+    "assessment_type": "exams + projects + viva",
+    "mentor_model": "faculty + AI tutor",
+    "recap_interval_days": 30
+  },
+  "expected": {
+    "schema": "makesense.transcript/v1",
+    "total_records": 5,
+    "completed": 3,
+    "completion_pct": 60,
+    "credits_required": 19,
+    "credits_earned": 11,
+    "gpa": 3.16,
+    "gpa_exact": 3.1563636363636364,
+    "credential_count": 1,
+    "extra_count": 1,
+    "grade_letters": { "cs101": "A-", "cs102": "B", "math201": "C+" }
+  }
+}
