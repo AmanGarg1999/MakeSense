@@ -5,6 +5,7 @@ import LessonViewer from './pages/LessonViewer';
 import QuizPage from './pages/QuizPage';
 import LearningPathView from './pages/LearningPathView';
 import ReviewDeck from './pages/ReviewDeck';
+import RecapSession from './pages/RecapSession';
 import MentorProfilingModal from './components/MentorProfilingModal';
 import { getUserId, useApi } from './hooks/useApi';
 import './index.css';
@@ -103,6 +104,7 @@ export default function App() {
             <Route path="/lesson/:lessonId" element={<LessonViewer />} />
             <Route path="/quiz/:lessonId" element={<QuizPage />} />
             <Route path="/reviews" element={<ReviewDeck />} />
+            <Route path="/recap" element={<RecapSession />} />
           </Routes>
         </main>
 

@@ -40,8 +40,9 @@ app.add_middleware(
 )
 
 # Import and include routers
-from server.routers import topics, content, quiz, feedback, paths, streaks, achievements, reviews
+from server.routers import topics, content, quiz, feedback, paths, streaks, achievements, reviews, recap
 app.include_router(topics.router, prefix="/api", tags=["Topics"])
+app.include_router(recap.router, prefix="/api", tags=["Recap (LL-06)"])
 app.include_router(content.router, prefix="/api", tags=["Content"])
 app.include_router(quiz.router, prefix="/api", tags=["Quiz"])
 app.include_router(feedback.router, prefix="/api", tags=["Feedback"])

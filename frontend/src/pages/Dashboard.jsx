@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import RecapCard from '../components/RecapCard';
 import LevelBadge from '../components/LevelBadge';
 import XPProgressBar from '../components/XPProgressBar';
 import SkillTagsCloud from '../components/SkillTagsCloud';
@@ -109,6 +110,8 @@ export default function Dashboard({ onOpenCurate }) {
               Start Review Session &rarr;
             </Link>
           </div>
+
+          <RecapCard />
 
           {/* Learn Something New Challenge */}
           <div style={{ background: 'linear-gradient(135deg, #f0fdf4, #dcfce7)', border: '1px solid #bbf7d0', borderRadius: '16px', padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>

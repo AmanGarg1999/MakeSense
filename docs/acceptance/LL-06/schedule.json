@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-10-12 06:22Z",
+  "due": [
+    {
+      "user_id": "demo",
+      "track_id": "guitar-hobby",
+      "skill_tag": "g:barre",
+      "bucket": 2,
+      "due_at": "2026-10-15 06:22Z",
+      "status": "scheduled",
+      "interval_days": 3,
+      "successes": 1,
+      "failures": 1,
+      "seeded_from": null
+    }
+  ],
+  "upcoming": [
+    {
+      "user_id": "demo",
+      "track_id": "guitar-hobby",
+      "skill_tag": "g:chords",
+      "bucket": 2,
+      "due_at": "2026-10-13 06:22Z",
+      "status": "scheduled",
+      "interval_days": 3.0,
+      "successes": 0,
+      "failures": 0,
+      "seeded_from": "verification"
+    },
+    {
+      "user_id": "demo",
+      "track_id": "guitar-hobby",
+      "skill_tag": "g:strum",
+      "bucket": 2,
+      "due_at": "2026-10-15 06:22Z",
+      "status": "scheduled",
+      "interval_days": 3.0,
+      "successes": 0,
+      "failures": 0,
+      "seeded_from": "mastery"
+    }
+  ]
+}

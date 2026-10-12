@@ -1,0 +1,181 @@
+{
+  "query": "guitar",
+  "user_id": "demo",
+  "generated_at": 1791786147.2871351,
+  "format": "retrieval-first",
+  "sections": [
+    {
+      "skill_tag": "g:barre",
+      "track_id": "guitar-hobby",
+      "can_do": "clean F barre chord",
+      "prompt": {
+        "kind": "recall_prompt",
+        "skill_tag": "g:barre",
+        "question": "Without looking: what's the one move that makes 'clean F barre chord' work? Show it, don't describe it.",
+        "effort": "active"
+      },
+      "reveal": {
+        "kind": "reveal",
+        "skill_tag": "g:barre",
+        "answer_from": [
+          {
+            "url": "https://ultimateguitar.example/barre",
+            "store_id": "8d66eca9d68845dca6b5f801609fe7c7"
+          }
+        ],
+        "note": "reveal only after attempting \u2014 source spans are cited, not restated",
+        "citations": [
+          "[C1]"
+        ]
+      },
+      "timeline": {
+        "kind": "timeline",
+        "skill_tag": "g:barre",
+        "did": [
+          {
+            "ts": 1790058147.2841322,
+            "cause": "quest_completed",
+            "delta": 1.0,
+            "ref": "a59ccbe4f7a94f7eaa38f500c96c9674"
+          },
+          {
+            "ts": 1791354147.2841322,
+            "outcome": "lapsed",
+            "quality": 2,
+            "ref": "2494413ac6e141689c20170765b31776"
+          },
+          {
+            "ts": 1791786147.2841322,
+            "cause": "recap_pass",
+            "delta": 0.7,
+            "ref": "d686487d21874e2fab3afb0f4bfc0491"
+          },
+          {
+            "ts": 1791786147.2841322,
+            "outcome": "completed",
+            "quality": 4,
+            "ref": "recap:guitar-hobby:g:barre:demo:evt1"
+          }
+        ],
+        "mastery_delta_total": 1.7
+      },
+      "gaps": [
+        {
+          "kind": "gap_requestion",
+          "was": "recap_lapse",
+          "when_ts": 1791354147.2841322,
+          "ref": "2494413ac6e141689c20170765b31776",
+          "question": "You stumbled on 'g:barre' (recap_lapse). New angle: apply it to a situation you haven't seen in your own log \u2014 what changes and what breaks?",
+          "route": "ll04_active_mode"
+        }
+      ]
+    },
+    {
+      "skill_tag": "g:chords",
+      "track_id": "guitar-hobby",
+      "can_do": "switch C-G-Em-D at 80bpm",
+      "prompt": {
+        "kind": "recall_prompt",
+        "skill_tag": "g:chords",
+        "question": "Without looking: what's the one move that makes 'switch C-G-Em-D at 80bpm' work? Show it, don't describe it.",
+        "effort": "active"
+      },
+      "reveal": {
+        "kind": "reveal",
+        "skill_tag": "g:chords",
+        "answer_from": [
+          {
+            "url": "https://justinguitar.example/chords",
+            "store_id": "823b8150bc144274acd0471d5f9434c0"
+          }
+        ],
+        "note": "reveal only after attempting \u2014 source spans are cited, not restated",
+        "citations": [
+          "[C2]"
+        ]
+      },
+      "timeline": {
+        "kind": "timeline",
+        "skill_tag": "g:chords",
+        "did": [
+          {
+            "ts": 1789626147.2841322,
+            "outcome": "pass",
+            "evidence": "video:practice-log-w3",
+            "expires_at": 1791872547.2841322,
+            "ref": "af0f4eb17e514419b4fcf1eaed1d77b7"
+          },
+          {
+            "ts": 1790749347.2841322,
+            "cause": "batch_completed",
+            "delta": 2.0,
+            "ref": "f1a68bea7493475f82c97df080ddb051"
+          }
+        ],
+        "mastery_delta_total": 2.0
+      }
+    },
+    {
+      "skill_tag": "g:strum",
+      "track_id": "guitar-hobby",
+      "can_do": "strum a 4-chord loop in time",
+      "prompt": {
+        "kind": "recall_prompt",
+        "skill_tag": "g:strum",
+        "question": "Without looking: what's the one move that makes 'strum a 4-chord loop in time' work? Show it, don't describe it.",
+        "effort": "active"
+      },
+      "reveal": {
+        "kind": "reveal",
+        "skill_tag": "g:strum",
+        "answer_from": [
+          {
+            "url": "https://ncert.example/music-ch1",
+            "store_id": "df3b0b18869348eab40a2d53cedea8c9"
+          }
+        ],
+        "note": "reveal only after attempting \u2014 source spans are cited, not restated",
+        "citations": [
+          "[C3]"
+        ]
+      },
+      "timeline": {
+        "kind": "timeline",
+        "skill_tag": "g:strum",
+        "did": [
+          {
+            "ts": 1789194147.2841322,
+            "cause": "batch_completed",
+            "delta": 3.0,
+            "ref": "101013f4425d419ba3714ad5a9def530"
+          }
+        ],
+        "mastery_delta_total": 3.0
+      }
+    }
+  ],
+  "citations": [
+    {
+      "kind": "knowledge_item",
+      "store_id": "8d66eca9d68845dca6b5f801609fe7c7",
+      "source_url": "https://ultimateguitar.example/barre",
+      "license": "CC-BY-NC",
+      "quote": "thumb behind the neck, index edge not flat"
+    },
+    {
+      "kind": "knowledge_item",
+      "store_id": "823b8150bc144274acd0471d5f9434c0",
+      "source_url": "https://justinguitar.example/chords",
+      "license": "CC-BY-NC",
+      "quote": "anchor finger: keep one finger down during the C->G change"
+    },
+    {
+      "kind": "knowledge_item",
+      "store_id": "df3b0b18869348eab40a2d53cedea8c9",
+      "source_url": "https://ncert.example/music-ch1",
+      "license": "CC-BY-NC",
+      "quote": "downstrokes land on beats 1 and 3; keep the wrist loose"
+    }
+  ],
+  "summary": "Rewind on 'guitar': 3 skill(s) with history, 1 gap(s) to re-question, 3 knowledge-DB citation(s). Start with the prompts \u2014 the reveals are for after."
+}
