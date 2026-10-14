@@ -55,7 +55,7 @@ python demo/seed_demo_data.py
            │           │              │              │
            ▼           ▼              ▼              ▼
 ┌──────────────────────────────────────────────────────────────┐
-│              FastAPI Server (localhost:8090)                 │
+│              FastAPI Server (localhost:8000)                 │
 │                                                              │
 │  /api/submit          → Topic submission & auto-classify     │
 │  /api/generate/stream → Real-time SSE on-device generation   │
