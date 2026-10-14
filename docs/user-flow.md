@@ -128,7 +128,7 @@ graph TB
         DASH["Gamification Dashboard (XP, Streaks, Skills)"]
     end
 
-    subgraph Gateway["FastAPI Server (:8090)"]
+    subgraph Gateway["FastAPI Server (:8000)"]
         RP["/api/paths Router"]
         RC["/api/content Router"]
         RQ["/api/quiz Router"]
